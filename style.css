@@ -388,6 +388,12 @@ a { text-decoration: none; color: inherit; }
 
 .project--large { grid-column: 1 / -1; }
 
+.project__link-wrap {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
 .project {
   position: relative;
   cursor: pointer;
