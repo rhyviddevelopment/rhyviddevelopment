@@ -18,7 +18,6 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans:  'DM Sans', system-ui, sans-serif;
   --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in:    cubic-bezier(0.7, 0, 0.84, 0);
 }
 
 html { scroll-behavior: smooth; }
@@ -162,7 +161,6 @@ a { text-decoration: none; color: inherit; }
   overflow: hidden;
 }
 
-/* Architectural grid background */
 .hero__bg-grid {
   position: absolute;
   inset: 0;
@@ -174,7 +172,6 @@ a { text-decoration: none; color: inherit; }
   pointer-events: none;
 }
 
-/* Teal accent block */
 .hero::before {
   content: '';
   position: absolute;
@@ -389,7 +386,6 @@ a { text-decoration: none; color: inherit; }
   gap: 2px;
 }
 
-/* Large projects span full width */
 .project--large { grid-column: 1 / -1; }
 
 .project {
@@ -403,9 +399,10 @@ a { text-decoration: none; color: inherit; }
 }
 
 .project.visible { opacity: 1; transform: none; }
-.project:nth-child(2).visible { transition-delay: 0.1s; }
-.project:nth-child(3).visible { transition-delay: 0.15s; }
-.project:nth-child(4).visible { transition-delay: 0.05s; }
+.project:nth-child(2).visible { transition-delay: 0.08s; }
+.project:nth-child(3).visible { transition-delay: 0.14s; }
+.project:nth-child(4).visible { transition-delay: 0.20s; }
+.project:nth-child(5).visible { transition-delay: 0.06s; }
 
 .project__media {
   position: relative;
@@ -511,7 +508,7 @@ a { text-decoration: none; color: inherit; }
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);  /* render as white */
+  filter: brightness(0) invert(1);
   opacity: 0.9;
 }
 
@@ -565,7 +562,6 @@ a { text-decoration: none; color: inherit; }
 
 .footer__copy {
   font-size: 0.75rem;
-  font-weight: 400;
   color: rgba(255,255,255,0.35);
   letter-spacing: 0.04em;
 }
@@ -614,17 +610,12 @@ a { text-decoration: none; color: inherit; }
 
 @media (max-width: 600px) {
   .nav__links { display: none; }
-
   .hero__headline { font-size: clamp(2.6rem, 11vw, 4rem); }
-
   .hero__cta-row { flex-direction: column; }
   .hero__cta-row .btn { width: 100%; justify-content: center; }
-
   .hero__scroll-hint { display: none; }
-
   .footer__bottom { flex-direction: column; align-items: flex-start; }
 }
 
-/* Utility */
 .br-d { display: none; }
 @media (min-width: 768px) { .br-d { display: block; } }

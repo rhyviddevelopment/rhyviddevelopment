@@ -7,430 +7,192 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syncopate:wght@400;700&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- NOISE OVERLAY -->
-  <div class="noise" aria-hidden="true"></div>
-
-  <!-- CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-dot" id="cursorDot"></div>
 
   <!-- NAV -->
   <header class="nav" id="nav">
     <div class="nav__inner">
       <a href="#" class="nav__logo">
-        <div class="nav__icon-wrap">
-          <img src="Icon.png" alt="Rhyvid icon" class="nav__icon" />
-        </div>
-        <span class="nav__wordmark">RHYVID</span>
+        <img src="Icon.png" alt="Rhyvid Developments Icon" class="nav__icon" />
+        <span class="nav__wordmark">Rhyvid</span>
       </a>
       <nav class="nav__links">
-        <a href="#works"><span>01</span> Works</a>
-        <a href="#about"><span>02</span> About</a>
-        <a href="#contact"><span>03</span> Contact</a>
+        <a href="#works">Works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
-      <div class="nav__status">
-        <span class="status-dot"></span>
-        Available for projects
-      </div>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="hero" id="hero">
-    <!-- Animated background lines -->
-    <div class="hero__lines" aria-hidden="true">
-      <div class="line line--1"></div>
-      <div class="line line--2"></div>
-      <div class="line line--3"></div>
-      <div class="line line--4"></div>
-      <div class="line line--5"></div>
-    </div>
-
-    <!-- Floating teal orb -->
-    <div class="hero__orb" aria-hidden="true"></div>
-
-    <!-- Corner bracket decorations -->
-    <div class="bracket bracket--tl" aria-hidden="true"></div>
-    <div class="bracket bracket--br" aria-hidden="true"></div>
-
+  <section class="hero">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
     <div class="hero__content">
-      <!-- Marquee ticker -->
-      <div class="hero__ticker" aria-hidden="true">
-        <div class="ticker__track">
-          <span>UI/UX Design</span><span class="sep">◆</span>
-          <span>Branding</span><span class="sep">◆</span>
-          <span>Development</span><span class="sep">◆</span>
-          <span>Design Systems</span><span class="sep">◆</span>
-          <span>Digital Strategy</span><span class="sep">◆</span>
-          <span>UI/UX Design</span><span class="sep">◆</span>
-          <span>Branding</span><span class="sep">◆</span>
-          <span>Development</span><span class="sep">◆</span>
-          <span>Design Systems</span><span class="sep">◆</span>
-          <span>Digital Strategy</span><span class="sep">◆</span>
-        </div>
+      <p class="hero__label">UI/UX · Branding · Development</p>
+      <h1 class="hero__headline">
+        Architecting<br/>
+        <em>Digital &amp; Physical</em><br/>
+        Solutions.
+      </h1>
+      <p class="hero__sub">
+        Precision-crafted interfaces, identities, and systems<br class="br-d"/>
+        built for brands that refuse to be ordinary.
+      </p>
+      <div class="hero__cta-row">
+        <a href="#works" class="btn btn--primary">View Selected Works</a>
+        <a href="#contact" class="btn btn--ghost">Start a Project →</a>
       </div>
-
-      <div class="hero__main">
-        <div class="hero__left">
-          <div class="hero__eyebrow">
-            <div class="eyebrow-line"></div>
-            <p>Est. 2021 · Lagos, NG</p>
-          </div>
-          <h1 class="hero__headline">
-            <span class="line-reveal" style="--d:0.05s">ARCHITECTING</span>
-            <span class="line-reveal italic-line" style="--d:0.2s">Digital &amp;</span>
-            <span class="line-reveal" style="--d:0.35s">PHYSICAL</span>
-            <span class="line-reveal" style="--d:0.5s">SOLUTIONS.</span>
-          </h1>
-        </div>
-
-        <div class="hero__right">
-          <p class="hero__sub">
-            A design &amp; development studio crafting precision interfaces,
-            bold identities, and robust systems for brands that demand more.
-          </p>
-          <a href="#works" class="hero__cta">
-            <span class="cta__text">View Selected Works</span>
-            <span class="cta__arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </a>
-          <div class="hero__stats">
-            <div class="stat">
-              <strong>40+</strong>
-              <p>Projects Delivered</p>
-            </div>
-            <div class="stat__divider"></div>
-            <div class="stat">
-              <strong>5★</strong>
-              <p>Client Satisfaction</p>
-            </div>
-            <div class="stat__divider"></div>
-            <div class="stat">
-              <strong>4yr</strong>
-              <p>Experience</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero__scroll">
-        <div class="scroll__line"></div>
-        <span>Scroll to explore</span>
-      </div>
+    </div>
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <span></span>
+      <p>Scroll</p>
     </div>
   </section>
 
-  <!-- MARQUEE BAR -->
-  <div class="marquee-bar" aria-hidden="true">
-    <div class="marquee-bar__track">
-      <span>Precision Craft</span><span class="dot">·</span>
-      <span>Bold Identity</span><span class="dot">·</span>
-      <span>Thoughtful Systems</span><span class="dot">·</span>
-      <span>Enduring Design</span><span class="dot">·</span>
-      <span>Precision Craft</span><span class="dot">·</span>
-      <span>Bold Identity</span><span class="dot">·</span>
-      <span>Thoughtful Systems</span><span class="dot">·</span>
-      <span>Enduring Design</span><span class="dot">·</span>
+  <!-- ABOUT STRIP -->
+  <section class="about" id="about">
+    <div class="about__inner">
+      <div class="about__tag">Studio</div>
+      <p class="about__body">
+        Rhyvid Developments operates at the intersection of architecture,
+        code, and identity — delivering refined, end-to-end design solutions
+        with an obsession for clarity and craft.
+      </p>
+      <ul class="about__disciplines">
+        <li>UI / UX Design</li>
+        <li>Brand Identity</li>
+        <li>Web Development</li>
+        <li>Design Systems</li>
+      </ul>
     </div>
-  </div>
+  </section>
 
   <!-- SELECTED WORKS -->
   <section class="works" id="works">
-    <div class="works__header reveal">
-      <div class="works__header-left">
-        <p class="section-tag">/ 01</p>
-        <h2 class="works__title">Selected<br/><em>Works</em></h2>
-      </div>
-      <p class="works__desc">
-        A curated selection of brand, digital, and design<br/>
-        system projects from 2022–2025.
-      </p>
+    <div class="works__header">
+      <p class="works__label">Selected Works</p>
+      <h2 class="works__title">Recent Projects</h2>
     </div>
 
-    <!-- Project 01 — Full width feature -->
-    <article class="project project--feature reveal">
-      <div class="project__inner">
+    <div class="works__grid">
+
+      <article class="project project--large">
         <div class="project__media">
-          <img src="https://placehold.co/1400x700/0A1F2B/1D5C76?text=" alt="Meridian Capital Group" />
-          <div class="project__media-overlay"></div>
-          <div class="project__number">01</div>
+          <img src="https://placehold.co/960x640/1D5C76/FFFFFF?text=Project+01" alt="Project 01" />
+          <div class="project__overlay"><span>View Case Study →</span></div>
         </div>
-        <div class="project__info">
-          <div class="project__tags">
-            <span>Brand Identity</span>
-            <span>Web Design</span>
+        <div class="project__meta">
+          <div>
+            <p class="project__category">Brand Identity · Web</p>
+            <h3 class="project__name">Meridian Capital Group</h3>
           </div>
-          <h3 class="project__name">Meridian Capital Group</h3>
-          <p class="project__year">2024</p>
-          <a href="#" class="project__link">
-            View Case Study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <!-- Projects 02 + 03 — Side by side -->
-    <div class="works__pair">
-      <article class="project project--half reveal">
-        <div class="project__media project__media--square">
-          <img src="https://placehold.co/800x800/0D2535/2A7A9B?text=" alt="Novex Platform" />
-          <div class="project__media-overlay"></div>
-          <div class="project__number">02</div>
-        </div>
-        <div class="project__info">
-          <div class="project__tags">
-            <span>UI / UX</span>
-            <span>SaaS</span>
-          </div>
-          <h3 class="project__name">Novex Platform</h3>
-          <p class="project__year">2024</p>
-          <a href="#" class="project__link">
-            View Case Study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          <span class="project__year">2024</span>
         </div>
       </article>
 
-      <article class="project project--half reveal" style="--reveal-delay:0.15s">
-        <div class="project__media project__media--square">
-          <img src="https://placehold.co/800x800/111111/1D5C76?text=" alt="Kova Botanical Co." />
-          <div class="project__media-overlay"></div>
-          <div class="project__number">03</div>
-        </div>
-        <div class="project__info">
-          <div class="project__tags">
-            <span>Branding</span>
-            <span>Packaging</span>
-          </div>
-          <h3 class="project__name">Kova Botanical Co.</h3>
-          <p class="project__year">2023</p>
-          <a href="#" class="project__link">
-            View Case Study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Projects 04 + 05 — Side by side -->
-    <div class="works__pair">
-      <article class="project project--half reveal">
-        <div class="project__media project__media--square">
-          <img src="https://placehold.co/800x800/170F06/FF6B00?text=Chuks+Kitchen" alt="Chuks Kitchen" />
-          <div class="project__media-overlay"></div>
-          <div class="project__number">04</div>
-        </div>
-        <div class="project__info">
-          <div class="project__tags">
-            <span>UI / UX</span>
-            <span>Client Work</span>
-          </div>
-          <h3 class="project__name">Chuks Kitchen</h3>
-          <p class="project__year">2024</p>
-          <a href="chuks-kitchen-case-study.html" class="project__link">
-            View Case Study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <article class="project project--half reveal" style="--reveal-delay:0.15s">
-        <div class="project__media project__media--square">
-          <img src="https://placehold.co/800x800/111111/1D5C76?text=" alt="Coming Soon" />
-          <div class="project__media-overlay"></div>
-          <div class="project__number">05</div>
-        </div>
-        <div class="project__info">
-          <div class="project__tags">
-            <span>Coming Soon</span>
-          </div>
-          <h3 class="project__name">New Project</h3>
-          <p class="project__year">2025</p>
-          <a href="#" class="project__link">
-            View Case Study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </article>
-    </div>
-
-    <!-- Project 06 — Full width -->
-    <article class="project project--feature reveal">
-      <div class="project__inner">
+      <article class="project">
         <div class="project__media">
-          <img src="https://placehold.co/1400x700/071318/1D5C76?text=" alt="Structura OS" />
-          <div class="project__media-overlay"></div>
-          <div class="project__number">06</div>
+          <img src="https://placehold.co/640x500/162F3A/FFFFFF?text=Project+02" alt="Project 02" />
+          <div class="project__overlay"><span>View Case Study →</span></div>
         </div>
-        <div class="project__info">
-          <div class="project__tags">
-            <span>Design System</span>
-            <span>Development</span>
+        <div class="project__meta">
+          <div>
+            <p class="project__category">UI/UX Design</p>
+            <h3 class="project__name">Novex Platform</h3>
           </div>
-          <h3 class="project__name">Structura OS</h3>
-          <p class="project__year">2023</p>
-          <a href="#" class="project__link">
-            View Case Study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          <span class="project__year">2024</span>
         </div>
-      </div>
-    </article>
-  </section>
+      </article>
 
-  <!-- ABOUT / SERVICES -->
-  <section class="about" id="about">
-    <div class="about__bg-text" aria-hidden="true">RHYVID</div>
-    <div class="about__inner">
-      <div class="about__header reveal">
-        <p class="section-tag">/ 02</p>
-        <h2 class="about__title">We Build<br/><em>Experiences</em><br/>That Last</h2>
-      </div>
-
-      <div class="about__body reveal">
-        <p>
-          Rhyvid Developments is a multi-disciplinary design studio operating
-          at the convergence of architecture, code, and visual identity —
-          delivering considered, end-to-end solutions with an obsessive
-          commitment to craft.
-        </p>
-
-        <div class="services">
-          <div class="service">
-            <div class="service__num">01</div>
-            <div class="service__content">
-              <h4>UI / UX Design</h4>
-              <p>Research-led, pixel-perfect interfaces that convert and retain.</p>
-            </div>
-          </div>
-          <div class="service">
-            <div class="service__num">02</div>
-            <div class="service__content">
-              <h4>Brand Identity</h4>
-              <p>Strategic identities built for longevity — not just trends.</p>
-            </div>
-          </div>
-          <div class="service">
-            <div class="service__num">03</div>
-            <div class="service__content">
-              <h4>Web Development</h4>
-              <p>Clean, performant builds that bring designs to life flawlessly.</p>
-            </div>
-          </div>
-          <div class="service">
-            <div class="service__num">04</div>
-            <div class="service__content">
-              <h4>Design Systems</h4>
-              <p>Scalable component libraries and documentation that teams love.</p>
-            </div>
-          </div>
+      <article class="project">
+        <div class="project__media">
+          <img src="https://placehold.co/640x500/0F1E26/FFFFFF?text=Project+03" alt="Project 03" />
+          <div class="project__overlay"><span>View Case Study →</span></div>
         </div>
-      </div>
+        <div class="project__meta">
+          <div>
+            <p class="project__category">Branding · Packaging</p>
+            <h3 class="project__name">Kova Botanical Co.</h3>
+          </div>
+          <span class="project__year">2023</span>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project__media">
+          <img src="https://placehold.co/640x500/170F06/FF6B00?text=Chuks+Kitchen" alt="Chuks Kitchen" />
+          <div class="project__overlay"><span>View Case Study →</span></div>
+        </div>
+        <div class="project__meta">
+          <div>
+            <p class="project__category">UI/UX Design · Client Work</p>
+            <h3 class="project__name">Chuks Kitchen</h3>
+          </div>
+          <span class="project__year">2024</span>
+        </div>
+      </article>
+
+      <article class="project project--large project--right">
+        <div class="project__media">
+          <img src="https://placehold.co/960x640/1D5C76/F5F5F0?text=Project+05" alt="Project 05" />
+          <div class="project__overlay"><span>View Case Study →</span></div>
+        </div>
+        <div class="project__meta">
+          <div>
+            <p class="project__category">Development · Design System</p>
+            <h3 class="project__name">Structura OS</h3>
+          </div>
+          <span class="project__year">2023</span>
+        </div>
+      </article>
+
     </div>
   </section>
 
-  <!-- CTA BAND -->
-  <section class="cta-band">
-    <div class="cta-band__inner reveal">
-      <div class="cta-band__left">
-        <p class="section-tag light">/ 03</p>
-        <h2>Have a project<br/>in mind?</h2>
-      </div>
-      <div class="cta-band__right">
-        <p>Let's talk about how Rhyvid can turn your vision into a refined, high-performance digital or brand experience.</p>
-        <a href="/cdn-cgi/l/email-protection#e58d8089898aa5978d9c938c81cb868a88" class="btn-band">Start a Conversation →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+  <!-- FOOTER / CONTACT -->
   <footer class="footer" id="contact">
     <div class="footer__inner">
       <div class="footer__top">
-        <div class="footer__logo-wrap">
+        <div class="footer__logo-block">
           <img src="Logo.png" alt="Rhyvid Developments" class="footer__logo" />
         </div>
-
-        <nav class="footer__nav">
-          <div class="footer__nav-col">
-            <p class="footer__nav-heading">Studio</p>
-            <a href="#works">Works</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-          </div>
-          <div class="footer__nav-col">
-            <p class="footer__nav-heading">Services</p>
-            <a href="#">UI/UX Design</a>
-            <a href="#">Brand Identity</a>
-            <a href="#">Development</a>
-          </div>
-          <div class="footer__nav-col">
-            <p class="footer__nav-heading">Connect</p>
-            <a href="#">Behance</a>
-            <a href="#">LinkedIn</a>
-            <a href="#">Dribbble</a>
-          </div>
-        </nav>
+        <div class="footer__contact">
+          <p class="footer__contact-label">Have a project in mind?</p>
+          <a href="mailto:hello@rhyvid.com" class="footer__email">hello@rhyvid.com</a>
+          <a href="#contact" class="btn btn--primary footer__btn">Start a Conversation</a>
+        </div>
       </div>
-
-      <div class="footer__email-block">
-        <span>Say hello</span>
-        <a href="/cdn-cgi/l/email-protection#dab2bfb6b6b59aa8b2a3acb3bef4b9b5b7" class="footer__big-email"><span class="__cf_email__" data-cfemail="0e666b6262614e7c667778676a206d6163">[email&#160;protected]</span></a>
-      </div>
-
       <div class="footer__bottom">
-        <p>© 2025 Rhyvid Developments. All rights reserved.</p>
-        <p>Crafted with intention.</p>
+        <p class="footer__copy">© 2025 Rhyvid Developments. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#">Behance</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Dribbble</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // ── Custom cursor ──
-    const cursor = document.getElementById('cursor');
-    const dot = document.getElementById('cursorDot');
-    let mx = 0, my = 0, cx = 0, cy = 0;
-
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx}px, ${my}px)`;
-    });
-
-    function animateCursor() {
-      cx += (mx - cx) * 0.1;
-      cy += (my - cy) * 0.1;
-      cursor.style.transform = `translate(${cx}px, ${cy}px)`;
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    document.querySelectorAll('a, button, .project').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('cursor--hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('cursor--hover'));
-    });
-
-    // ── Nav scroll ──
+  <script>
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('nav--scrolled', window.scrollY > 60);
+      nav.classList.toggle('nav--scrolled', window.scrollY > 40);
     });
 
-    // ── Scroll reveal ──
-    const revealObs = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          e.target.classList.add('revealed');
-          revealObs.unobserve(e.target);
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.12 });
 
-    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    document.querySelectorAll('.project, .about__body, .about__disciplines, .works__header')
+      .forEach(el => observer.observe(el));
+  </script>
 
-    // �
+</body>
+</html>
