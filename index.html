@@ -4,12 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rhyvid Developments</title>
-  <!--
-    Icon.png and Logo.png are in the same folder as this index.html.
-    Relative paths (./Icon.png, ./Logo.png) work locally, on GitHub Pages,
-    and on any static host — no absolute URLs needed.
-  -->
-  <link rel="icon" type="image/png" href="./Icon.png" />
+  <link rel="icon" type="image/png" href="/assets/Icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -17,7 +12,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* ── Brand palette — extracted from Logo.png / Icon.png ── */
       --teal:        #1D6F8A;
       --teal-deep:   #0E3D4F;
       --teal-mid:    #154E62;
@@ -26,17 +20,14 @@
       --teal-border: rgba(29,111,138,0.22);
       --teal-border-hi: rgba(42,143,173,0.45);
 
-      /* ── Surfaces ── */
       --black:   #060D10;
       --black-2: #0B1519;
       --black-3: #101D22;
 
-      /* ── Text ── */
       --white:    #EDF6F9;
       --mist:     #A3C2CC;
       --mist-dim: #607E88;
 
-      /* ── Gold accent (complements teal) ── */
       --accent:       #C9A84C;
       --accent-light: #E2C97E;
 
@@ -94,7 +85,6 @@
       width: 100%; max-width: 1400px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
     }
-    /* ── Logo.png in nav ── */
     .nav__logo-img {
       height: 30px; width: auto; object-fit: contain;
       filter: brightness(1.1) saturate(1.1);
@@ -298,7 +288,7 @@
     .disciplines li:hover::after { opacity: 1; transform: translateX(0); }
 
     /* ════════════════════════
-       WORKS
+       WORKS — Coming Soon
     ════════════════════════ */
     .works { padding: 10rem 4vw; background: var(--black); }
     .works__inner { max-width: 1400px; margin: 0 auto; }
@@ -311,70 +301,55 @@
     .works__title span { display: block; font-style: italic; font-weight: 400; color: var(--teal-light); }
     .works__count { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .1em; color: var(--mist-dim); padding-bottom: .4rem; }
 
-    .projects { display: flex; flex-direction: column; gap: 2px; }
-    .project {
-      position: relative; overflow: hidden; background: var(--black-3); cursor: none;
-      opacity: 0; transform: translateY(30px);
-      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    .works__coming-soon {
+      border: 1px solid var(--teal-border);
+      background: var(--black-3);
+      padding: 6rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .project.visible { opacity: 1; transform: translateY(0); }
-    .project:nth-child(2).visible { transition-delay: .1s; }
-
-    .project__link { display: grid; grid-template-columns: 1fr 1.15fr; min-height: 400px; }
-    .project--flipped .project__link { grid-template-columns: 1.15fr 1fr; }
-    .project--flipped .project__media { order: 2; }
-    .project--flipped .project__info  { order: 1; border-left: none; border-right: 1px solid var(--teal-border); }
-    .project:hover.project--flipped .project__info { border-right-color: var(--teal-border-hi); }
-
-    .project__media { position: relative; overflow: hidden; }
-    .project__media img { transition: transform .8s var(--ease), filter .5s; filter: brightness(.78) saturate(.85); }
-    .project:hover .project__media img { transform: scale(1.05); filter: brightness(.95) saturate(1.1); }
-    .project__media-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(6,13,16,.55) 0%, transparent 55%);
+    .works__coming-soon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(29,111,138,.12) 0%, transparent 65%);
+      pointer-events: none;
     }
-    .project__media::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(29,111,138,.2) 0%, transparent 60%);
-      opacity: 0; transition: opacity .4s;
+    .works__coming-soon-icon {
+      width: 56px; height: 56px;
+      border: 1px solid var(--teal-border-hi);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 2rem;
+      position: relative; z-index: 1;
     }
-    .project:hover .project__media::after { opacity: 1; }
-    .project__num {
-      position: absolute; top: 1.5rem; left: 1.5rem;
-      font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; color: rgba(42,143,173,.7);
+    .works__coming-soon-icon svg {
+      width: 22px; height: 22px;
+      stroke: var(--teal-light); fill: none; stroke-width: 1.5;
     }
-    .project__info {
-      padding: 4rem; display: flex; flex-direction: column; justify-content: space-between;
-      border-left: 1px solid var(--teal-border); transition: border-color .4s;
-    }
-    .project:hover .project__info { border-left-color: var(--teal-border-hi); }
-    .project__category {
+    .works__coming-soon-label {
       font-family: var(--font-mono); font-size: .67rem;
-      letter-spacing: .15em; text-transform: uppercase; color: var(--teal-light);
-      margin-bottom: 1.4rem; display: flex; align-items: center; gap: .7rem;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--teal-light); margin-bottom: 1.2rem;
+      position: relative; z-index: 1;
     }
-    .project__category::before { content: ''; width: 18px; height: 1px; background: var(--teal); }
-    .project__name {
+    .works__coming-soon-heading {
       font-family: var(--font-display);
-      font-size: clamp(1.8rem,2.8vw,2.8rem); font-weight: 700;
-      line-height: 1.1; color: var(--white); margin-bottom: 1.4rem; transition: color .3s;
+      font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 700;
+      color: var(--white); line-height: 1.15; margin-bottom: 1.2rem;
+      position: relative; z-index: 1;
     }
-    .project:hover .project__name { color: var(--teal-light); }
-    .project__desc { font-size: .88rem; line-height: 1.8; color: var(--mist-dim); max-width: 330px; }
-    .project__bottom { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 2.5rem; }
-    .project__year {
-      font-family: var(--font-display); font-size: 2.5rem; font-weight: 900;
-      color: var(--teal-border); line-height: 1; letter-spacing: -.03em; transition: color .4s;
+    .works__coming-soon-heading em { font-style: italic; font-weight: 400; color: var(--teal-light); }
+    .works__coming-soon-body {
+      font-size: .9rem; line-height: 1.85; color: var(--mist-dim);
+      max-width: 420px; margin-bottom: 2.5rem;
+      position: relative; z-index: 1;
     }
-    .project:hover .project__year { color: rgba(29,111,138,.22); }
-    .project__cta {
-      display: flex; align-items: center; gap: .5rem;
-      font-size: .73rem; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--teal-light);
-      border-bottom: 1px solid transparent; padding-bottom: 2px;
-      transition: border-color .3s, transform .3s var(--ease);
-    }
-    .project:hover .project__cta { border-color: var(--teal); transform: translateX(4px); }
 
     /* ════════════════════════
        PROCESS
@@ -437,7 +412,6 @@
     .footer__heading em { font-style: italic; color: rgba(42,143,173,.9); font-weight: 400; }
     .footer__ctas { display: flex; gap: 1.2rem; flex-wrap: wrap; }
 
-    /* ── Logo.png in footer — inverted to white ── */
     .footer__logo-img {
       height: 36px; width: auto; object-fit: contain;
       filter: brightness(0) invert(1);
@@ -488,16 +462,11 @@
       .hero__content { grid-template-columns: 1fr; }
       .hero__right { display: none; }
       .about__inner { grid-template-columns: 1fr; gap: 3rem; }
-      .project__link,
-      .project--flipped .project__link { grid-template-columns: 1fr; min-height: auto; }
-      .project--flipped .project__media { order: 0; }
-      .project--flipped .project__info  { order: 0; border-right: none; border-left: 1px solid var(--teal-border); border-top: 1px solid var(--teal-border); }
-      .project__media { min-height: 260px; }
-      .project__info { border-left: none; border-top: 1px solid var(--teal-border); padding: 2.5rem 2rem; }
       .steps { grid-template-columns: repeat(2,1fr); }
       .process__header { grid-template-columns: 1fr; gap: 2rem; }
       .works__header { flex-direction: column; align-items: flex-start; gap: 1rem; }
       .footer__mid { grid-template-columns: 1fr 1fr; }
+      .works__coming-soon { padding: 4rem 2rem; }
     }
     @media (max-width: 640px) {
       .nav__links { display: none; }
@@ -518,14 +487,8 @@
   <!-- ══════════════ NAV ══════════════ -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
-      <!--
-        ┌─ IMAGE SOURCE ────────────────────────────────────────────────────┐
-        │  ./Logo.png  — relative path, same directory as index.html.       │
-        │  Works on: local file system, GitHub Pages, Netlify, Vercel, etc. │
-        └───────────────────────────────────────────────────────────────────┘
-      -->
       <a href="#home">
-        <img src="./Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
+        <img src="/assets/Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
       </a>
       <div class="nav__links">
         <a href="#about">Studio</a>
@@ -636,51 +599,19 @@
           <p class="section-label">Selected Works</p>
           <h2 class="works__title">Recent<br><span>Projects</span></h2>
         </div>
-        <p class="works__count">02 Projects</p>
+        <p class="works__count">Coming Soon</p>
       </div>
 
-      <div class="projects">
-        <article class="project">
-          <a href="molly-realty-case-study.html" class="project__link">
-            <div class="project__media">
-              <img src="https://placehold.co/900x600/15381C/CEA52B?text=Molly+Realty+%26+Leisure" alt="Molly Realty & Leisure" />
-              <div class="project__media-overlay"></div>
-              <span class="project__num">01</span>
-            </div>
-            <div class="project__info">
-              <div class="project__top">
-                <p class="project__category">Brand Identity · Client Work</p>
-                <h3 class="project__name">Molly Realty &amp; Leisure</h3>
-                <p class="project__desc">A full brand overhaul for a premier real estate company — visual identity, collateral design, and a bespoke web presence that speaks to luxury buyers.</p>
-              </div>
-              <div class="project__bottom">
-                <span class="project__year">2025</span>
-                <span class="project__cta">View Case Study →</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="project project--flipped">
-          <a href="chuks-kitchen-case-study.html" class="project__link">
-            <div class="project__media">
-              <img src="https://placehold.co/900x600/170F06/FF6B00?text=Chuks+Kitchen" alt="Chuks Kitchen" />
-              <div class="project__media-overlay"></div>
-              <span class="project__num">02</span>
-            </div>
-            <div class="project__info">
-              <div class="project__top">
-                <p class="project__category">UI/UX Design · Client Work</p>
-                <h3 class="project__name">Chuks Kitchen</h3>
-                <p class="project__desc">End-to-end UX design for an artisan restaurant brand — from user research through to a high-fidelity digital menu and reservations experience.</p>
-              </div>
-              <div class="project__bottom">
-                <span class="project__year">2026</span>
-                <span class="project__cta">View Case Study →</span>
-              </div>
-            </div>
-          </a>
-        </article>
+      <div class="works__coming-soon reveal">
+        <div class="works__coming-soon-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z"/>
+          </svg>
+        </div>
+        <p class="works__coming-soon-label">Portfolio in Progress</p>
+        <h3 class="works__coming-soon-heading">Projects are on<br>their <em>way</em></h3>
+        <p class="works__coming-soon-body">We're currently curating our case studies. Check back soon to see the work we've been crafting — or reach out and we'll walk you through it directly.</p>
+        <a href="#contact" class="btn-primary">Get in Touch →</a>
       </div>
     </div>
   </section>
@@ -711,16 +642,14 @@
         <p class="footer__label">Start a Conversation</p>
         <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
         <div class="footer__ctas">
-          <!-- ✏️  Replace hello@rhyvid.com with your real email -->
           <a href="mailto:hello@rhyvid.com" class="btn-primary">Send us a Message →</a>
           <a href="#works" class="btn-outline">View Our Work</a>
         </div>
       </div>
 
       <div class="footer__mid">
-        <!-- Logo.png — inverted white via CSS filter for the dark footer -->
         <div class="footer__col">
-          <img src="./Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+          <img src="/assets/Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Studio</p>
@@ -736,7 +665,6 @@
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Contact</p>
-          <!-- ✏️  Replace hello@rhyvid.com with your real email -->
           <a href="mailto:hello@rhyvid.com" class="footer__email">hello@rhyvid.com</a>
           <p>Lagos, Nigeria</p>
         </div>
