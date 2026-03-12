@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chuks Kitchen — Case Study | Rhyvid Developments</title>
+  <link rel="icon" type="image/png" href="../assets/Icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Portfolio brand (nav/footer) ── */
+      --teal:           #1D6F8A;
+      --teal-deep:      #0E3D4F;
+      --teal-light:     #2A8FAD;
+      --teal-border:    rgba(29,111,138,0.22);
+      --teal-border-hi: rgba(42,143,173,0.45);
+      --port-black:     #060D10;
+      --port-black-2:   #0B1519;
+      --white:          #EDF6F9;
+      --mist:           #A3C2CC;
+      --mist-dim:       #607E88;
+
+      /* ── Chuks Kitchen brand colours ── */
+      --ck-orange:      #FF6B00;
+      --ck-orange-dark: #BF5000;
+      --ck-orange-soft: #FC8630;
+      --ck-orange-pale: #FFF3E8;
+      --ck-pink:        #FF4B91;
+      --ck-pink-pale:   #FFF0F6;
+      --ck-blue:        #0056D2;
+      --ck-dark:        #1A0A00;
+      --ck-warm:        #2D1500;
+      --ck-cream:       #FFF8F2;
+      --ck-grey:        #606060;
+
+      --font-display:   'Playfair Display', Georgia, serif;
+      --font-ui:        'Syne', system-ui, sans-serif;
+      --font-mono:      'IBM Plex Mono', monospace;
+      --ease:           cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-ui);
+      background: var(--ck-cream);
+      color: var(--ck-dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; cursor: none; }
+
+    /* ── CURSOR ── */
+    .cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
+    .cursor__dot {
+      position: absolute; width: 6px; height: 6px;
+      background: var(--ck-orange); border-radius: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .cursor__ring {
+      position: absolute; width: 32px; height: 32px;
+      border: 1.5px solid rgba(255,107,0,0.5); border-radius: 50%;
+      transform: translate(-50%,-50%);
+      transition: width .3s var(--ease), height .3s var(--ease), border-color .3s;
+    }
+    body:has(a:hover) .cursor__ring { width: 52px; height: 52px; border-color: rgba(255,107,0,0.9); }
+
+    /* ══════════════════════════
+       NAV — portfolio style, orange accent
+    ══════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 4vw; height: 80px; display: flex; align-items: center;
+      transition: background .5s var(--ease), border-color .5s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav--scrolled {
+      background: rgba(255,248,242,0.95);
+      backdrop-filter: blur(20px);
+      border-color: rgba(255,107,0,0.15);
+    }
+    .nav__inner {
+      width: 100%; max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav__logo-wrap { display: flex; align-items: center; height: 80px; }
+    .nav__logo-img {
+      height: 30px; width: auto;
+      mix-blend-mode: multiply;
+      filter: brightness(0.95);
+      transition: opacity .2s;
+    }
+    .nav__logo-img:hover { opacity: 0.7; }
+    .nav__links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav__links a {
+      font-size: .72rem; font-weight: 600; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--ck-grey); transition: color .2s;
+    }
+    .nav__links a:hover { color: var(--ck-orange); }
+    .nav__back {
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--white);
+      background: var(--ck-orange); padding: .65rem 1.6rem;
+      display: inline-flex; align-items: center; gap: .4rem;
+      transition: background .2s, transform .2s var(--ease), box-shadow .2s;
+    }
+    .nav__back:hover { background: var(--ck-orange-soft); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,0,.3); }
+
+    /* ══════════════════════════
+       HERO
+    ══════════════════════════ */
+    .hero {
+      min-height: 100svh;
+      background: var(--ck-dark);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 4vw 8vh;
+      position: relative; overflow: hidden;
+    }
+    .hero__bg-glow {
+      position: absolute; top: -20%; right: -10%;
+      width: 70vmax; height: 70vmax; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(255,107,0,.18) 0%, rgba(255,75,145,.08) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero__bg-glow2 {
+      position: absolute; bottom: -20%; left: -15%;
+      width: 50vmax; height: 50vmax; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,0,.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero__grain {
+      position: absolute; inset: 0; pointer-events: none; opacity: .04; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hero__content {
+      position: relative; z-index: 2;
+      max-width: 1400px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr auto; align-items: flex-end; gap: 4rem;
+    }
+
+    .hero__ck-logo { margin-bottom: 2.5rem; opacity: 0; animation: fadeUp .8s .05s var(--ease) forwards; }
+    .hero__ck-logo-img { height: 52px; width: auto; }
+    .hero__eyebrow {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp .8s .2s var(--ease) forwards;
+    }
+    .hero__eyebrow-dot { width: 8px; height: 8px; background: var(--ck-orange); border-radius: 50%; }
+    .hero__eyebrow-text {
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--ck-orange);
+    }
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem,8vw,8.5rem); font-weight: 900;
+      line-height: .92; letter-spacing: -.02em; color: var(--white);
+      opacity: 0; animation: fadeUp 1s .3s var(--ease) forwards;
+    }
+    .hero__headline .accent { color: var(--ck-orange); font-style: italic; font-weight: 400; }
+    .hero__sub {
+      margin-top: 2rem; font-size: clamp(.9rem,1.2vw,1.05rem);
+      line-height: 1.8; color: rgba(237,246,249,.5); max-width: 480px;
+      opacity: 0; animation: fadeUp .8s .45s var(--ease) forwards;
+    }
+    .hero__meta {
+      display: flex; gap: 3rem; margin-top: 3rem;
+      opacity: 0; animation: fadeUp .8s .6s var(--ease) forwards;
+    }
+    .hero__meta-item {}
+    .hero__meta-label {
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .16em;
+      text-transform: uppercase; color: rgba(237,246,249,.35); margin-bottom: .3rem;
+    }
+    .hero__meta-value { font-size: .88rem; font-weight: 700; color: var(--white); }
+    .hero__scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .7rem;
+      opacity: 0; animation: fadeIn 1s 1s var(--ease) forwards; z-index: 2;
+    }
+    .hero__scroll-bar {
+      width: 1px; height: 55px;
+      background: linear-gradient(to bottom, var(--ck-orange), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    .hero__scroll-label {
+      font-family: var(--font-mono); font-size: .6rem;
+      letter-spacing: .18em; text-transform: uppercase; color: rgba(237,246,249,.35);
+    }
+
+    /* hero mockup cluster */
+    .hero__mockups {
+      position: relative; width: 260px; height: 420px;
+      opacity: 0; animation: fadeIn 1s .7s var(--ease) forwards;
+      flex-shrink: 0;
+    }
+    .hero__mockup {
+      position: absolute; border-radius: 24px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.6);
+    }
+    .hero__mockup img { width: 100%; height: 100%; object-fit: cover; }
+    .hero__mockup--main {
+      width: 160px; right: 0; top: 0; bottom: 0;
+      box-shadow: 0 40px 100px rgba(255,107,0,.25), 0 20px 60px rgba(0,0,0,.5);
+    }
+    .hero__mockup--back {
+      width: 130px; left: 0; top: 40px;
+      opacity: .7; transform: rotate(-4deg);
+    }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    /* ══════════════════════════
+       SHARED SECTION STYLES
+    ══════════════════════════ */
+    .section-label {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-family: var(--font-mono); font-size: .67rem;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--ck-orange);
+      margin-bottom: 1.8rem;
+    }
+    .section-label::before { content: '//'; opacity: .4; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1.visible { transition-delay: .12s; }
+    .reveal-d2.visible { transition-delay: .24s; }
+    .reveal-d3.visible { transition-delay: .36s; }
+
+    /* ══════════════════════════
+       OVERVIEW
+    ══════════════════════════ */
+    .overview {
+      padding: 9rem 4vw;
+      background: var(--ck-cream);
+      border-bottom: 1px solid rgba(255,107,0,.1);
+    }
+    .overview__inner { max-width: 1400px; margin: 0 auto; }
+    .overview__grid {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 8rem; align-items: start;
+    }
+    .overview__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem,3.5vw,3.2rem); font-weight: 700;
+      line-height: 1.1; color: var(--ck-dark); margin-bottom: 1.8rem;
+    }
+    .overview__heading em { font-style: italic; color: var(--ck-orange); }
+    .overview__body { font-size: .97rem; line-height: 1.95; color: var(--ck-grey); margin-bottom: 1.4rem; }
+    .overview__tags { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem; }
+    .overview__tag {
+      font-family: var(--font-mono); font-size: .65rem; letter-spacing: .1em;
+      text-transform: uppercase; padding: .45rem 1rem;
+      border: 1px solid rgba(255,107,0,.3); color: var(--ck-orange);
+      background: rgba(255,107,0,.05);
+    }
+
+    .overview__stats { display: flex; flex-direction: column; gap: 0; }
+    .overview__stat {
+      padding: 2rem 0; border-bottom: 1px solid rgba(255,107,0,.12);
+      display: flex; align-items: baseline; justify-content: space-between;
+    }
+    .overview__stat:first-child { border-top: 1px solid rgba(255,107,0,.12); }
+    .overview__stat-label {
+      font-family: var(--font-mono); font-size: .65rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ck-grey);
+    }
+    .overview__stat-value {
+      font-family: var(--font-display); font-size: 1.8rem; font-weight: 700;
+      color: var(--ck-orange); line-height: 1;
+    }
+
+    /* ══════════════════════════
+       PROBLEM / ROLE
+    ══════════════════════════ */
+    .role {
+      padding: 9rem 4vw;
+      background: var(--ck-dark);
+      border-bottom: 1px solid rgba(255,107,0,.12);
+    }
+    .role__inner { max-width: 1400px; margin: 0 auto; }
+    .role__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start;
+    }
+    .role__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem,3.5vw,3rem); font-weight: 700;
+      line-height: 1.1; color: var(--white); margin-bottom: 1.8rem;
+    }
+    .role__heading em { font-style: italic; color: var(--ck-orange); font-weight: 400; }
+    .role__body { font-size: .95rem; line-height: 1.95; color: rgba(237,246,249,.55); margin-bottom: 1.4rem; }
+
+    .role__list { list-style: none; margin-top: 2rem; }
+    .role__list li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.1rem 0; border-bottom: 1px solid rgba(255,107,0,.1);
+      font-size: .92rem; color: rgba(237,246,249,.65); line-height: 1.6;
+    }
+    .role__list li:first-child { border-top: 1px solid rgba(255,107,0,.1); }
+    .role__list li::before {
+      content: '→'; color: var(--ck-orange); font-size: .8rem;
+      flex-shrink: 0; margin-top: .15rem;
+    }
+
+    /* ══════════════════════════
+       PROCESS
+    ══════════════════════════ */
+    .process {
+      padding: 9rem 4vw;
+      background: var(--ck-cream);
+      border-bottom: 1px solid rgba(255,107,0,.1);
+    }
+    .process__inner { max-width: 1400px; margin: 0 auto; }
+    .process__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem,4vw,3.5rem); font-weight: 700;
+      line-height: 1; color: var(--ck-dark); margin-bottom: 5rem;
+    }
+    .process__heading em { font-style: italic; color: var(--ck-orange); font-weight: 400; }
+
+    .process__steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+    .process__step {
+      padding: 2.5rem 2rem; background: white;
+      border-top: 3px solid transparent;
+      transition: border-color .3s, background .3s;
+    }
+    .process__step:hover { border-top-color: var(--ck-orange); background: var(--ck-orange-pale); }
+    .process__step-num {
+      font-family: var(--font-display); font-size: 3rem; font-weight: 900;
+      color: rgba(255,107,0,.12); line-height: 1; margin-bottom: 1.5rem;
+      transition: color .3s;
+    }
+    .process__step:hover .process__step-num { color: rgba(255,107,0,.25); }
+    .process__step-title { font-size: .9rem; font-weight: 700; color: var(--ck-dark); margin-bottom: .7rem; letter-spacing: .03em; }
+    .process__step-desc { font-size: .82rem; line-height: 1.75; color: var(--ck-grey); }
+
+    /* lofi wireframes strip */
+    .process__wireframes { margin-top: 6rem; }
+    .process__wireframes-label {
+      font-family: var(--font-mono); font-size: .67rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--ck-orange); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .process__wireframes-label::before { content: '//'; opacity: .4; }
+    .wireframes-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;
+    }
+    .wireframe-card {
+      background: white; border: 1px solid rgba(255,107,0,.1);
+      overflow: hidden; position: relative;
+      transition: transform .4s var(--ease), box-shadow .4s;
+    }
+    .wireframe-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(255,107,0,.12); }
+    .wireframe-card img { width: 100%; display: block; }
+    .wireframe-card__label {
+      padding: .7rem 1rem;
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ck-grey);
+      background: white; border-top: 1px solid rgba(255,107,0,.08);
+    }
+
+    /* ══════════════════════════
+       DESIGN SYSTEM / MOODBOARD
+    ══════════════════════════ */
+    .design-system {
+      padding: 9rem 4vw;
+      background: var(--ck-warm);
+    }
+    .design-system__inner { max-width: 1400px; margin: 0 auto; }
+    .design-system__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem,4vw,3.5rem); font-weight: 700;
+      line-height: 1; color: var(--white); margin-bottom: 5rem;
+    }
+    .design-system__heading em { font-style: italic; color: var(--ck-orange); font-weight: 400; }
+
+    .design-system__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+
+    .ds-card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,107,0,.15);
+      padding: 2.5rem;
+    }
+    .ds-card__title {
+      font-family: var(--font-mono); font-size: .67rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--ck-orange); margin-bottom: 2rem;
+    }
+
+    /* colour swatches */
+    .colour-swatches { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .swatch {
+      display: flex; flex-direction: column; gap: .5rem; align-items: center;
+    }
+    .swatch__block { width: 52px; height: 52px; border-radius: 8px; }
+    .swatch__name { font-family: var(--font-mono); font-size: .58rem; letter-spacing: .06em; color: rgba(237,246,249,.45); }
+
+    /* typography showcase */
+    .type-sample { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,107,0,.1); }
+    .type-sample:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .type-sample__label { font-family: var(--font-mono); font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(237,246,249,.3); margin-bottom: .4rem; }
+    .type-sample__text { color: var(--white); }
+
+    /* colour guide image */
+    .ds-colour-img { width: 100%; border-radius: 4px; overflow: hidden; }
+    .ds-colour-img img { width: 100%; }
+
+    /* ══════════════════════════
+       FINAL DESIGNS / HI-FI
+    ══════════════════════════ */
+    .hifi {
+      padding: 9rem 4vw;
+      background: var(--ck-cream);
+    }
+    .hifi__inner { max-width: 1400px; margin: 0 auto; }
+    .hifi__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem,4vw,3.5rem); font-weight: 700;
+      line-height: 1; color: var(--ck-dark); margin-bottom: 1rem;
+    }
+    .hifi__heading em { font-style: italic; color: var(--ck-orange); font-weight: 400; }
+    .hifi__sub { font-size: .95rem; color: var(--ck-grey); line-height: 1.7; max-width: 560px; margin-bottom: 5rem; }
+
+    /* featured screen — full width hero mockup */
+    .hifi__feature {
+      background: var(--ck-dark); border-radius: 4px; overflow: hidden;
+      padding: 5rem 4rem; margin-bottom: 3rem;
+      display: flex; align-items: center; justify-content: center; gap: 4rem;
+      position: relative;
+    }
+    .hifi__feature::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,107,0,.12) 0%, transparent 65%);
+    }
+    .hifi__feature-screen {
+      flex-shrink: 0; width: 200px; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,.5);
+      position: relative; z-index: 1;
+      transition: transform .4s var(--ease);
+    }
+    .hifi__feature-screen:nth-child(2) { transform: translateY(-20px); }
+    .hifi__feature-screen:nth-child(3) { transform: translateY(10px); }
+    .hifi__feature-screen:nth-child(4) { transform: translateY(-30px); }
+    .hifi__feature-screen:hover { transform: translateY(-10px) scale(1.02) !important; }
+    .hifi__feature-screen img { width: 100%; display: block; }
+
+    /* screen grid */
+    .hifi__screens-heading {
+      font-family: var(--font-mono); font-size: .67rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--ck-orange); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .hifi__screens-heading::before { content: '//'; opacity: .4; }
+
+    .screens-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;
+    }
+    .screen-card {
+      background: white; border: 1px solid rgba(255,107,0,.1); overflow: hidden;
+      transition: transform .4s var(--ease), box-shadow .4s;
+    }
+    .screen-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(255,107,0,.14); }
+    .screen-card img { width: 100%; display: block; }
+    .screen-card__label {
+      padding: .75rem 1rem;
+      font-family: var(--font-mono); font-size: .6rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ck-grey);
+      border-top: 1px solid rgba(255,107,0,.08);
+    }
+
+    /* ══════════════════════════
+       RESULTS
+    ══════════════════════════ */
+    .results {
+      padding: 9rem 4vw;
+      background: var(--ck-orange);
+    }
+    .results__inner { max-width: 1400px; margin: 0 auto; }
+    .results__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem,5vw,5rem); font-weight: 900;
+      line-height: .95; color: white; margin-bottom: 5rem;
+      letter-spacing: -.02em;
+    }
+    .results__heading em { font-style: italic; font-weight: 400; color: var(--ck-dark); }
+    .results__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .result-card {
+      background: rgba(0,0,0,.15); padding: 3rem 2.5rem;
+      border-top: 2px solid rgba(255,255,255,.2);
+      transition: background .3s;
+    }
+    .result-card:hover { background: rgba(0,0,0,.25); }
+    .result-card__num {
+      font-family: var(--font-display); font-size: 3.5rem; font-weight: 900;
+      color: white; line-height: 1; margin-bottom: .6rem;
+    }
+    .result-card__label { font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 1rem; }
+    .result-card__desc { font-size: .88rem; line-height: 1.75; color: rgba(255,255,255,.75); }
+
+    /* quote */
+    .results__quote {
+      margin-top: 6rem; padding: 3rem 4rem;
+      background: rgba(0,0,0,.15); border-left: 3px solid white;
+      position: relative;
+    }
+    .results__quote-text {
+      font-family: var(--font-display); font-size: clamp(1.2rem,2vw,1.8rem);
+      font-style: italic; font-weight: 400; color: white; line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    .results__quote-attr { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+
+    /* ══════════════════════════
+       FOOTER — matches portfolio style but orange-tinted
+    ══════════════════════════ */
+    .footer {
+      background: var(--ck-dark);
+      border-top: 1px solid rgba(255,107,0,.15);
+      padding: 7rem 4vw 3rem;
+    }
+    .footer__inner { max-width: 1400px; margin: 0 auto; }
+    .footer__top { margin-bottom: 5rem; }
+    .footer__label {
+      font-family: var(--font-mono); font-size: .7rem; letter-spacing: .18em;
+      text-transform: uppercase; color: rgba(255,107,0,.7);
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: .8rem;
+    }
+    .footer__label::before { content: '—'; }
+    .footer__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem,6vw,6rem); font-weight: 900;
+      line-height: .9; color: var(--white); letter-spacing: -.02em; margin-bottom: 3rem;
+    }
+    .footer__heading em { font-style: italic; color: var(--ck-orange); font-weight: 400; }
+    .footer__ctas { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--ck-orange); color: var(--white);
+      font-family: var(--font-ui); font-size: .78rem;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: 1rem 2.2rem; border: none; cursor: none;
+      transition: background .25s, transform .3s var(--ease), box-shadow .3s;
+    }
+    .btn-primary:hover { background: var(--ck-orange-soft); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,107,0,.3); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      border: 1px solid rgba(255,107,0,.4); color: var(--mist);
+      font-family: var(--font-ui); font-size: .78rem;
+      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      padding: 1rem 2.2rem; background: transparent; cursor: none;
+      transition: border-color .25s, color .25s, transform .3s var(--ease), background .25s;
+    }
+    .btn-outline:hover { border-color: var(--ck-orange); color: var(--white); background: rgba(255,107,0,.08); transform: translateY(-3px); }
+
+    .footer__logo-img {
+      height: 36px; width: auto;
+      mix-blend-mode: screen;
+      filter: brightness(1.4) saturate(0.6);
+      opacity: .9;
+    }
+    .footer__mid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3rem; padding: 4rem 0;
+      border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06);
+      margin-bottom: 3rem;
+    }
+    .footer__col-title {
+      font-size: .65rem; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: rgba(255,255,255,.25); margin-bottom: 1.5rem;
+    }
+    .footer__col a, .footer__col p {
+      display: block; font-size: .9rem; color: rgba(255,255,255,.45);
+      line-height: 1; margin-bottom: 1rem; transition: color .2s;
+    }
+    .footer__col a:hover { color: var(--ck-orange); }
+    .footer__email { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; color: rgba(255,255,255,.75) !important; }
+    .footer__email:hover { color: var(--ck-orange) !important; }
+    .footer__bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer__copy { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em; color: rgba(255,255,255,.2); }
+    .footer__socials { display: flex; gap: 2rem; }
+    .footer__socials a {
+      font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.35); transition: color .2s;
+    }
+    .footer__socials a:hover { color: var(--ck-orange); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .hero__content { grid-template-columns: 1fr; }
+      .hero__mockups { display: none; }
+      .overview__grid { grid-template-columns: 1fr; gap: 4rem; }
+      .role__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .process__steps { grid-template-columns: repeat(2,1fr); }
+      .design-system__grid { grid-template-columns: 1fr; }
+      .hifi__feature { flex-wrap: wrap; gap: 2rem; padding: 3rem 2rem; }
+      .hifi__feature-screen { width: 150px; }
+      .results__grid { grid-template-columns: 1fr; gap: 2px; }
+      .screens-grid { grid-template-columns: repeat(3,1fr); }
+      .wireframes-grid { grid-template-columns: repeat(3,1fr); }
+      .footer__mid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav__links { display: none; }
+      .process__steps { grid-template-columns: 1fr; }
+      .screens-grid { grid-template-columns: repeat(2,1fr); }
+      .wireframes-grid { grid-template-columns: repeat(2,1fr); }
+      .hifi__feature-screen { width: 120px; }
+      .results__quote { padding: 2rem; }
+      .footer__mid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor">
+    <div class="cursor__dot"  id="cursorDot"></div>
+    <div class="cursor__ring" id="cursorRing"></div>
+  </div>
+
+  <!-- ══ NAV ══ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo-wrap">
+        <img src="../assets/Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#about">Studio</a>
+        <a href="../index.html#works">Works</a>
+        <a href="../index.html#process">Process</a>
+        <a href="../index.html#contact" class="nav__back">← Back to Portfolio</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero__bg-glow"></div>
+    <div class="hero__bg-glow2"></div>
+    <div class="hero__grain"></div>
+    <div class="hero__content">
+      <div>
+        <div class="hero__ck-logo">
+          <img src="../assets/chuks-kitchen/Chuks_Logo_White.png" alt="Chuks Kitchen" class="hero__ck-logo-img" />
+        </div>
+                <div class="hero__eyebrow">
+          <div class="hero__eyebrow-dot"></div>
+          <span class="hero__eyebrow-text">UI/UX Design &nbsp;·&nbsp; Mobile App &nbsp;·&nbsp; 2026</span>
+        </div>
+        <h1 class="hero__headline">
+          Chuks<br><span class="accent">Kitchen</span>
+        </h1>
+        <p class="hero__sub">
+          A full end-to-end mobile app experience for an authentic Nigerian restaurant — from onboarding through to order confirmation, designed to feel as warm and inviting as the food itself.
+        </p>
+        <div class="hero__meta">
+          <div class="hero__meta-item">
+            <div class="hero__meta-label">Role</div>
+            <div class="hero__meta-value">Solo UI/UX Designer</div>
+          </div>
+          <div class="hero__meta-item">
+            <div class="hero__meta-label">Timeline</div>
+            <div class="hero__meta-value">3–4 Weeks</div>
+          </div>
+          <div class="hero__meta-item">
+            <div class="hero__meta-label">Platform</div>
+            <div class="hero__meta-value">iOS &amp; Android</div>
+          </div>
+          <div class="hero__meta-item">
+            <div class="hero__meta-label">Tool</div>
+            <div class="hero__meta-value">Figma</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__mockups">
+        <div class="hero__mockup hero__mockup--back">
+          <img src="../assets/chuks-kitchen/Menu.png" alt="Menu screen" />
+        </div>
+        <div class="hero__mockup hero__mockup--main">
+          <img src="../assets/chuks-kitchen/Home.png" alt="Home screen" />
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <div class="hero__scroll-bar"></div>
+      <span class="hero__scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══ OVERVIEW ══ -->
+  <section class="overview">
+    <div class="overview__inner">
+      <div class="overview__grid">
+        <div class="reveal">
+          <p class="section-label">Project Overview</p>
+          <h2 class="overview__heading">Bringing authentic Nigerian food <em>online</em></h2>
+          <p class="overview__body">
+            Chuks Kitchen is a local Nigerian restaurant based in Lagos, serving hearty, homestyle meals — Jollof Rice, Egusi Soup, Suya, Pounded Yam and everything in between. The kind of place where regulars don't even need a menu.
+          </p>
+          <p class="overview__body">
+            The challenge was bringing that same warmth and familiarity into a digital product. The client needed a mobile ordering app that would let customers browse the menu, customise their meals, and place orders for delivery or pickup — all without losing the personality that made Chuks Kitchen a neighbourhood favourite.
+          </p>
+          <p class="overview__body">
+            Starting from a blank canvas, I was responsible for every design decision — from user research and information architecture through to the final high-fidelity prototype.
+          </p>
+          <div class="overview__tags">
+            <span class="overview__tag">User Research</span>
+            <span class="overview__tag">Information Architecture</span>
+            <span class="overview__tag">Wireframing</span>
+            <span class="overview__tag">UI Design</span>
+            <span class="overview__tag">Prototyping</span>
+            <span class="overview__tag">Design System</span>
+            <span class="overview__tag">Figma</span>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="overview__stats">
+            <div class="overview__stat">
+              <span class="overview__stat-label">Project Type</span>
+              <span class="overview__stat-value">Client Work</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Screens Designed</span>
+              <span class="overview__stat-value">10+</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Timeline</span>
+              <span class="overview__stat-value">3–4 Wks</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Year</span>
+              <span class="overview__stat-value">2026</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Deliverable</span>
+              <span class="overview__stat-value">Hi-Fi Prototype</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ROLE & PROCESS ══ -->
+  <section class="role">
+    <div class="role__inner">
+      <div class="role__grid">
+        <div class="reveal">
+          <p class="section-label">My Role</p>
+          <h2 class="role__heading">One designer.<br><em>Every decision.</em></h2>
+          <p class="role__body">
+            As the sole designer on this project, I owned the entire design process from discovery to delivery. There was no handoff, no back-and-forth between teams — just a clear brief, a tight timeline, and the creative freedom to solve the problem end-to-end.
+          </p>
+          <p class="role__body">
+            This meant wearing multiple hats — UX researcher, information architect, interaction designer, and visual designer — often within the same working session.
+          </p>
+        </div>
+        <div class="reveal reveal-d1">
+          <p class="section-label">Responsibilities</p>
+          <ul class="role__list">
+            <li>Conducted user interviews and competitor analysis to understand ordering behaviour</li>
+            <li>Defined user flows and information architecture for the full app experience</li>
+            <li>Created lo-fi wireframes for all key screens to validate structure before visual design</li>
+            <li>Built a complete design system — colour palette, typography, component library</li>
+            <li>Designed 10+ high-fidelity screens covering the full user journey</li>
+            <li>Delivered a fully interactive Figma prototype for client presentation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROCESS ══ -->
+  <section class="process">
+    <div class="process__inner">
+      <div class="reveal">
+        <p class="section-label">Design Process</p>
+        <h2 class="process__heading">How the <em>work</em> happened</h2>
+      </div>
+
+      <div class="process__steps">
+        <div class="process__step reveal">
+          <div class="process__step-num">01</div>
+          <h3 class="process__step-title">Discover</h3>
+          <p class="process__step-desc">Spoke with regular Chuks Kitchen customers and studied competitor apps (Chowdeck, Jumia Food) to identify friction points in the Nigerian food ordering experience.</p>
+        </div>
+        <div class="process__step reveal reveal-d1">
+          <div class="process__step-num">02</div>
+          <h3 class="process__step-title">Define</h3>
+          <p class="process__step-desc">Mapped out user flows covering onboarding, browsing, meal customisation, checkout, and order confirmation. Prioritised guest checkout as a key conversion path.</p>
+        </div>
+        <div class="process__step reveal reveal-d2">
+          <div class="process__step-num">03</div>
+          <h3 class="process__step-title">Wireframe</h3>
+          <p class="process__step-desc">Built lo-fi wireframes for all 9 core screens. Tested layout hierarchy and navigation patterns before committing to any visual direction.</p>
+        </div>
+        <div class="process__step reveal reveal-d3">
+          <div class="process__step-num">04</div>
+          <h3 class="process__step-title">Design &amp; Deliver</h3>
+          <p class="process__step-desc">Developed the full design system — warm orange primary palette, bold typography, playful iconography — then built out all hi-fi screens and the interactive prototype.</p>
+        </div>
+      </div>
+
+      <!-- Lo-fi wireframes -->
+      <div class="process__wireframes reveal">
+        <p class="process__wireframes-label">Lo-Fi Wireframes</p>
+        <div class="wireframes-grid">
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Onboarding.png" alt="Onboarding wireframe" />
+            <div class="wireframe-card__label">Onboarding</div>
+          </div>
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Login.png" alt="Login wireframe" />
+            <div class="wireframe-card__label">Login</div>
+          </div>
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Sign_up.png" alt="Sign up wireframe" />
+            <div class="wireframe-card__label">Sign Up</div>
+          </div>
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Home.png" alt="Home wireframe" />
+            <div class="wireframe-card__label">Home</div>
+          </div>
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Menu.png" alt="Menu wireframe" />
+            <div class="wireframe-card__label">Menu</div>
+          </div>
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Cart.png" alt="Cart wireframe" />
+            <div class="wireframe-card__label">Cart</div>
+          </div>
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Checkout.png" alt="Checkout wireframe" />
+            <div class="wireframe-card__label">Checkout</div>
+          </div>
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Authentication.png" alt="Authentication wireframe" />
+            <div class="wireframe-card__label">Authentication</div>
+          </div>
+          <div class="wireframe-card">
+            <img src="../assets/chuks-kitchen/Lofi_Confirmation.png" alt="Confirmation wireframe" />
+            <div class="wireframe-card__label">Confirmation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ DESIGN SYSTEM ══ -->
+  <section class="design-system">
+    <div class="design-system__inner">
+      <div class="reveal">
+        <p class="section-label">Design System</p>
+        <h2 class="design-system__heading">Colour, type &amp; <em>feel</em></h2>
+      </div>
+
+      <div class="design-system__grid">
+        <div class="ds-card reveal">
+          <p class="ds-card__title">Colour Palette</p>
+          <div class="colour-swatches">
+            <div class="swatch">
+              <div class="swatch__block" style="background:#FF6B00"></div>
+              <span class="swatch__name">Primary</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="background:#FF4B91"></div>
+              <span class="swatch__name">Secondary</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="background:#0056D2"></div>
+              <span class="swatch__name">Accent</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="background:#000000; border:1px solid rgba(255,255,255,.1)"></div>
+              <span class="swatch__name">Black</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="background:#808080"></div>
+              <span class="swatch__name">Neutral</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="background:#FFFFFF; border:1px solid rgba(255,255,255,.15)"></div>
+              <span class="swatch__name">White</span>
+            </div>
+          </div>
+          <div style="margin-top:2rem">
+            <p style="font-size:.82rem;line-height:1.8;color:rgba(237,246,249,.5)">
+              The primary orange — <span style="color:var(--ck-orange);font-weight:700">#FF6B00</span> — was chosen to evoke warmth, appetite and energy. It's the colour of fire, of spice, of freshly cooked food. The hot pink secondary adds youthfulness and personality, while the blue accent grounds the system with trust and clarity.
+            </p>
+          </div>
+        </div>
+
+        <div class="ds-card reveal reveal-d1">
+          <p class="ds-card__title">Full Colour Style Guide</p>
+          <div class="ds-colour-img">
+            <img src="../assets/chuks-kitchen/Colour_Style.png" alt="Chuks Kitchen colour style guide" />
+          </div>
+        </div>
+
+        <div class="ds-card reveal" style="grid-column: 1 / -1;">
+          <p class="ds-card__title">Typography</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem">
+            <div class="type-sample">
+              <div class="type-sample__label">Display / Headings</div>
+              <div class="type-sample__text" style="font-size:2rem;font-weight:700;color:var(--ck-orange)">Jollof Rice</div>
+              <div style="font-size:.72rem;color:rgba(237,246,249,.3);margin-top:.4rem;font-family:var(--font-mono)">Bold · Used for titles</div>
+            </div>
+            <div class="type-sample">
+              <div class="type-sample__label">Body / UI</div>
+              <div class="type-sample__text" style="font-size:1rem;line-height:1.7;color:rgba(237,246,249,.7)">Rice and stew with Chicken, ready to be served fresh daily.</div>
+              <div style="font-size:.72rem;color:rgba(237,246,249,.3);margin-top:.4rem;font-family:var(--font-mono)">Regular · Used for descriptions</div>
+            </div>
+            <div class="type-sample">
+              <div class="type-sample__label">Labels / Captions</div>
+              <div class="type-sample__text" style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,246,249,.45)">₦ 5,000.00 · Add to cart</div>
+              <div style="font-size:.72rem;color:rgba(237,246,249,.3);margin-top:.4rem;font-family:var(--font-mono)">Caps · Used for prices &amp; CTAs</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-card reveal" style="grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+          <div>
+            <p class="ds-card__title">Brand Logo</p>
+            <p style="font-size:.85rem;line-height:1.8;color:rgba(237,246,249,.5);margin-bottom:1.5rem">
+              The Chuks Kitchen logo combines a dynamic speed motif with a plate and fork, 
+              reinforcing the brand promise of fast, fresh, flavourful meals. 
+              The orange wordmark anchors the identity with warmth and confidence.
+            </p>
+            <p style="font-size:.75rem;font-family:var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(237,246,249,.25)">Available in Black &amp; White variants</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1.5rem;">
+            <div style="background:#1a1a1a;padding:2rem 3rem;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,107,0,.15)">
+              <img src="../assets/chuks-kitchen/Chuks_Logo_White.png" alt="Chuks Kitchen white logo" style="height:60px;width:auto;max-width:100%" />
+            </div>
+            <div style="background:#FFF8F2;padding:2rem 3rem;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,107,0,.15)">
+              <img src="../assets/chuks-kitchen/Chuks_Logo_Black.png" alt="Chuks Kitchen black logo" style="height:60px;width:auto;max-width:100%" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FINAL DESIGNS ══ -->
+  <section class="hifi">
+    <div class="hifi__inner">
+      <div class="reveal">
+        <p class="section-label">Final Designs</p>
+        <h2 class="hifi__heading">High-fidelity <em>screens</em></h2>
+        <p class="hifi__sub">Every screen was designed to feel effortless — clear hierarchy, intuitive navigation, and a visual language that makes ordering feel like the best part of being hungry.</p>
+      </div>
+
+      <!-- Featured cluster -->
+      <div class="hifi__feature reveal">
+        <div class="hifi__feature-screen">
+          <img src="../assets/chuks-kitchen/Onboarding.png" alt="Onboarding" />
+        </div>
+        <div class="hifi__feature-screen">
+          <img src="../assets/chuks-kitchen/Home.png" alt="Home" />
+        </div>
+        <div class="hifi__feature-screen">
+          <img src="../assets/chuks-kitchen/Menu.png" alt="Menu" />
+        </div>
+        <div class="hifi__feature-screen">
+          <img src="../assets/chuks-kitchen/Product.png" alt="Product" />
+        </div>
+      </div>
+
+      <!-- All screens grid -->
+      <p class="hifi__screens-heading reveal">All Screens</p>
+      <div class="screens-grid">
+        <div class="screen-card reveal">
+          <img src="../assets/chuks-kitchen/Onboarding.png" alt="Onboarding" />
+          <div class="screen-card__label">Onboarding</div>
+        </div>
+        <div class="screen-card reveal reveal-d1">
+          <img src="../assets/chuks-kitchen/Login.png" alt="Login" />
+          <div class="screen-card__label">Login</div>
+        </div>
+        <div class="screen-card reveal reveal-d2">
+          <img src="../assets/chuks-kitchen/Sign_up.png" alt="Sign Up" />
+          <div class="screen-card__label">Sign Up</div>
+        </div>
+        <div class="screen-card reveal">
+          <img src="../assets/chuks-kitchen/Authentication.png" alt="Email Verification" />
+          <div class="screen-card__label">Email Verification</div>
+        </div>
+        <div class="screen-card reveal reveal-d1">
+          <img src="../assets/chuks-kitchen/Home.png" alt="Home" />
+          <div class="screen-card__label">Home</div>
+        </div>
+        <div class="screen-card reveal reveal-d2">
+          <img src="../assets/chuks-kitchen/Menu.png" alt="Menu" />
+          <div class="screen-card__label">Menu</div>
+        </div>
+        <div class="screen-card reveal">
+          <img src="../assets/chuks-kitchen/Product.png" alt="Product Detail" />
+          <div class="screen-card__label">Product Detail</div>
+        </div>
+        <div class="screen-card reveal reveal-d1">
+          <img src="../assets/chuks-kitchen/Cart.png" alt="Cart" />
+          <div class="screen-card__label">Cart</div>
+        </div>
+        <div class="screen-card reveal reveal-d2">
+          <img src="../assets/chuks-kitchen/Checkout.png" alt="Checkout" />
+          <div class="screen-card__label">Checkout</div>
+        </div>
+        <div class="screen-card reveal">
+          <img src="../assets/chuks-kitchen/Confirmation.png" alt="Confirmation" />
+          <div class="screen-card__label">Order Confirmation</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ RESULTS ══ -->
+  <section class="results">
+    <div class="results__inner">
+      <div class="reveal">
+        <h2 class="results__heading">The <em>outcome</em></h2>
+      </div>
+      <div class="results__grid">
+        <div class="result-card reveal">
+          <div class="result-card__num">10+</div>
+          <div class="result-card__label">Screens Delivered</div>
+          <div class="result-card__desc">A complete, production-ready UI covering the full ordering journey — from first launch to confirmed delivery.</div>
+        </div>
+        <div class="result-card reveal reveal-d1">
+          <div class="result-card__num">3–4</div>
+          <div class="result-card__label">Weeks Start to Finish</div>
+          <div class="result-card__desc">From blank canvas to interactive prototype — including research, wireframes, design system, and hi-fi screens.</div>
+        </div>
+        <div class="result-card reveal reveal-d2">
+          <div class="result-card__num">100%</div>
+          <div class="result-card__label">Client Satisfaction</div>
+          <div class="result-card__desc">The client was thrilled with how the final designs captured the personality and warmth of the restaurant brand.</div>
+        </div>
+      </div>
+      <div class="results__quote reveal">
+        <p class="results__quote-text">"The app feels exactly like walking into the restaurant — warm, familiar, and impossible to leave without ordering something."</p>
+        <p class="results__quote-attr">— Client Feedback, Chuks Kitchen</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top reveal">
+        <p class="footer__label">Next Project</p>
+        <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
+        <div class="footer__ctas">
+          <a href="../index.html#contact" class="btn-primary">Start a Project →</a>
+          <a href="../index.html#works" class="btn-outline">Back to Works</a>
+        </div>
+      </div>
+      <div class="footer__mid">
+        <div class="footer__col">
+          <img src="../assets/Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Studio</p>
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#works">Works</a>
+          <a href="../index.html#process">Process</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Connect</p>
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Contact</p>
+          <a href="/cdn-cgi/l/email-protection#65170d1c130c010100160c020b250208040c094b060a08" class="footer__email"><span class="__cf_email__" data-cfemail="36445e4f405f525253455f515876515b575f5a1855595b">[email&#160;protected]</span></a>
+          <p>Lagos, Nigeria</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Rhyvid Developments. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    (function () {
+      var dot  = document.getElementById('cursorDot');
+      var ring = document.getElementById('cursorRing');
+      var mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      });
+      function tick() {
+        rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(tick);
+      }
+      tick();
+
+      var nav = document.getElementById('nav');
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('nav--scrolled', window.scrollY > 50);
+      }, { passive: true });
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+      }
+    })();
+  </script>
+</body>
+</html>
