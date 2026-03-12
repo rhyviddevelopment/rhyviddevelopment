@@ -4,245 +4,744 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rhyvid Developments</title>
+  <!--
+    Icon.png and Logo.png are in the same folder as this index.html.
+    Relative paths (./Icon.png, ./Logo.png) work locally, on GitHub Pages,
+    and on any static host — no absolute URLs needed.
+  -->
+  <link rel="icon" type="image/png" href="./Icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --teal: #1D5C76; --teal-deep: #162F3A; --teal-light: #2A7A9B;
-      --off-white: #F5F5F0; --warm-grey: #EBEBE6; --ink: #111111; --ink-muted: #555550;
-      --border: rgba(29,92,118,0.15); --font-serif: 'Cormorant Garamond',Georgia,serif;
-      --font-sans: 'DM Sans',system-ui,sans-serif; --ease-out: cubic-bezier(0.16,1,0.3,1);
+      /* ── Brand palette — extracted from Logo.png / Icon.png ── */
+      --teal:        #1D6F8A;
+      --teal-deep:   #0E3D4F;
+      --teal-mid:    #154E62;
+      --teal-light:  #2A8FAD;
+      --teal-glow:   rgba(29,111,138,0.18);
+      --teal-border: rgba(29,111,138,0.22);
+      --teal-border-hi: rgba(42,143,173,0.45);
+
+      /* ── Surfaces ── */
+      --black:   #060D10;
+      --black-2: #0B1519;
+      --black-3: #101D22;
+
+      /* ── Text ── */
+      --white:    #EDF6F9;
+      --mist:     #A3C2CC;
+      --mist-dim: #607E88;
+
+      /* ── Gold accent (complements teal) ── */
+      --accent:       #C9A84C;
+      --accent-light: #E2C97E;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-ui:      'Syne', system-ui, sans-serif;
+      --font-mono:    'IBM Plex Mono', monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-sans); background: var(--off-white); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body {
+      font-family: var(--font-ui);
+      background: var(--black);
+      color: var(--mist);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      cursor: none;
+    }
     img { display: block; width: 100%; height: 100%; object-fit: cover; }
-    a { text-decoration: none; color: inherit; }
+    a { text-decoration: none; color: inherit; cursor: none; }
 
-    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 2rem; font-family: var(--font-sans); font-size: .8rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; border-radius: 2px; transition: all .3s var(--ease-out); cursor: pointer; }
-    .btn--primary { background: var(--teal); color: #fff; border: 1.5px solid var(--teal); }
-    .btn--primary:hover { background: var(--teal-deep); border-color: var(--teal-deep); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(29,92,118,.28); }
-    .btn--ghost { background: transparent; color: var(--teal); border: 1.5px solid var(--teal); }
-    .btn--ghost:hover { background: var(--teal); color: #fff; transform: translateY(-2px); }
+    /* ════════════════════════
+       CURSOR
+    ════════════════════════ */
+    .cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
+    .cursor__dot {
+      position: absolute; width: 6px; height: 6px;
+      background: var(--teal-light); border-radius: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .cursor__ring {
+      position: absolute; width: 32px; height: 32px;
+      border: 1.5px solid rgba(42,143,173,0.5); border-radius: 50%;
+      transform: translate(-50%,-50%);
+      transition: width .3s var(--ease), height .3s var(--ease), border-color .3s;
+    }
+    body:has(a:hover) .cursor__ring,
+    body:has(.project:hover) .cursor__ring { width: 54px; height: 54px; border-color: rgba(42,143,173,0.9); }
 
-    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5vw; height: 72px; display: flex; align-items: center; transition: background .4s var(--ease-out), box-shadow .4s var(--ease-out); }
-    .nav--scrolled { background: rgba(245,245,240,.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--border); }
-    .nav__inner { width: 100%; max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-    .nav__logo { display: flex; align-items: center; gap: .65rem; }
-    .nav__icon { width: 34px; height: 34px; object-fit: contain; }
-    .nav__wordmark { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; letter-spacing: .04em; color: var(--teal-deep); }
-    .nav__links { display: flex; gap: 2.5rem; }
-    .nav__links a { font-size: .78rem; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-muted); position: relative; transition: color .2s; }
-    .nav__links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--teal); transition: width .3s var(--ease-out); }
-    .nav__links a:hover { color: var(--teal); }
-    .nav__links a:hover::after { width: 100%; }
+    /* ════════════════════════
+       NAV
+    ════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 4vw; height: 80px; display: flex; align-items: center;
+      transition: background .5s var(--ease), border-color .5s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav--scrolled {
+      background: rgba(6,13,16,0.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-color: var(--teal-border);
+    }
+    .nav__inner {
+      width: 100%; max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    /* ── Logo.png in nav ── */
+    .nav__logo-img {
+      height: 30px; width: auto; object-fit: contain;
+      filter: brightness(1.1) saturate(1.1);
+      transition: opacity .2s;
+    }
+    .nav__logo-img:hover { opacity: 0.8; }
 
-    .hero { min-height: 100svh; padding: 120px 5vw 80px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
-    .hero__bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(29,92,118,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(29,92,118,.05) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%); pointer-events: none; }
-    .hero::before { content: ''; position: absolute; top: -120px; right: -80px; width: 520px; height: 520px; background: radial-gradient(circle, rgba(29,92,118,.10) 0%, transparent 70%); pointer-events: none; }
-    .hero__content { max-width: 1280px; margin: 0 auto; width: 100%; animation: heroReveal 1.1s var(--ease-out) both; }
-    @keyframes heroReveal { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-    .hero__label { font-size: .72rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem; display: flex; align-items: center; gap: .75rem; }
-    .hero__label::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--teal); }
-    .hero__headline { font-family: var(--font-serif); font-size: clamp(3.2rem,7.5vw,7.5rem); font-weight: 300; line-height: 1.06; letter-spacing: -.01em; color: var(--ink); margin-bottom: 2rem; }
-    .hero__headline em { font-style: italic; color: var(--teal); }
-    .hero__sub { font-size: clamp(.95rem,1.4vw,1.1rem); font-weight: 300; color: var(--ink-muted); line-height: 1.7; max-width: 540px; margin-bottom: 2.8rem; }
-    .hero__cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .hero__scroll-hint { position: absolute; bottom: 2.5rem; left: 5vw; display: flex; align-items: center; gap: 1rem; opacity: .4; animation: heroReveal 1.4s .5s var(--ease-out) both; }
-    .hero__scroll-hint span { display: block; width: 1px; height: 40px; background: var(--teal); animation: scrollLine 2s ease-in-out infinite; transform-origin: top; }
-    @keyframes scrollLine { 0%,100% { transform: scaleY(1); opacity: .6; } 50% { transform: scaleY(.4); opacity: 1; } }
-    .hero__scroll-hint p { font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); writing-mode: vertical-rl; transform: rotate(180deg); }
+    .nav__links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav__links a {
+      font-size: .72rem; font-weight: 600; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--mist-dim); transition: color .2s;
+    }
+    .nav__links a:hover { color: var(--teal-light); }
+    .nav__cta {
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--white);
+      background: var(--teal); padding: .65rem 1.6rem;
+      transition: background .2s, transform .2s var(--ease), box-shadow .2s;
+    }
+    .nav__cta:hover { background: var(--teal-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(29,111,138,.35); }
 
-    .about { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: #fff; padding: 6rem 5vw; }
-    .about__inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 120px 1fr auto; align-items: center; gap: 3rem; }
-    .about__tag { font-size: .7rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); border: 1px solid var(--teal); padding: .4rem .9rem; border-radius: 2px; white-space: nowrap; align-self: start; margin-top: .3rem; }
-    .about__body { font-family: var(--font-serif); font-size: clamp(1.15rem,2vw,1.5rem); font-weight: 300; line-height: 1.65; color: var(--ink); max-width: 680px; opacity: 0; transform: translateY(16px); transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
-    .about__body.visible { opacity: 1; transform: none; }
-    .about__disciplines { list-style: none; display: flex; flex-direction: column; gap: .6rem; opacity: 0; transform: translateY(16px); transition: opacity .8s .15s var(--ease-out), transform .8s .15s var(--ease-out); }
-    .about__disciplines.visible { opacity: 1; transform: none; }
-    .about__disciplines li { font-size: .78rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); padding-left: 1rem; border-left: 2px solid var(--teal); white-space: nowrap; }
+    /* ════════════════════════
+       HERO
+    ════════════════════════ */
+    .hero {
+      min-height: 100svh; padding: 0 4vw 8vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative; overflow: hidden;
+    }
+    .hero__orb {
+      position: absolute; top: -15%; right: -10%;
+      width: 75vmax; height: 75vmax; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(29,111,138,.14) 0%, rgba(29,111,138,.04) 40%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .hero__orb2 {
+      position: absolute; bottom: -20%; left: -10%;
+      width: 50vmax; height: 50vmax; border-radius: 50%;
+      background: radial-gradient(circle at 60% 60%, rgba(14,61,79,.22) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .hero__lines {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    }
+    .hero__lines::before, .hero__lines::after {
+      content: ''; position: absolute; width: 1px; top: 0; bottom: 0;
+      background: linear-gradient(to bottom, transparent 0%, var(--teal-border) 30%, var(--teal-border) 70%, transparent 100%);
+    }
+    .hero__lines::before { right: 33%; }
+    .hero__lines::after  { right: 12%; opacity: .5; }
+    .hero__noise {
+      position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
 
-    .works { padding: 8rem 5vw; max-width: 1280px; margin: 0 auto; }
-    .works__header { margin-bottom: 4rem; opacity: 0; transform: translateY(16px); transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
-    .works__header.visible { opacity: 1; transform: none; }
-    .works__label { font-size: .72rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--teal); margin-bottom: .6rem; }
-    .works__title { font-family: var(--font-serif); font-size: clamp(2rem,4vw,3.5rem); font-weight: 300; color: var(--ink); line-height: 1.1; }
+    .hero__content {
+      position: relative; z-index: 2;
+      max-width: 1400px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 240px;
+      align-items: flex-end; gap: 4rem;
+    }
+    .hero__eyebrow {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp .8s .2s var(--ease) forwards;
+    }
+    .hero__eyebrow-line { width: 36px; height: 1px; background: var(--teal); }
+    .hero__eyebrow-text {
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--teal-light);
+    }
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.8rem,8.5vw,9rem); font-weight: 900;
+      line-height: .92; letter-spacing: -.02em; color: var(--white);
+      opacity: 0; animation: fadeUp 1s .35s var(--ease) forwards;
+    }
+    .hero__headline .italic { font-style: italic; color: var(--teal-light); font-weight: 400; }
+    .hero__headline .stroke { -webkit-text-stroke: 1px rgba(42,143,173,.4); color: transparent; }
+    .hero__sub {
+      margin-top: 2.5rem; font-size: clamp(.9rem,1.2vw,1rem);
+      font-weight: 400; line-height: 1.8; color: var(--mist-dim); max-width: 440px;
+      opacity: 0; animation: fadeUp .8s .5s var(--ease) forwards;
+    }
+    .hero__ctas {
+      margin-top: 3rem; display: flex; gap: 1.2rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .8s .65s var(--ease) forwards;
+    }
 
-    .works__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    .project--large { grid-column: 1 / -1; }
-    .project__link-wrap { display: block; color: inherit; text-decoration: none; }
-    .project { position: relative; cursor: pointer; background: var(--warm-grey); overflow: hidden; opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); }
-    .project.visible { opacity: 1; transform: none; }
-    .project:nth-child(2).visible { transition-delay: .08s; }
-    .project:nth-child(3).visible { transition-delay: .14s; }
-    .project__media { position: relative; overflow: hidden; aspect-ratio: 16/9; }
-    .project--large .project__media { aspect-ratio: 21/9; }
-    .project__media img { transition: transform .7s var(--ease-out); }
-    .project:hover .project__media img { transform: scale(1.04); }
-    .project__overlay { position: absolute; inset: 0; background: rgba(22,47,58,.72); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .35s; }
-    .project:hover .project__overlay { opacity: 1; }
-    .project__overlay span { font-size: .82rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: #fff; border: 1px solid rgba(255,255,255,.5); padding: .7rem 1.6rem; border-radius: 2px; transform: translateY(6px); transition: transform .35s var(--ease-out); }
-    .project:hover .project__overlay span { transform: translateY(0); }
-    .project__meta { padding: 1.4rem 1.8rem; display: flex; justify-content: space-between; align-items: flex-end; background: #fff; border-top: 1px solid var(--border); }
-    .project__category { font-size: .7rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: .3rem; }
-    .project__name { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 400; color: var(--ink); }
-    .project__year { font-size: .75rem; font-weight: 400; letter-spacing: .04em; color: var(--ink-muted); }
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--teal); color: var(--white);
+      font-family: var(--font-ui); font-size: .78rem;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: 1rem 2.2rem;
+      transition: background .25s, transform .3s var(--ease), box-shadow .3s;
+    }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(29,111,138,.35); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      border: 1px solid var(--teal-border-hi); color: var(--mist);
+      font-family: var(--font-ui); font-size: .78rem;
+      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      padding: 1rem 2.2rem;
+      transition: border-color .25s, color .25s, transform .3s var(--ease), background .25s;
+    }
+    .btn-outline:hover { border-color: var(--teal-light); color: var(--white); background: rgba(29,111,138,.1); transform: translateY(-3px); }
 
-    .footer { background: var(--teal-deep); color: #fff; padding: 6rem 5vw 3rem; }
-    .footer__inner { max-width: 1280px; margin: 0 auto; }
-    .footer__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 3rem; padding-bottom: 5rem; border-bottom: 1px solid rgba(255,255,255,.1); }
-    .footer__logo-block { max-width: 220px; }
-    .footer__logo { width: 100%; height: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: .9; }
-    .footer__contact { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 1rem; }
-    .footer__contact-label { font-size: .75rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5); }
-    .footer__email { font-family: var(--font-serif); font-size: clamp(1.5rem,3.5vw,2.8rem); font-weight: 300; letter-spacing: -.01em; color: #fff; transition: color .2s; }
-    .footer__email:hover { color: #7EC8E3; }
-    .footer__btn { background: transparent; border: 1.5px solid rgba(255,255,255,.4); color: #fff; }
-    .footer__btn:hover { background: #fff; color: var(--teal-deep); border-color: #fff; }
-    .footer__bottom { margin-top: 3rem; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-    .footer__copy { font-size: .75rem; color: rgba(255,255,255,.35); letter-spacing: .04em; }
+    /* Hero stats sidebar */
+    .hero__right {
+      display: flex; flex-direction: column; padding-bottom: .5rem;
+      opacity: 0; animation: fadeIn 1s .85s var(--ease) forwards;
+    }
+    .hero__stat { text-align: right; padding: 1.4rem 0; }
+    .hero__stat + .hero__stat { border-top: 1px solid var(--teal-border); }
+    .hero__stat-num {
+      font-family: var(--font-display); font-size: 2.8rem; font-weight: 700;
+      color: var(--teal-light); line-height: 1;
+    }
+    .hero__stat-label {
+      font-size: .64rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--mist-dim); margin-top: .35rem;
+    }
+
+    /* Scroll indicator */
+    .hero__scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .7rem;
+      opacity: 0; animation: fadeIn 1s 1.1s var(--ease) forwards; z-index: 2;
+    }
+    .hero__scroll-bar {
+      width: 1px; height: 55px;
+      background: linear-gradient(to bottom, var(--teal), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:.35} 50%{opacity:1} }
+    .hero__scroll-label {
+      font-family: var(--font-mono); font-size: .6rem;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--mist-dim);
+    }
+
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+    @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+
+    /* ════════════════════════
+       MARQUEE STRIP
+    ════════════════════════ */
+    .marquee-strip {
+      border-top: 1px solid var(--teal-border); border-bottom: 1px solid var(--teal-border);
+      background: var(--black-2); overflow: hidden; padding: .9rem 0;
+    }
+    .marquee-track { display: flex; width: max-content; animation: marquee 22s linear infinite; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .marquee-item {
+      display: flex; align-items: center; gap: 1.5rem; padding: 0 2.5rem; white-space: nowrap;
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--mist-dim);
+    }
+    .marquee-dot { width: 4px; height: 4px; background: var(--teal); border-radius: 50%; flex-shrink: 0; }
+
+    /* ════════════════════════
+       ABOUT
+    ════════════════════════ */
+    .about {
+      padding: 10rem 4vw;
+      background: var(--black-2);
+      border-bottom: 1px solid var(--teal-border);
+    }
+    .about__inner {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: center;
+    }
+    .section-label {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-family: var(--font-mono); font-size: .67rem;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--teal-light);
+      margin-bottom: 2rem;
+    }
+    .section-label::before { content: '//'; opacity: .45; }
+    .about__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem,3.5vw,3.2rem); font-weight: 700;
+      line-height: 1.1; color: var(--white); margin-bottom: 1.8rem;
+    }
+    .about__heading em { font-style: italic; color: var(--teal-light); }
+    .about__body { font-size: .97rem; line-height: 1.9; color: var(--mist-dim); margin-bottom: 2.5rem; }
+
+    .disciplines { list-style: none; }
+    .disciplines li {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.3rem 0; border-bottom: 1px solid var(--teal-border);
+      font-size: .95rem; font-weight: 600; color: var(--mist-dim);
+      transition: color .3s, padding-left .3s var(--ease);
+    }
+    .disciplines li:first-child { border-top: 1px solid var(--teal-border); }
+    .disciplines li:hover { color: var(--white); padding-left: .7rem; }
+    .disciplines li::after {
+      content: '→'; font-size: .85rem; color: var(--teal-light);
+      opacity: 0; transition: opacity .3s, transform .3s var(--ease); transform: translateX(-8px);
+    }
+    .disciplines li:hover::after { opacity: 1; transform: translateX(0); }
+
+    /* ════════════════════════
+       WORKS
+    ════════════════════════ */
+    .works { padding: 10rem 4vw; background: var(--black); }
+    .works__inner { max-width: 1400px; margin: 0 auto; }
+    .works__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem; }
+    .works__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem,5vw,4.5rem); font-weight: 900;
+      line-height: .95; color: var(--white);
+    }
+    .works__title span { display: block; font-style: italic; font-weight: 400; color: var(--teal-light); }
+    .works__count { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .1em; color: var(--mist-dim); padding-bottom: .4rem; }
+
+    .projects { display: flex; flex-direction: column; gap: 2px; }
+    .project {
+      position: relative; overflow: hidden; background: var(--black-3); cursor: none;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+    .project.visible { opacity: 1; transform: translateY(0); }
+    .project:nth-child(2).visible { transition-delay: .1s; }
+
+    .project__link { display: grid; grid-template-columns: 1fr 1.15fr; min-height: 400px; }
+    .project--flipped .project__link { grid-template-columns: 1.15fr 1fr; }
+    .project--flipped .project__media { order: 2; }
+    .project--flipped .project__info  { order: 1; border-left: none; border-right: 1px solid var(--teal-border); }
+    .project:hover.project--flipped .project__info { border-right-color: var(--teal-border-hi); }
+
+    .project__media { position: relative; overflow: hidden; }
+    .project__media img { transition: transform .8s var(--ease), filter .5s; filter: brightness(.78) saturate(.85); }
+    .project:hover .project__media img { transform: scale(1.05); filter: brightness(.95) saturate(1.1); }
+    .project__media-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(6,13,16,.55) 0%, transparent 55%);
+    }
+    .project__media::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(29,111,138,.2) 0%, transparent 60%);
+      opacity: 0; transition: opacity .4s;
+    }
+    .project:hover .project__media::after { opacity: 1; }
+    .project__num {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; color: rgba(42,143,173,.7);
+    }
+    .project__info {
+      padding: 4rem; display: flex; flex-direction: column; justify-content: space-between;
+      border-left: 1px solid var(--teal-border); transition: border-color .4s;
+    }
+    .project:hover .project__info { border-left-color: var(--teal-border-hi); }
+    .project__category {
+      font-family: var(--font-mono); font-size: .67rem;
+      letter-spacing: .15em; text-transform: uppercase; color: var(--teal-light);
+      margin-bottom: 1.4rem; display: flex; align-items: center; gap: .7rem;
+    }
+    .project__category::before { content: ''; width: 18px; height: 1px; background: var(--teal); }
+    .project__name {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem,2.8vw,2.8rem); font-weight: 700;
+      line-height: 1.1; color: var(--white); margin-bottom: 1.4rem; transition: color .3s;
+    }
+    .project:hover .project__name { color: var(--teal-light); }
+    .project__desc { font-size: .88rem; line-height: 1.8; color: var(--mist-dim); max-width: 330px; }
+    .project__bottom { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 2.5rem; }
+    .project__year {
+      font-family: var(--font-display); font-size: 2.5rem; font-weight: 900;
+      color: var(--teal-border); line-height: 1; letter-spacing: -.03em; transition: color .4s;
+    }
+    .project:hover .project__year { color: rgba(29,111,138,.22); }
+    .project__cta {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .73rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--teal-light);
+      border-bottom: 1px solid transparent; padding-bottom: 2px;
+      transition: border-color .3s, transform .3s var(--ease);
+    }
+    .project:hover .project__cta { border-color: var(--teal); transform: translateX(4px); }
+
+    /* ════════════════════════
+       PROCESS
+    ════════════════════════ */
+    .process {
+      padding: 10rem 4vw;
+      background: var(--black-2);
+      border-top: 1px solid var(--teal-border);
+    }
+    .process__inner { max-width: 1400px; margin: 0 auto; }
+    .process__header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 5rem; }
+    .process__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem,4vw,3.5rem); font-weight: 700; line-height: 1.1; color: var(--white);
+    }
+    .process__intro { font-size: .95rem; line-height: 1.85; color: var(--mist-dim); }
+
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+    .step {
+      padding: 2.5rem 2rem; background: var(--black-3);
+      border-top: 2px solid transparent;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease), border-color .3s, background .3s;
+    }
+    .step.visible { opacity: 1; transform: translateY(0); }
+    .step:nth-child(2).visible { transition-delay: .1s; }
+    .step:nth-child(3).visible { transition-delay: .2s; }
+    .step:nth-child(4).visible { transition-delay: .3s; }
+    .step:hover { border-top-color: var(--teal); background: rgba(29,111,138,.05); }
+    .step__num {
+      font-family: var(--font-display); font-size: 3.2rem; font-weight: 900;
+      color: var(--teal-border); line-height: 1; margin-bottom: 1.5rem; transition: color .3s;
+    }
+    .step:hover .step__num { color: rgba(29,111,138,.32); }
+    .step__title { font-size: .88rem; font-weight: 700; letter-spacing: .05em; color: var(--white); margin-bottom: .7rem; }
+    .step__desc  { font-size: .83rem; line-height: 1.75; color: var(--mist-dim); }
+
+    /* ════════════════════════
+       FOOTER
+    ════════════════════════ */
+    .footer {
+      background: var(--teal-deep);
+      border-top: 1px solid rgba(42,143,173,.2);
+      padding: 8rem 4vw 3rem;
+    }
+    .footer__inner { max-width: 1400px; margin: 0 auto; }
+    .footer__top { margin-bottom: 6rem; }
+    .footer__label {
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .18em; text-transform: uppercase; color: rgba(42,143,173,.8);
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: .8rem;
+    }
+    .footer__label::before { content: '—'; }
+    .footer__heading {
+      font-family: var(--font-display);
+      font-size: clamp(3rem,7vw,7rem); font-weight: 900;
+      line-height: .9; color: var(--white); letter-spacing: -.02em;
+      margin-bottom: 3rem;
+    }
+    .footer__heading em { font-style: italic; color: rgba(42,143,173,.9); font-weight: 400; }
+    .footer__ctas { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+
+    /* ── Logo.png in footer — inverted to white ── */
+    .footer__logo-img {
+      height: 36px; width: auto; object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: .85;
+    }
+
+    .footer__mid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 3rem; padding: 4rem 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      margin-bottom: 3rem;
+    }
+    .footer__col-title {
+      font-size: .65rem; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 1.5rem;
+    }
+    .footer__col a, .footer__col p {
+      display: block; font-size: .9rem; color: rgba(255,255,255,.5);
+      line-height: 1; margin-bottom: 1rem; transition: color .2s;
+    }
+    .footer__col a:hover { color: #fff; }
+    .footer__email {
+      font-family: var(--font-display); font-size: 1.1rem;
+      font-weight: 400; color: rgba(255,255,255,.8) !important;
+    }
+    .footer__email:hover { color: #fff !important; }
+    .footer__bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer__copy { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em; color: rgba(255,255,255,.25); }
     .footer__socials { display: flex; gap: 2rem; }
-    .footer__socials a { font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); transition: color .2s; }
+    .footer__socials a {
+      font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.4); transition: color .2s;
+    }
     .footer__socials a:hover { color: #fff; }
 
-    @media (max-width: 900px) {
-      .about__inner { grid-template-columns: 1fr; gap: 1.5rem; }
-      .works__grid { grid-template-columns: 1fr; }
-      .project--large { grid-column: auto; }
-      .project--large .project__media { aspect-ratio: 16/9; }
-      .footer__top { flex-direction: column; align-items: flex-start; }
-      .footer__contact { text-align: left; align-items: flex-start; }
+    /* ════════════════════════
+       REVEAL UTILITY
+    ════════════════════════ */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1.visible { transition-delay: .15s; }
+
+    /* ════════════════════════
+       RESPONSIVE
+    ════════════════════════ */
+    @media (max-width: 1100px) {
+      .hero__content { grid-template-columns: 1fr; }
+      .hero__right { display: none; }
+      .about__inner { grid-template-columns: 1fr; gap: 3rem; }
+      .project__link,
+      .project--flipped .project__link { grid-template-columns: 1fr; min-height: auto; }
+      .project--flipped .project__media { order: 0; }
+      .project--flipped .project__info  { order: 0; border-right: none; border-left: 1px solid var(--teal-border); border-top: 1px solid var(--teal-border); }
+      .project__media { min-height: 260px; }
+      .project__info { border-left: none; border-top: 1px solid var(--teal-border); padding: 2.5rem 2rem; }
+      .steps { grid-template-columns: repeat(2,1fr); }
+      .process__header { grid-template-columns: 1fr; gap: 2rem; }
+      .works__header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .footer__mid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       .nav__links { display: none; }
-      .hero__headline { font-size: clamp(2.6rem,11vw,4rem); }
-      .hero__cta-row { flex-direction: column; }
-      .hero__cta-row .btn { width: 100%; justify-content: center; }
-      .hero__scroll-hint { display: none; }
-      .footer__bottom { flex-direction: column; align-items: flex-start; }
+      .steps { grid-template-columns: 1fr; }
+      .footer__mid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero__headline { font-size: clamp(3rem,13vw,5rem); }
     }
-    .br-d { display: none; }
-    @media (min-width: 768px) { .br-d { display: block; } }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#" class="nav__logo">
-        <img src="Icon.png" alt="Rhyvid Developments Icon" class="nav__icon" />
-        <span class="nav__wordmark">Rhyvid</span>
-      </a>
-      <nav class="nav__links">
-        <a href="#works">Works</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+  <!-- Cursor -->
+  <div class="cursor">
+    <div class="cursor__dot"  id="cursorDot"></div>
+    <div class="cursor__ring" id="cursorRing"></div>
+  </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero__bg-grid" aria-hidden="true"></div>
-    <div class="hero__content">
-      <p class="hero__label">UI/UX · Branding · Development</p>
-      <h1 class="hero__headline">
-        Architecting<br/>
-        <em>Digital &amp; Physical</em><br/>
-        Solutions.
-      </h1>
-      <p class="hero__sub">
-        Precision-crafted interfaces, identities, and systems<br class="br-d"/>
-        built for brands that refuse to be ordinary.
-      </p>
-      <div class="hero__cta-row">
-        <a href="#works" class="btn btn--primary">View Selected Works</a>
-        <a href="#contact" class="btn btn--ghost">Start a Project →</a>
+  <!-- ══════════════ NAV ══════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <!--
+        ┌─ IMAGE SOURCE ────────────────────────────────────────────────────┐
+        │  ./Logo.png  — relative path, same directory as index.html.       │
+        │  Works on: local file system, GitHub Pages, Netlify, Vercel, etc. │
+        └───────────────────────────────────────────────────────────────────┘
+      -->
+      <a href="#home">
+        <img src="./Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
+      </a>
+      <div class="nav__links">
+        <a href="#about">Studio</a>
+        <a href="#works">Works</a>
+        <a href="#process">Process</a>
+        <a href="#contact" class="nav__cta">Let's Talk</a>
       </div>
     </div>
-    <div class="hero__scroll-hint" aria-hidden="true">
-      <span></span>
-      <p>Scroll</p>
+  </nav>
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section class="hero" id="home">
+    <div class="hero__orb"></div>
+    <div class="hero__orb2"></div>
+    <div class="hero__lines"></div>
+    <div class="hero__noise"></div>
+
+    <div class="hero__content">
+      <div class="hero__left">
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-line"></div>
+          <span class="hero__eyebrow-text">Design Studio &nbsp;·&nbsp; Est. 2022</span>
+        </div>
+        <h1 class="hero__headline">
+          Crafting<br>
+          <span class="italic">Digital</span><br>
+          <span class="stroke">Excellence</span>
+        </h1>
+        <p class="hero__sub">
+          Precision-crafted interfaces, identities, and systems — built for brands that refuse to be ordinary.
+        </p>
+        <div class="hero__ctas">
+          <a href="#works"   class="btn-primary">View Our Work ↓</a>
+          <a href="#contact" class="btn-outline">Start a Project →</a>
+        </div>
+      </div>
+
+      <div class="hero__right">
+        <div class="hero__stat">
+          <div class="hero__stat-num">12+</div>
+          <div class="hero__stat-label">Projects Delivered</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-num">4</div>
+          <div class="hero__stat-label">Years Experience</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-num">100%</div>
+          <div class="hero__stat-label">Client Satisfaction</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <div class="hero__scroll-bar"></div>
+      <span class="hero__scroll-label">Scroll</span>
     </div>
   </section>
 
-  <!-- ABOUT STRIP -->
+  <!-- Marquee -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot"></span>UI / UX Design</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Brand Identity</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Web Development</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Design Systems</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Digital Strategy</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Art Direction</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>UI / UX Design</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Brand Identity</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Web Development</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Design Systems</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Digital Strategy</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Art Direction</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ ABOUT ══════════════ -->
   <section class="about" id="about">
     <div class="about__inner">
-      <div class="about__tag">Studio</div>
-      <p class="about__body">
-        Rhyvid Developments operates at the intersection of architecture,
-        code, and identity — delivering refined, end-to-end design solutions
-        with an obsession for clarity and craft.
-      </p>
-      <ul class="about__disciplines">
-        <li>UI / UX Design</li>
-        <li>Brand Identity</li>
-        <li>Web Development</li>
-        <li>Design Systems</li>
-      </ul>
+      <div class="about__left reveal">
+        <p class="section-label">About the Studio</p>
+        <h2 class="about__heading">Where craft meets<br><em>intention</em></h2>
+        <p class="about__body">
+          Rhyvid Developments operates at the intersection of architecture, code, and identity — delivering refined, end-to-end design solutions with an obsession for clarity and craft. We don't just build things that look beautiful; we build things that work beautifully.
+        </p>
+        <a href="#contact" class="btn-primary">Work With Us →</a>
+      </div>
+      <div class="about__right reveal reveal-d1">
+        <p class="section-label">Disciplines</p>
+        <ul class="disciplines">
+          <li>UI / UX Design</li>
+          <li>Brand Identity</li>
+          <li>Web Development</li>
+          <li>Design Systems</li>
+          <li>Digital Strategy</li>
+          <li>Art Direction</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- SELECTED WORKS -->
+  <!-- ══════════════ WORKS ══════════════ -->
   <section class="works" id="works">
-    <div class="works__header">
-      <p class="works__label">Selected Works</p>
-      <h2 class="works__title">Recent Projects</h2>
-    </div>
+    <div class="works__inner">
+      <div class="works__header reveal">
+        <div>
+          <p class="section-label">Selected Works</p>
+          <h2 class="works__title">Recent<br><span>Projects</span></h2>
+        </div>
+        <p class="works__count">02 Projects</p>
+      </div>
 
-    <div class="works__grid">
-
-      <article class="project">
-        <a href="molly-realty-case-study.html" class="project__link-wrap">
-          <div class="project__media">
-            <img src="https://placehold.co/640x500/15381C/CEA52B?text=Molly+Realty" alt="Molly Realty & Leisure" />
-            <div class="project__overlay"><span>View Case Study →</span></div>
-          </div>
-          <div class="project__meta">
-            <div>
-              <p class="project__category">Brand Identity · Client Work</p>
-              <h3 class="project__name">Molly Realty &amp; Leisure</h3>
+      <div class="projects">
+        <article class="project">
+          <a href="molly-realty-case-study.html" class="project__link">
+            <div class="project__media">
+              <img src="https://placehold.co/900x600/15381C/CEA52B?text=Molly+Realty+%26+Leisure" alt="Molly Realty & Leisure" />
+              <div class="project__media-overlay"></div>
+              <span class="project__num">01</span>
             </div>
-            <span class="project__year">2025</span>
-          </div>
-        </a>
-      </article>
-
-      <article class="project">
-        <a href="chuks-kitchen-case-study.html" class="project__link-wrap">
-          <div class="project__media">
-            <img src="https://placehold.co/640x500/170F06/FF6B00?text=Chuks+Kitchen" alt="Chuks Kitchen" />
-            <div class="project__overlay"><span>View Case Study →</span></div>
-          </div>
-          <div class="project__meta">
-            <div>
-              <p class="project__category">UI/UX Design · Client Work</p>
-              <h3 class="project__name">Chuks Kitchen</h3>
+            <div class="project__info">
+              <div class="project__top">
+                <p class="project__category">Brand Identity · Client Work</p>
+                <h3 class="project__name">Molly Realty &amp; Leisure</h3>
+                <p class="project__desc">A full brand overhaul for a premier real estate company — visual identity, collateral design, and a bespoke web presence that speaks to luxury buyers.</p>
+              </div>
+              <div class="project__bottom">
+                <span class="project__year">2025</span>
+                <span class="project__cta">View Case Study →</span>
+              </div>
             </div>
-            <span class="project__year">2026</span>
-          </div>
-        </a>
-      </article>
+          </a>
+        </article>
 
+        <article class="project project--flipped">
+          <a href="chuks-kitchen-case-study.html" class="project__link">
+            <div class="project__media">
+              <img src="https://placehold.co/900x600/170F06/FF6B00?text=Chuks+Kitchen" alt="Chuks Kitchen" />
+              <div class="project__media-overlay"></div>
+              <span class="project__num">02</span>
+            </div>
+            <div class="project__info">
+              <div class="project__top">
+                <p class="project__category">UI/UX Design · Client Work</p>
+                <h3 class="project__name">Chuks Kitchen</h3>
+                <p class="project__desc">End-to-end UX design for an artisan restaurant brand — from user research through to a high-fidelity digital menu and reservations experience.</p>
+              </div>
+              <div class="project__bottom">
+                <span class="project__year">2026</span>
+                <span class="project__cta">View Case Study →</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- FOOTER / CONTACT -->
+  <!-- ══════════════ PROCESS ══════════════ -->
+  <section class="process" id="process">
+    <div class="process__inner">
+      <div class="process__header reveal">
+        <div>
+          <p class="section-label">How We Work</p>
+          <h2 class="process__heading">Our<br>Process</h2>
+        </div>
+        <p class="process__intro">Every great outcome begins with a clear process. We follow a structured, collaborative approach — ensuring nothing is left to chance and everything is crafted with purpose.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step__num">01</div><h3 class="step__title">Discover</h3><p class="step__desc">We immerse ourselves in your brand, audience, and goals — asking the questions that reveal what really matters.</p></div>
+        <div class="step"><div class="step__num">02</div><h3 class="step__title">Define</h3><p class="step__desc">Insights become strategy. We establish a clear creative direction before a single pixel is placed.</p></div>
+        <div class="step"><div class="step__num">03</div><h3 class="step__title">Design</h3><p class="step__desc">With strategy as our compass, we craft interfaces and identities that are both beautiful and purposeful.</p></div>
+        <div class="step"><div class="step__num">04</div><h3 class="step__title">Deliver</h3><p class="step__desc">We ship polished, production-ready work — and stay close to ensure it performs in the real world.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER / CONTACT ══════════════ -->
   <footer class="footer" id="contact">
     <div class="footer__inner">
-      <div class="footer__top">
-        <div class="footer__logo-block">
-          <img src="Logo.png" alt="Rhyvid Developments" class="footer__logo" />
-        </div>
-        <div class="footer__contact">
-          <p class="footer__contact-label">Have a project in mind?</p>
-          <a href="mailto:rhyviddesign@gmail.com" class="footer__email">Start a Conversation</a>
-          <a href="#contact" class="btn footer__btn">Get in Touch</a>
+      <div class="footer__top reveal">
+        <p class="footer__label">Start a Conversation</p>
+        <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
+        <div class="footer__ctas">
+          <!-- ✏️  Replace hello@rhyvid.com with your real email -->
+          <a href="mailto:hello@rhyvid.com" class="btn-primary">Send us a Message →</a>
+          <a href="#works" class="btn-outline">View Our Work</a>
         </div>
       </div>
+
+      <div class="footer__mid">
+        <!-- Logo.png — inverted white via CSS filter for the dark footer -->
+        <div class="footer__col">
+          <img src="./Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Studio</p>
+          <a href="#about">About</a>
+          <a href="#works">Works</a>
+          <a href="#process">Process</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Connect</p>
+          <a href="#">Behance</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Dribbble</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Contact</p>
+          <!-- ✏️  Replace hello@rhyvid.com with your real email -->
+          <a href="mailto:hello@rhyvid.com" class="footer__email">hello@rhyvid.com</a>
+          <p>Lagos, Nigeria</p>
+        </div>
+      </div>
+
       <div class="footer__bottom">
         <p class="footer__copy">© 2025 Rhyvid Developments. All rights reserved.</p>
         <div class="footer__socials">
@@ -255,24 +754,43 @@
   </footer>
 
   <script>
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+    // ── Custom cursor
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx=0, my=0, rx=0, ry=0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
     });
+    (function tick() {
+      rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+      ring.style.left = rx+'px'; ring.style.top = ry+'px';
+      requestAnimationFrame(tick);
+    })();
 
-    const observer = new IntersectionObserver((entries) => {
+    // ── Nav on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('nav--scrolled', scrollY > 50), {passive:true});
+
+    // ── Scroll-reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, {threshold: 0.12});
+    document.querySelectorAll('.reveal, .project, .step').forEach(el => io.observe(el));
+
+    // ── Active nav highlight
+    const secs = document.querySelectorAll('section[id], footer[id]');
+    const links = document.querySelectorAll('.nav__links a:not(.nav__cta)');
+    const ao = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
+        if(e.isIntersecting){
+          links.forEach(l => l.style.color = '');
+          const a = document.querySelector(`.nav__links a[href="#${e.target.id}"]`);
+          if(a) a.style.color = 'var(--teal-light)';
         }
       });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.project, .about__body, .about__disciplines, .works__header').forEach(el => {
-      observer.observe(el);
-    });
+    }, {threshold: 0.45});
+    secs.forEach(s => ao.observe(s));
   </script>
-
 </body>
 </html>
