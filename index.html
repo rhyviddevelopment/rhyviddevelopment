@@ -97,7 +97,7 @@
     .disciplines li{display:flex;align-items:center;justify-content:space-between;padding:1.3rem 0;border-bottom:1px solid var(--teal-border);font-size:.95rem;font-weight:600;color:var(--mist-dim);transition:color .3s,padding-left .3s var(--ease)}
     .disciplines li:first-child{border-top:1px solid var(--teal-border)}
     .disciplines li:hover{color:var(--white);padding-left:.7rem}
-    .disciplines li::after{content:'→';font-size:.85rem;color:var(--teal-light);opacity:0;transition:opacity .3s,transform .3s var(--ease);transform:translateX(-8px)}
+    .disciplines li::after{content:'&#x2192;';font-size:.85rem;color:var(--teal-light);opacity:0;transition:opacity .3s,transform .3s var(--ease);transform:translateX(-8px)}
     .disciplines li:hover::after{opacity:1;transform:translateX(0)}
 
     /* WORKS */
@@ -110,9 +110,9 @@
     .projects{display:flex;flex-direction:column;gap:2px}
     .project{position:relative;overflow:hidden;background:var(--black-3);cursor:none;opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
     .project.visible{opacity:1;transform:translateY(0)}
-    .project__link{display:grid;grid-template-columns:1fr 1.15fr;min-height:420px}
-    .project__media{position:relative;overflow:hidden}
-    .project__media img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .8s var(--ease),filter .5s;filter:brightness(.78) saturate(.85)}
+    .project__link{display:grid;grid-template-columns:1fr 1.15fr;height:420px}
+    .project__media{position:relative;overflow:hidden;height:420px}
+    .project__media img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .8s var(--ease),filter .5s;filter:brightness(.78) saturate(.85)}
     .project:hover .project__media img{transform:scale(1.05);filter:brightness(.95) saturate(1.1)}
     .project__media-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,13,16,.55) 0%,transparent 55%)}
     .project__media::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,0,.15) 0%,transparent 60%);opacity:0;transition:opacity .4s}
@@ -154,7 +154,7 @@
     .footer__inner{max-width:1400px;margin:0 auto}
     .footer__top{margin-bottom:6rem}
     .footer__label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(42,143,173,.8);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
-    .footer__label::before{content:'—'}
+    .footer__label::before{content:'&#x2014;'}
     .footer__heading{font-family:var(--font-display);font-size:clamp(3rem,7vw,7rem);font-weight:900;line-height:.9;color:var(--white);letter-spacing:-.02em;margin-bottom:3rem}
     .footer__heading em{font-style:italic;color:rgba(42,143,173,.9);font-weight:400}
     .footer__ctas{display:flex;gap:1.2rem;flex-wrap:wrap}
@@ -216,8 +216,8 @@
       .hero__content{grid-template-columns:1fr}
       .hero__right{display:none}
       .about__inner{grid-template-columns:1fr;gap:3rem}
-      .project__link{grid-template-columns:1fr;min-height:auto}
-      .project__media{min-height:260px}
+      .project__link{grid-template-columns:1fr;height:auto}
+      .project__media{height:260px}
       .project__info{border-left:none;border-top:1px solid var(--teal-border);padding:2.5rem 2rem}
       .steps{grid-template-columns:repeat(2,1fr)}
       .process__header{grid-template-columns:1fr;gap:2rem}
@@ -277,10 +277,10 @@
             <input type="text" id="links" name="links" placeholder="https://example.com, figma.com/file/..." />
           </div>
           <div class="form-attach-hint">
-            <span>Attach files?</span> Paste Google Drive, Dropbox, or WeTransfer links above — they'll come through in the email.
+            <span>Attach files?</span> Paste Google Drive, Dropbox, or WeTransfer links above &mdash; they'll come through in the email.
           </div>
           <button type="submit" class="modal__submit" id="submitBtn">
-            <span id="submitLabel">Send Message &rarr;</span>
+            <span id="submitLabel">Send Message &#x2192;</span>
           </button>
         </form>
       </div>
@@ -328,9 +328,9 @@
         </h1>
         <p class="hero__sub">Precision-crafted interfaces, identities, and systems &mdash; built for brands that refuse to be ordinary.</p>
         <div class="hero__ctas">
-          <a href="#works" class="btn-primary">View Our Work &darr;</a>
-          <button class="btn-outline open-modal">Start a Project &rarr;</button>
-          <a href="./assets/IBUKUNOLUWA-DAVID-OYEKUNLE-UI.pdf" download class="btn-outline">Download CV &darr;</a>
+          <a href="#works" class="btn-primary">View Our Work &#x2193;</a>
+          <button class="btn-outline open-modal">Start a Project &#x2192;</button>
+          <a href="./assets/IBUKUNOLUWA-DAVID-OYEKUNLE-UI.pdf" download class="btn-outline">Download CV &#x2193;</a>
         </div>
       </div>
       <div class="hero__right">
@@ -370,7 +370,7 @@
         <p class="section-label">About the Studio</p>
         <h2 class="about__heading">Where craft meets<br><em>intention</em></h2>
         <p class="about__body">Rhyvid Developments operates at the intersection of architecture, code, and identity &mdash; delivering refined, end-to-end design solutions with an obsession for clarity and craft. We don't just build things that look beautiful; we build things that work beautifully.</p>
-        <a href="#contact" class="btn-primary">Work With Us &rarr;</a>
+        <a href="#contact" class="btn-primary">Work With Us &#x2192;</a>
       </div>
       <div class="about__right reveal reveal-d1">
         <p class="section-label">Disciplines</p>
@@ -412,7 +412,7 @@
               </div>
               <div class="project__bottom">
                 <span class="project__year">2026</span>
-                <span class="project__cta">View Case Study &rarr;</span>
+                <span class="project__cta">View Case Study &#x2192;</span>
               </div>
             </div>
           </a>
@@ -447,7 +447,7 @@
         <p class="footer__label">Start a Conversation</p>
         <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
         <div class="footer__ctas">
-          <button class="btn-primary open-modal">Send us a Message &rarr;</button>
+          <button class="btn-primary open-modal">Send us a Message &#x2192;</button>
           <a href="#works" class="btn-outline">View Our Work</a>
         </div>
       </div>
@@ -468,12 +468,12 @@
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Contact</p>
-          <a href="mailto:rhyviddesign@gmail.com" class="footer__email">rhyviddesign@gmail.com</a>
+          <a href="#" class="footer__email" id="footerEmail">rhyviddesign&#64;gmail&#46;com</a>
           <p>Lagos, Nigeria</p>
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copy">&copy; 2026 Rhyvid Developments. All rights reserved.</p>
+        <p class="footer__copy">&#x00A9; 2026 Rhyvid Developments. All rights reserved.</p>
         <div class="footer__socials">
           <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
           <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
@@ -484,6 +484,7 @@
 
   <script>
     (function() {
+      /* Cursor */
       var dot = document.getElementById('cursorDot');
       var ring = document.getElementById('cursorRing');
       var mx = 0, my = 0, rx = 0, ry = 0;
@@ -498,11 +499,20 @@
       }
       tick();
 
+      /* Email: assembled at runtime so Cloudflare never sees it */
+      var el = document.getElementById('footerEmail');
+      if (el) {
+        var u = 'rhyviddesign'; var d = 'gmail.com';
+        el.href = 'mailto:' + u + '@' + d;
+      }
+
+      /* Nav scroll */
       var nav = document.getElementById('nav');
       window.addEventListener('scroll', function() {
         nav.classList.toggle('nav--scrolled', window.scrollY > 50);
       }, { passive: true });
 
+      /* Scroll reveal + active nav */
       if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(function(entries) {
           entries.forEach(function(e) {
@@ -525,6 +535,7 @@
         secs.forEach(function(s) { ao.observe(s); });
       }
 
+      /* Modal */
       var overlay = document.getElementById('modalOverlay');
       var modalBox = document.getElementById('modalBox');
       var closeBtn = document.getElementById('modalClose');
@@ -535,6 +546,7 @@
       overlay.addEventListener('click', function(e) { if (!modalBox.contains(e.target)) closeModal(); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
+      /* Form submit */
       var form = document.getElementById('contactForm');
       var submitBtn = document.getElementById('submitBtn');
       var submitLabel = document.getElementById('submitLabel');
