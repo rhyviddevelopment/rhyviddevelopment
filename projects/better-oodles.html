@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Better Oodles — Case Study | Rhyvid Developments</title>
+  <link rel="icon" type="image/png" href="../assets/Icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      /* Better Oodles brand */
+      --bo-red:#E8242A;--bo-red-dark:#c01a1f;--bo-red-soft:#f04040;
+      --bo-red-pale:#fff0f0;--bo-blush:#fdf0ee;--bo-pink-mid:#f9ddd9;
+      --bo-dark:#0f0a0a;--bo-warm:#1a0d0d;--bo-cream:#fdf8f7;
+      --bo-grey:#6b5c5c;--bo-light-grey:#e8dede;
+
+      --font-display:'Playfair Display',Georgia,serif;
+      --font-ui:'Syne',system-ui,sans-serif;
+      --font-mono:'IBM Plex Mono',monospace;
+      --ease:cubic-bezier(0.16,1,0.3,1)
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-ui);background:var(--bo-cream);color:var(--bo-dark);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit;cursor:none}
+
+    /* CURSOR */
+    .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
+    .cursor__dot{position:absolute;width:6px;height:6px;background:var(--bo-red);border-radius:50%;transform:translate(-50%,-50%)}
+    .cursor__ring{position:absolute;width:32px;height:32px;border:1.5px solid rgba(232,36,42,0.45);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),border-color .3s}
+    body:has(a:hover) .cursor__ring{width:52px;height:52px;border-color:rgba(232,36,42,0.85)}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 4vw;height:80px;display:flex;align-items:center;transition:background .5s var(--ease),border-color .5s;border-bottom:1px solid transparent}
+    .nav--scrolled{background:rgba(253,248,247,0.96);backdrop-filter:blur(20px);border-color:rgba(232,36,42,.12)}
+    .nav__inner{width:100%;max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .nav__logo-wrap{display:flex;align-items:center;height:80px}
+    .nav__logo-img{height:30px;width:auto;mix-blend-mode:multiply;filter:brightness(0.9);transition:opacity .2s}
+    .nav__logo-img:hover{opacity:.7}
+    .nav__links{display:flex;gap:2.5rem;align-items:center}
+    .nav__links a{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--bo-grey);transition:color .2s}
+    .nav__links a:hover{color:var(--bo-dark)}
+    .nav__back{color:white;background:var(--bo-red);padding:.65rem 1.6rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
+    .nav__back:hover{background:var(--bo-red-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,36,42,.35)}
+
+    /* HERO */
+    .hero{min-height:100svh;background:var(--bo-dark);display:flex;flex-direction:column;justify-content:flex-end;padding:0 4vw 8vh;position:relative;overflow:hidden}
+    .hero__bg::before{content:'';position:absolute;top:-20%;right:-10%;width:65vmax;height:65vmax;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(232,36,42,.2) 0%,rgba(232,36,42,.04) 50%,transparent 70%);pointer-events:none}
+    .hero__bg::after{content:'';position:absolute;bottom:-25%;left:-5%;width:50vmax;height:50vmax;border-radius:50%;background:radial-gradient(circle,rgba(232,36,42,.06) 0%,transparent 70%);pointer-events:none}
+    .hero__grain{position:absolute;inset:0;pointer-events:none;opacity:.03;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .hero__content{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:5rem}
+    .hero__eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .15s var(--ease) forwards}
+    .hero__eyebrow-dot{width:8px;height:8px;background:var(--bo-red);border-radius:50%}
+    .hero__eyebrow-text{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bo-red)}
+    .hero__headline{font-family:var(--font-display);font-size:clamp(3.5rem,8vw,8.5rem);font-weight:900;line-height:.92;letter-spacing:-.02em;color:white;opacity:0;animation:fadeUp 1s .3s var(--ease) forwards}
+    .hero__headline em{font-style:italic;color:var(--bo-red-soft);font-weight:400}
+    .hero__sub{margin-top:2rem;font-size:clamp(.9rem,1.2vw,1.05rem);line-height:1.8;color:rgba(253,248,247,.5);max-width:500px;opacity:0;animation:fadeUp .8s .45s var(--ease) forwards}
+    .hero__meta{display:flex;gap:3rem;margin-top:3rem;opacity:0;animation:fadeUp .8s .6s var(--ease) forwards}
+    .hero__meta-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(253,248,247,.3);margin-bottom:.3rem}
+    .hero__meta-value{font-size:.88rem;font-weight:700;color:white}
+    .hero__mockup{width:280px;flex-shrink:0;opacity:0;animation:fadeIn 1s .7s var(--ease) forwards}
+    .hero__mockup img{width:100%;border-radius:8px;box-shadow:0 40px 100px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.06)}
+    .hero__scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fadeIn 1s 1s var(--ease) forwards;z-index:2}
+    .hero__scroll-bar{width:1px;height:55px;background:linear-gradient(to bottom,var(--bo-red),transparent);animation:scrollPulse 2.2s ease-in-out infinite}
+    .hero__scroll-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(253,248,247,.3)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+    /* SHARED */
+    .section-label{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bo-red);margin-bottom:1.8rem}
+    .section-label::before{content:'//';opacity:.4}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-d1.visible{transition-delay:.12s}
+    .reveal-d2.visible{transition-delay:.24s}
+    .reveal-d3.visible{transition-delay:.36s}
+
+    /* OVERVIEW */
+    .overview{padding:9rem 4vw;background:var(--bo-cream);border-bottom:1px solid var(--bo-light-grey)}
+    .overview__inner{max-width:1400px;margin:0 auto}
+    .overview__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:8rem;align-items:start}
+    .overview__heading{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:700;line-height:1.1;color:var(--bo-dark);margin-bottom:1.8rem}
+    .overview__heading em{font-style:italic;color:var(--bo-red)}
+    .overview__body{font-size:.97rem;line-height:1.95;color:var(--bo-grey);margin-bottom:1.4rem}
+    .overview__tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}
+    .overview__tag{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.45rem 1rem;border:1px solid rgba(232,36,42,.2);color:var(--bo-red);background:rgba(232,36,42,.04)}
+    .overview__stats{display:flex;flex-direction:column}
+    .overview__stat{padding:1.8rem 0;border-bottom:1px solid var(--bo-light-grey);display:flex;align-items:baseline;justify-content:space-between}
+    .overview__stat:first-child{border-top:1px solid var(--bo-light-grey)}
+    .overview__stat-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bo-grey)}
+    .overview__stat-value{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--bo-red);line-height:1}
+
+    /* CHALLENGE */
+    .challenge{padding:9rem 4vw;background:var(--bo-dark)}
+    .challenge__inner{max-width:1400px;margin:0 auto}
+    .challenge__grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start}
+    .challenge__heading{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;color:white;margin-bottom:1.8rem}
+    .challenge__heading em{font-style:italic;color:var(--bo-red-soft);font-weight:400}
+    .challenge__body{font-size:.95rem;line-height:1.95;color:rgba(253,248,247,.55);margin-bottom:1.4rem}
+    .challenge__pillars{display:flex;flex-direction:column;gap:2px;margin-top:0}
+    .pillar{padding:2rem;background:rgba(255,255,255,.03);border-left:2px solid transparent;transition:background .3s,border-color .3s}
+    .pillar:hover{background:rgba(232,36,42,.06);border-left-color:var(--bo-red)}
+    .pillar__title{font-size:.9rem;font-weight:700;color:white;margin-bottom:.5rem}
+    .pillar__desc{font-size:.82rem;line-height:1.75;color:rgba(253,248,247,.5)}
+
+    /* IDENTITY */
+    .identity{padding:9rem 4vw;background:var(--bo-blush);border-top:1px solid var(--bo-light-grey);border-bottom:1px solid var(--bo-light-grey)}
+    .identity__inner{max-width:1400px;margin:0 auto}
+    .identity__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--bo-dark);margin-bottom:5rem}
+    .identity__heading em{font-style:italic;color:var(--bo-red);font-weight:400}
+    .identity__grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+    .id-card{background:white;border:1px solid var(--bo-light-grey);padding:2.5rem}
+    .id-card__title{font-family:var(--font-mono);font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bo-red);margin-bottom:2rem}
+    .swatches{display:flex;gap:1.5rem;align-items:flex-end;margin-bottom:2rem;flex-wrap:wrap}
+    .swatch{display:flex;flex-direction:column;gap:.6rem}
+    .swatch__block{width:80px;border-radius:6px;border:1px solid rgba(0,0,0,.06)}
+    .swatch__hex{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;color:var(--bo-grey)}
+    .swatch__name{font-size:.75rem;font-weight:700;color:var(--bo-dark)}
+    .colour-rationale{font-size:.85rem;line-height:1.8;color:var(--bo-grey)}
+    .colour-rationale p{margin-bottom:.8rem}
+    .colour-rationale p:last-child{margin-bottom:0}
+    .type-rows{display:flex;flex-direction:column;gap:1.5rem}
+    .type-row{padding-bottom:1.5rem;border-bottom:1px solid var(--bo-light-grey)}
+    .type-row:last-child{border-bottom:none;padding-bottom:0}
+    .type-row__meta{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bo-grey);margin-bottom:.5rem}
+
+    /* SCREENS */
+    .screens{padding:9rem 4vw;background:var(--bo-cream)}
+    .screens__inner{max-width:1400px;margin:0 auto}
+    .screens__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--bo-dark);margin-bottom:1rem}
+    .screens__heading em{font-style:italic;color:var(--bo-red);font-weight:400}
+    .screens__sub{font-size:.95rem;color:var(--bo-grey);line-height:1.7;max-width:560px;margin-bottom:5rem}
+    .screens__showcase{width:100%;overflow:hidden;border:1px solid var(--bo-light-grey);margin-bottom:3rem;background:var(--bo-blush)}
+    .screens__showcase img{width:100%;display:block}
+    .screens__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .screen-card{background:white;border:1px solid var(--bo-light-grey);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+    .screen-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(232,36,42,.1)}
+    .screen-card img{width:100%;display:block}
+    .screen-card__label{padding:.75rem 1rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bo-grey);border-top:1px solid var(--bo-light-grey)}
+
+    /* DECISIONS */
+    .decisions{padding:9rem 4vw;background:var(--bo-red)}
+    .decisions__inner{max-width:1400px;margin:0 auto}
+    .decisions__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:white;margin-bottom:5rem}
+    .decisions__heading em{font-style:italic;color:rgba(255,255,255,.6);font-weight:400}
+    .decisions__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .decision-card{padding:2.5rem;background:rgba(0,0,0,.12);border-top:2px solid transparent;transition:background .3s,border-color .3s}
+    .decision-card:hover{background:rgba(0,0,0,.22);border-top-color:white}
+    .decision-card__label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.8rem}
+    .decision-card__title{font-size:.9rem;font-weight:700;color:white;margin-bottom:.7rem}
+    .decision-card__text{font-size:.85rem;line-height:1.75;color:rgba(255,255,255,.7)}
+
+    /* RESULTS */
+    .results{padding:9rem 4vw;background:var(--bo-dark)}
+    .results__inner{max-width:1400px;margin:0 auto}
+    .results__heading{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);font-weight:900;line-height:.95;color:white;letter-spacing:-.02em;margin-bottom:5rem}
+    .results__heading em{font-style:italic;font-weight:400;color:var(--bo-red-soft)}
+    .results__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .result-card{background:rgba(255,255,255,.04);padding:3rem 2.5rem;border-top:2px solid rgba(232,36,42,.3);transition:background .3s}
+    .result-card:hover{background:rgba(232,36,42,.07)}
+    .result-card__num{font-family:var(--font-display);font-size:3.5rem;font-weight:900;color:var(--bo-red-soft);line-height:1;margin-bottom:.6rem}
+    .result-card__label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(253,248,247,.5);margin-bottom:1rem}
+    .result-card__desc{font-size:.88rem;line-height:1.75;color:rgba(253,248,247,.6)}
+    .results__quote{margin-top:6rem;padding:3rem 4rem;background:rgba(232,36,42,.08);border-left:3px solid var(--bo-red)}
+    .results__quote-text{font-family:var(--font-display);font-size:clamp(1.2rem,2vw,1.8rem);font-style:italic;font-weight:400;color:white;line-height:1.5;margin-bottom:1.5rem}
+    .results__quote-attr{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(253,248,247,.4)}
+
+    /* FOOTER */
+    .footer{background:var(--bo-warm);border-top:1px solid rgba(232,36,42,.15);padding:7rem 4vw 3rem}
+    .footer__inner{max-width:1400px;margin:0 auto}
+    .footer__top{margin-bottom:5rem}
+    .footer__label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,36,42,.7);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+    .footer__label::before{content:'&#x2014;'}
+    .footer__heading{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,6rem);font-weight:900;line-height:.9;color:white;letter-spacing:-.02em;margin-bottom:3rem}
+    .footer__heading em{font-style:italic;color:var(--bo-red-soft);font-weight:400}
+    .footer__ctas{display:flex;gap:1.2rem;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--bo-red);color:white;font-family:var(--font-ui);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;cursor:none;transition:background .25s,transform .3s var(--ease),box-shadow .3s}
+    .btn-primary:hover{background:var(--bo-red-soft);transform:translateY(-3px);box-shadow:0 12px 32px rgba(232,36,42,.35)}
+    .btn-outline{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(232,36,42,.4);color:rgba(253,248,247,.6);font-family:var(--font-ui);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;background:transparent;cursor:none;transition:all .25s}
+    .btn-outline:hover{border-color:var(--bo-red-soft);color:white;background:rgba(232,36,42,.08);transform:translateY(-3px)}
+    .footer__logo-img{height:36px;width:auto;mix-blend-mode:screen;filter:brightness(1.4) saturate(0.6);opacity:.9}
+    .footer__mid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;padding:4rem 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:3rem}
+    .footer__col-title{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.5rem}
+    .footer__col a,.footer__col p{display:block;font-size:.9rem;color:rgba(255,255,255,.45);line-height:1;margin-bottom:1rem;transition:color .2s}
+    .footer__col a:hover{color:#fff}
+    .footer__email{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:rgba(255,255,255,.75) !important}
+    .footer__email:hover{color:#fff !important}
+    .footer__bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer__copy{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.2)}
+    .footer__socials{display:flex;gap:2rem}
+    .footer__socials a{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);transition:color .2s}
+    .footer__socials a:hover{color:var(--bo-red-soft)}
+
+    @media(max-width:1100px){
+      .hero__content,.challenge__grid,.overview__grid,.identity__grid{grid-template-columns:1fr;gap:3rem}
+      .hero__mockup{display:none}
+      .decisions__grid{grid-template-columns:1fr 1fr}
+      .results__grid{grid-template-columns:1fr;gap:2px}
+      .screens__grid{grid-template-columns:1fr 1fr}
+      .footer__mid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){
+      .nav__links{display:none}
+      .decisions__grid,.screens__grid{grid-template-columns:1fr}
+      .results__quote{padding:2rem}
+      .footer__mid{grid-template-columns:1fr;gap:2rem}
+      .swatches{flex-wrap:wrap}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor">
+    <div class="cursor__dot" id="cursorDot"></div>
+    <div class="cursor__ring" id="cursorRing"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo-wrap">
+        <img src="../assets/Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#about">Studio</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../index.html#process">Process</a>
+        <a href="../index.html#contact" class="nav__back">&#x2190; Back to Portfolio</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__grain"></div>
+    <div class="hero__content">
+      <div>
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-dot"></div>
+          <span class="hero__eyebrow-text">Web UI Design &nbsp;&#xB7;&nbsp; Health &amp; Wellness E-Commerce &nbsp;&#xB7;&nbsp; 2024</span>
+        </div>
+        <h1 class="hero__headline">Better<br><em>Oodles</em></h1>
+        <p class="hero__sub">A full web UI design for a health and wellness e-commerce brand targeting millennials &#x2014; blending cutting-edge technology with modern glamour to make healthy living feel aspirational.</p>
+        <div class="hero__meta">
+          <div>
+            <div class="hero__meta-label">Type</div>
+            <div class="hero__meta-value">Web UI Design</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Platform</div>
+            <div class="hero__meta-value">Desktop Web</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Year</div>
+            <div class="hero__meta-value">2024</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Pages</div>
+            <div class="hero__meta-value">Home, Shop, About</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__mockup">
+        <img src="../assets/better-oodles/Better_oodles_2024__3_.png" alt="Better Oodles Home screen" />
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <div class="hero__scroll-bar"></div>
+      <span class="hero__scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="overview">
+    <div class="overview__inner">
+      <div class="overview__grid">
+        <div class="reveal">
+          <p class="section-label">Project Overview</p>
+          <h2 class="overview__heading">Health meets <em>modern glamour</em></h2>
+          <p class="overview__body">Better Oodles is a health and wellness brand on a mission to redefine how millennials approach well-being. Founded in 2017, the brand blends cutting-edge technology with time-honoured wellness principles to offer a curated range of products &#x2014; from fitness wearables and nutritional supplements to meditation tools and yoga accessories.</p>
+          <p class="overview__body">The design challenge was to create a web experience that felt as aspirational as a lifestyle brand while remaining practical enough to drive product discovery and conversion. Health needed to feel glamorous, not clinical. Shopping needed to feel inspiring, not transactional.</p>
+          <p class="overview__body">The project covered three core pages &#x2014; a bold, image-driven homepage, a structured shop page for product browsing, and a detailed about page that built brand trust through story and team.</p>
+          <div class="overview__tags">
+            <span class="overview__tag">Web UI Design</span>
+            <span class="overview__tag">E-Commerce</span>
+            <span class="overview__tag">Health &amp; Wellness</span>
+            <span class="overview__tag">Figma</span>
+            <span class="overview__tag">Desktop Web</span>
+            <span class="overview__tag">Brand Application</span>
+            <span class="overview__tag">Product Design</span>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="overview__stats">
+            <div class="overview__stat">
+              <span class="overview__stat-label">Client</span>
+              <span class="overview__stat-value">Better Oodles</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Platform</span>
+              <span class="overview__stat-value">Web</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Pages</span>
+              <span class="overview__stat-value">3</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Industry</span>
+              <span class="overview__stat-value">Wellness</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Year</span>
+              <span class="overview__stat-value">2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGE -->
+  <section class="challenge">
+    <div class="challenge__inner">
+      <div class="challenge__grid">
+        <div class="reveal">
+          <p class="section-label" style="color:var(--bo-red-soft)">The Challenge</p>
+          <h2 class="challenge__heading">Making wellness feel<br><em>desirable</em></h2>
+          <p class="challenge__body">Most health and wellness websites fall into one of two traps: they look too clinical and cold (trustworthy but unappealing), or too trendy and soft (appealing but unsubstantial). Better Oodles needed to escape both.</p>
+          <p class="challenge__body">The brand targets millennials &#x2014; a generation that expects digital experiences to feel premium, fast, and personal. The design needed to carry the energy of a fashion brand while communicating the credibility of a health company. Every page had to earn both trust and desire.</p>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="challenge__pillars">
+            <div class="pillar">
+              <h3 class="pillar__title">Innovation &amp; Technology</h3>
+              <p class="pillar__desc">Better Oodles integrates cutting-edge technology into its products. The UI needed to reflect this through bold imagery, confident typography, and a dark hero that signals premium quality.</p>
+            </div>
+            <div class="pillar">
+              <h3 class="pillar__title">Accessibility &amp; Practicality</h3>
+              <p class="pillar__desc">The brand's core commitment is making health accessible for millennials' daily lives. The shop page structure &#x2014; with clear product cards, categories, and pricing &#x2014; kept browsing effortless.</p>
+            </div>
+            <div class="pillar">
+              <h3 class="pillar__title">Community &amp; Support</h3>
+              <p class="pillar__desc">Beyond products, Better Oodles fosters a supportive wellness community. The about page and testimonial sections translated this into design through warmth, team portraits, and brand story.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN SYSTEM -->
+  <section class="identity">
+    <div class="identity__inner">
+      <div class="reveal">
+        <p class="section-label">Design System</p>
+        <h2 class="identity__heading">Colour, type &amp; <em>energy</em></h2>
+      </div>
+      <div class="identity__grid">
+        <div class="id-card reveal">
+          <p class="id-card__title">Colour Palette</p>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch__block" style="height:80px;background:#E8242A"></div>
+              <span class="swatch__hex">#E8242A</span>
+              <span class="swatch__name">Brand Red</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="height:60px;background:#0f0a0a"></div>
+              <span class="swatch__hex">#0F0A0A</span>
+              <span class="swatch__name">Deep Black</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="height:50px;background:#fdf0ee"></div>
+              <span class="swatch__hex">#FDF0EE</span>
+              <span class="swatch__name">Blush</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="height:40px;background:#ffffff;border:1px solid #e8dede"></div>
+              <span class="swatch__hex">#FFFFFF</span>
+              <span class="swatch__name">White</span>
+            </div>
+          </div>
+          <div class="colour-rationale">
+            <p><strong style="color:var(--bo-red)">Brand Red (#E8242A)</strong> &#x2014; The hero colour. Red communicates energy, urgency, and passion &#x2014; all aligned with fitness and health motivation. Used on the logo, CTAs, active nav states, and all key accent moments across the site.</p>
+            <p><strong>Deep Black (#0F0A0A)</strong> &#x2014; Used for the shop page hero to give a premium, editorial feel. Black anchors the brand as aspirational rather than cheap or mass-market.</p>
+            <p><strong>Blush (#FDF0EE)</strong> &#x2014; The homepage and about page background. Softens the brand for lifestyle and community content, making the red pop without aggression.</p>
+          </div>
+        </div>
+        <div class="id-card reveal reveal-d1">
+          <p class="id-card__title">Typography &amp; Tone</p>
+          <div class="type-rows">
+            <div class="type-row">
+              <div class="type-row__meta">Logo &mdash; Custom Display Script</div>
+              <div style="font-size:2.4rem;font-weight:900;color:var(--bo-red);line-height:1;font-style:italic;letter-spacing:-.01em">Better<br>Oodles</div>
+              <p style="font-size:.82rem;line-height:1.7;color:var(--bo-grey);margin-top:.7rem">The logo wordmark uses a bold, slightly condensed display style that communicates energy and confidence. The stacked two-line treatment makes it compact and versatile across nav, footer, and marketing collateral.</p>
+            </div>
+            <div class="type-row">
+              <div class="type-row__meta">Headlines &mdash; Bold Sans-Serif</div>
+              <div style="font-size:1.4rem;font-weight:800;color:var(--bo-dark);line-height:1.1">Welcome to Better Oodles<br><span style="color:var(--bo-red)">Inspiring Health</span> with Modern Glamour</div>
+              <p style="font-size:.82rem;line-height:1.7;color:var(--bo-grey);margin-top:.7rem">Headlines use bold weight with selective red highlights on key phrases &#x2014; "to", "with" &#x2014; creating rhythm and drawing the eye to the brand's core message without overwhelming the layout.</p>
+            </div>
+            <div class="type-row">
+              <div class="type-row__meta">Body &mdash; Clean Readable Sans</div>
+              <div style="font-size:.88rem;line-height:1.75;color:var(--bo-grey)">We're redefining wellness for millennials. Our cutting-edge products make health and glamour accessible to all. Join us on this journey to a healthier, more vibrant you.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENS -->
+  <section class="screens">
+    <div class="screens__inner">
+      <div class="reveal">
+        <p class="section-label">Final Designs</p>
+        <h2 class="screens__heading">The screens in <em>full</em></h2>
+        <p class="screens__sub">Three pages, each with a distinct purpose &#x2014; inspire, convert, and build trust. Together they form a complete brand experience.</p>
+      </div>
+      <div class="screens__showcase reveal">
+        <img src="../assets/better-oodles/Better_oodles_2024__1_.png" alt="Better Oodles full showcase" />
+      </div>
+      <div class="screens__grid">
+        <div class="screen-card reveal">
+          <img src="../assets/better-oodles/Better_oodles_2024__3_.png" alt="Home page" />
+          <div class="screen-card__label">Home Page</div>
+        </div>
+        <div class="screen-card reveal reveal-d1">
+          <img src="../assets/better-oodles/Better_oodles_2024__2_.png" alt="Shop page" />
+          <div class="screen-card__label">Shop Page</div>
+        </div>
+        <div class="screen-card reveal reveal-d2">
+          <img src="../assets/better-oodles/Better_oodles_2024__4_.png" alt="About page" />
+          <div class="screen-card__label">About Page</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN DECISIONS -->
+  <section class="decisions">
+    <div class="decisions__inner">
+      <div class="reveal">
+        <p class="section-label" style="color:rgba(255,255,255,.6)">Design Decisions</p>
+        <h2 class="decisions__heading">Key choices &amp; <em>rationale</em></h2>
+      </div>
+      <div class="decisions__grid">
+        <div class="decision-card reveal">
+          <p class="decision-card__label">Homepage Hero</p>
+          <h3 class="decision-card__title">Two Backgrounds, One Brand</h3>
+          <p class="decision-card__text">The homepage uses a soft blush background to feel warm and welcoming &#x2014; lifestyle over e-commerce. The shop page flips to a full-bleed dark hero featuring the flagship QuantumFlex Fitness Bands, signalling premium product quality the moment you enter the store.</p>
+        </div>
+        <div class="decision-card reveal reveal-d1">
+          <p class="decision-card__label">Product Cards</p>
+          <h3 class="decision-card__title">Scannable by Design</h3>
+          <p class="decision-card__text">Product cards were kept minimal and consistent &#x2014; image, name, sub-heading, and a single "Buy now" CTA. The grid system allows fast scanning without cognitive overload. Top Products and full grid sections were separated to create a browsing hierarchy.</p>
+        </div>
+        <div class="decision-card reveal reveal-d2">
+          <p class="decision-card__label">Value Pillars</p>
+          <h3 class="decision-card__title">Show, Don't Just Tell</h3>
+          <p class="decision-card__text">The homepage's three brand pillars &#x2014; Innovation, Accessibility, Community &#x2014; were each given circular product imagery overlaid at the top of the card. This grounded the abstract values in tangible product reality, making them feel earned rather than marketing copy.</p>
+        </div>
+        <div class="decision-card reveal">
+          <p class="decision-card__label">About Page</p>
+          <h3 class="decision-card__title">Story Before Team</h3>
+          <p class="decision-card__text">The About page leads with Company History, Our Mission, Innovative Approach, and Community Engagement before introducing the team. This structure builds brand credibility from the ground up &#x2014; by the time you reach the team photos, you already believe in the company.</p>
+        </div>
+        <div class="decision-card reveal reveal-d1">
+          <p class="decision-card__label">Quote Section</p>
+          <h3 class="decision-card__title">Motivational Interruption</h3>
+          <p class="decision-card__text">The Aristotle quote &#x2014; "We are what we repeatedly do. Excellence then is not an act but a habit." &#x2014; appears as a full-bleed dark section between product content and the footer. It acts as an emotional reset, aligning the brand with a philosophy rather than just products.</p>
+        </div>
+        <div class="decision-card reveal reveal-d2">
+          <p class="decision-card__label">Navigation</p>
+          <h3 class="decision-card__title">Clean &amp; Persistent</h3>
+          <p class="decision-card__text">The nav is minimal: logo, three links (Home, About, Shop), cart icon, and a blue "Contact Us" CTA button. The active page is underlined in red. Keeping navigation lightweight keeps the full-width product imagery and hero content as the visual priority on every page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="results">
+    <div class="results__inner">
+      <div class="reveal">
+        <h2 class="results__heading">The <em>outcome</em></h2>
+      </div>
+      <div class="results__grid">
+        <div class="result-card reveal">
+          <div class="result-card__num">3</div>
+          <div class="result-card__label">Pages Designed</div>
+          <div class="result-card__desc">Homepage, Shop, and About &#x2014; each serving a distinct user intent and together forming a complete, coherent brand experience.</div>
+        </div>
+        <div class="result-card reveal reveal-d1">
+          <div class="result-card__num">2</div>
+          <div class="result-card__label">Tonal Registers</div>
+          <div class="result-card__desc">Aspirational lifestyle (blush homepage) and premium e-commerce (dark shop hero) &#x2014; two distinct visual registers unified by the same brand palette and logo.</div>
+        </div>
+        <div class="result-card reveal reveal-d2">
+          <div class="result-card__num">1</div>
+          <div class="result-card__label">Unified Identity</div>
+          <div class="result-card__desc">A consistent red, black, and blush system across all pages that makes the brand instantly recognisable at every touchpoint.</div>
+        </div>
+      </div>
+      <div class="results__quote reveal">
+        <p class="results__quote-text">"We are what we repeatedly do. Excellence then is not an act but a habit." &#x2014; the philosophy that shaped every design decision on this project.</p>
+        <p class="results__quote-attr">&#x2014; Aristotle, as featured on the Better Oodles website</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top reveal">
+        <p class="footer__label">Next Steps</p>
+        <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
+        <div class="footer__ctas">
+          <a href="../index.html#contact" class="btn-primary">Start a Project &#x2192;</a>
+          <a href="../projects.html" class="btn-outline">Back to Projects</a>
+        </div>
+      </div>
+      <div class="footer__mid">
+        <div class="footer__col">
+          <img src="../assets/Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Studio</p>
+          <a href="../index.html#about">About</a>
+          <a href="../projects.html">Projects</a>
+          <a href="../index.html#process">Process</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Connect</p>
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Contact</p>
+          <a href="#" class="footer__email" id="footerEmail">rhyviddesign&#64;gmail&#46;com</a>
+          <p>Lagos, Nigeria</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&#x00A9; 2026 Rhyvid Developments. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var el=document.getElementById('footerEmail');
+      if(el){el.href='mailto:'+'rhyviddesign'+'@'+'gmail.com';}
+      var dot=document.getElementById('cursorDot');
+      var ring=document.getElementById('cursorRing');
+      var mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+      function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);}
+      tick();
+      var nav=document.getElementById('nav');
+      window.addEventListener('scroll',function(){nav.classList.toggle('nav--scrolled',window.scrollY>50);},{passive:true});
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.1});
+        document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+      }
+    })();
+  </script>
+</body>
+</html>
