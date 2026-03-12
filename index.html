@@ -41,22 +41,22 @@
     img { display: block; max-width: 100%; }
     a { text-decoration: none; color: inherit; cursor: none; }
 
-    /* CURSOR */
+    /* ── CURSOR ── */
     .cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
     .cursor__dot {
       position: absolute; width: 6px; height: 6px;
       background: var(--teal-light); border-radius: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%,-50%);
     }
     .cursor__ring {
       position: absolute; width: 32px; height: 32px;
       border: 1.5px solid rgba(42,143,173,0.5); border-radius: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%,-50%);
       transition: width .3s var(--ease), height .3s var(--ease), border-color .3s;
     }
     body:has(a:hover) .cursor__ring { width: 54px; height: 54px; border-color: rgba(42,143,173,0.9); }
 
-    /* NAV */
+    /* ── NAV ── */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 0 4vw; height: 80px; display: flex; align-items: center;
@@ -94,7 +94,7 @@
     }
     .nav__cta:hover { background: var(--teal-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(29,111,138,.35); }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
       min-height: 100svh; padding: 0 4vw 8vh;
       display: flex; flex-direction: column; justify-content: flex-end;
@@ -156,14 +156,15 @@
       opacity: 0; animation: fadeUp .8s .65s var(--ease) forwards;
     }
 
-    /* Buttons */
+    /* ── BUTTONS ── */
     .btn-primary {
       display: inline-flex; align-items: center; gap: .5rem;
       background: var(--teal); color: var(--white);
       font-family: var(--font-ui); font-size: .78rem;
       font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      padding: 1rem 2.2rem;
+      padding: 1rem 2.2rem; border: none;
       transition: background .25s, transform .3s var(--ease), box-shadow .3s;
+      cursor: none;
     }
     .btn-primary:hover { background: var(--teal-light); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(29,111,138,.35); }
     .btn-outline {
@@ -171,8 +172,9 @@
       border: 1px solid var(--teal-border-hi); color: var(--mist);
       font-family: var(--font-ui); font-size: .78rem;
       font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      padding: 1rem 2.2rem;
+      padding: 1rem 2.2rem; background: transparent;
       transition: border-color .25s, color .25s, transform .3s var(--ease), background .25s;
+      cursor: none;
     }
     .btn-outline:hover { border-color: var(--teal-light); color: var(--white); background: rgba(29,111,138,.1); transform: translateY(-3px); }
 
@@ -191,8 +193,6 @@
       font-size: .64rem; font-weight: 600; letter-spacing: .14em;
       text-transform: uppercase; color: var(--mist-dim); margin-top: .35rem;
     }
-
-    /* Scroll indicator */
     .hero__scroll {
       position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: .7rem;
@@ -208,11 +208,10 @@
       font-family: var(--font-mono); font-size: .6rem;
       letter-spacing: .18em; text-transform: uppercase; color: var(--mist-dim);
     }
-
     @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
     @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
-    /* MARQUEE */
+    /* ── MARQUEE ── */
     .marquee-strip {
       border-top: 1px solid var(--teal-border); border-bottom: 1px solid var(--teal-border);
       background: var(--black-2); overflow: hidden; padding: .9rem 0;
@@ -226,7 +225,7 @@
     }
     .marquee-dot { width: 4px; height: 4px; background: var(--teal); border-radius: 50%; flex-shrink: 0; }
 
-    /* ABOUT */
+    /* ── ABOUT ── */
     .about { padding: 10rem 4vw; background: var(--black-2); border-bottom: 1px solid var(--teal-border); }
     .about__inner {
       max-width: 1400px; margin: 0 auto;
@@ -261,7 +260,7 @@
     }
     .disciplines li:hover::after { opacity: 1; transform: translateX(0); }
 
-    /* WORKS */
+    /* ── WORKS ── */
     .works { padding: 10rem 4vw; background: var(--black); }
     .works__inner { max-width: 1400px; margin: 0 auto; }
     .works__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem; }
@@ -305,7 +304,7 @@
       max-width: 420px; margin-bottom: 2.5rem; position: relative; z-index: 1;
     }
 
-    /* PROCESS */
+    /* ── PROCESS ── */
     .process { padding: 10rem 4vw; background: var(--black-2); border-top: 1px solid var(--teal-border); }
     .process__inner { max-width: 1400px; margin: 0 auto; }
     .process__header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 5rem; }
@@ -334,7 +333,7 @@
     .step__title { font-size: .88rem; font-weight: 700; letter-spacing: .05em; color: var(--white); margin-bottom: .7rem; }
     .step__desc  { font-size: .83rem; line-height: 1.75; color: var(--mist-dim); }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     .footer { background: var(--teal-deep); border-top: 1px solid rgba(42,143,173,.2); padding: 8rem 4vw 3rem; }
     .footer__inner { max-width: 1400px; margin: 0 auto; }
     .footer__top { margin-bottom: 6rem; }
@@ -382,12 +381,137 @@
     }
     .footer__socials a:hover { color: #fff; }
 
-    /* REVEAL */
+    /* ── REVEAL ── */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
     .reveal.visible { opacity: 1; transform: none; }
     .reveal-d1.visible { transition-delay: .15s; }
 
-    /* RESPONSIVE */
+    /* ══════════════════════════════════════
+       CONTACT MODAL
+    ══════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(6,13,16,0.88);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem;
+      opacity: 0; visibility: hidden;
+      transition: opacity .4s var(--ease), visibility .4s;
+    }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+
+    .modal {
+      background: var(--black-2);
+      border: 1px solid var(--teal-border);
+      width: 100%; max-width: 580px;
+      padding: 3rem;
+      position: relative;
+      transform: translateY(28px) scale(0.98);
+      transition: transform .45s var(--ease);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+    /* thin scrollbar inside modal */
+    .modal::-webkit-scrollbar { width: 4px; }
+    .modal::-webkit-scrollbar-track { background: transparent; }
+    .modal::-webkit-scrollbar-thumb { background: var(--teal-border); border-radius: 2px; }
+
+    .modal__close {
+      position: absolute; top: 1.4rem; right: 1.4rem;
+      background: none; border: none; color: var(--mist-dim);
+      font-size: 1.3rem; line-height: 1;
+      cursor: none; transition: color .2s, transform .2s;
+      padding: .2rem .4rem;
+    }
+    .modal__close:hover { color: var(--white); transform: rotate(90deg); }
+
+    .modal__eyebrow {
+      font-family: var(--font-mono); font-size: .65rem;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--teal-light);
+      margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem;
+    }
+    .modal__eyebrow::before { content: '//'; opacity: .45; }
+
+    .modal__heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
+      color: var(--white); line-height: 1.15; margin-bottom: .6rem;
+    }
+    .modal__heading em { font-style: italic; font-weight: 400; color: var(--teal-light); }
+    .modal__sub { font-size: .85rem; color: var(--mist-dim); line-height: 1.7; margin-bottom: 2.2rem; }
+
+    /* form fields */
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label {
+      display: block; font-size: .68rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--mist-dim); margin-bottom: .55rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%; background: var(--black-3);
+      border: 1px solid var(--teal-border);
+      color: var(--white); font-family: var(--font-ui); font-size: .9rem;
+      padding: .85rem 1rem; outline: none;
+      transition: border-color .25s, box-shadow .25s;
+      resize: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--mist-dim); opacity: .6; }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--teal-light);
+      box-shadow: 0 0 0 3px rgba(42,143,173,.12);
+    }
+    .form-group textarea { min-height: 130px; }
+
+    /* attachment hint */
+    .form-attach-hint {
+      font-size: .75rem; color: var(--mist-dim); line-height: 1.6;
+      padding: .8rem 1rem;
+      border: 1px dashed var(--teal-border);
+      background: rgba(29,111,138,.04);
+      margin-bottom: 1.4rem;
+    }
+    .form-attach-hint span { color: var(--teal-light); font-weight: 600; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .modal__submit {
+      width: 100%; padding: 1rem; margin-top: .4rem;
+      background: var(--teal); color: var(--white);
+      border: none; font-family: var(--font-ui); font-size: .8rem;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      cursor: none;
+      transition: background .25s, transform .3s var(--ease), box-shadow .3s;
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+    }
+    .modal__submit:hover { background: var(--teal-light); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(29,111,138,.3); }
+    .modal__submit:disabled { opacity: .6; transform: none; box-shadow: none; cursor: not-allowed; }
+
+    /* success state */
+    .modal__success {
+      display: none; flex-direction: column; align-items: center;
+      text-align: center; padding: 2rem 0;
+    }
+    .modal__success.show { display: flex; }
+    .modal__success-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      border: 1.5px solid var(--teal-light);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .modal__success-icon svg { width: 26px; height: 26px; stroke: var(--teal-light); fill: none; stroke-width: 2; }
+    .modal__success h3 {
+      font-family: var(--font-display); font-size: 1.7rem; font-weight: 700;
+      color: var(--white); margin-bottom: .6rem;
+    }
+    .modal__success h3 em { font-style: italic; font-weight: 400; color: var(--teal-light); }
+    .modal__success p { font-size: .88rem; color: var(--mist-dim); line-height: 1.7; max-width: 320px; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .hero__content { grid-template-columns: 1fr; }
       .hero__right { display: none; }
@@ -403,16 +527,86 @@
       .steps { grid-template-columns: 1fr; }
       .footer__mid { grid-template-columns: 1fr; gap: 2rem; }
       .hero__headline { font-size: clamp(3rem,13vw,5rem); }
+      .modal { padding: 2rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Cursor -->
   <div class="cursor">
     <div class="cursor__dot"  id="cursorDot"></div>
     <div class="cursor__ring" id="cursorRing"></div>
   </div>
 
+  <!-- ══ CONTACT MODAL ══ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+    <div class="modal" id="modalBox">
+      <button class="modal__close" id="modalClose" aria-label="Close">&#x2715;</button>
+
+      <!-- Form view -->
+      <div id="modalFormView">
+        <p class="modal__eyebrow">Get in Touch</p>
+        <h2 class="modal__heading" id="modalHeading">Let's talk about<br>your <em>project</em></h2>
+        <p class="modal__sub">Fill in the details below and I'll get back to you as soon as possible.</p>
+
+        <form id="contactForm">
+          <!-- Web3Forms access key -->
+          <input type="hidden" name="access_key" value="d9c0fd98-fe38-45e2-bbfe-2984067bf604" />
+          <input type="hidden" name="subject" value="New message from Rhyvid portfolio" />
+          <input type="hidden" name="from_name" value="Rhyvid Portfolio" />
+          <!-- honeypot -->
+          <input type="checkbox" name="botcheck" style="display:none;" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="first_name" placeholder="John" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="last_name" placeholder="Doe" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project, goals, or anything you'd like to discuss..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="links">Links or References <span style="font-weight:400;opacity:.6;text-transform:none;letter-spacing:0">(optional)</span></label>
+            <input type="text" id="links" name="links" placeholder="https://example.com, figma.com/file/..." />
+          </div>
+
+          <div class="form-attach-hint">
+            <span>Attach files?</span> Paste Google Drive, Dropbox, or WeTransfer links in the field above — they'll come through in the email.
+          </div>
+
+          <button type="submit" class="modal__submit" id="submitBtn">
+            <span id="submitLabel">Send Message →</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Success view -->
+      <div class="modal__success" id="modalSuccess">
+        <div class="modal__success-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Message <em>sent!</em></h3>
+        <p>Thanks for reaching out. I'll review your message and get back to you shortly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ NAV ══ -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="#home" class="nav__logo-wrap">
@@ -427,6 +621,7 @@
     </div>
   </nav>
 
+  <!-- ══ HERO ══ -->
   <section class="hero" id="home">
     <div class="hero__orb"></div>
     <div class="hero__orb2"></div>
@@ -448,7 +643,7 @@
         </p>
         <div class="hero__ctas">
           <a href="#works" class="btn-primary">View Our Work ↓</a>
-          <a href="#contact" class="btn-outline">Start a Project →</a>
+          <button class="btn-outline open-modal">Start a Project →</button>
           <a href="./assets/IBUKUNOLUWA-DAVID-OYEKUNLE-UI.pdf" download class="btn-outline">Download CV ↓</a>
         </div>
       </div>
@@ -473,6 +668,7 @@
     </div>
   </section>
 
+  <!-- Marquee -->
   <div class="marquee-strip" aria-hidden="true">
     <div class="marquee-track">
       <span class="marquee-item"><span class="marquee-dot"></span>UI / UX Design</span>
@@ -490,6 +686,7 @@
     </div>
   </div>
 
+  <!-- ══ ABOUT ══ -->
   <section class="about" id="about">
     <div class="about__inner">
       <div class="about__left reveal">
@@ -514,6 +711,7 @@
     </div>
   </section>
 
+  <!-- ══ WORKS ══ -->
   <section class="works" id="works">
     <div class="works__inner">
       <div class="works__header reveal">
@@ -532,11 +730,12 @@
         <p class="works__coming-soon-label">Portfolio in Progress</p>
         <h3 class="works__coming-soon-heading">Projects are on<br>their <em>way</em></h3>
         <p class="works__coming-soon-body">We're currently curating our case studies. Check back soon to see the work we've been crafting — or reach out and we'll walk you through it directly.</p>
-        <a href="#contact" class="btn-primary">Get in Touch →</a>
+        <button class="btn-primary open-modal">Get in Touch →</button>
       </div>
     </div>
   </section>
 
+  <!-- ══ PROCESS ══ -->
   <section class="process" id="process">
     <div class="process__inner">
       <div class="process__header reveal">
@@ -571,13 +770,14 @@
     </div>
   </section>
 
+  <!-- ══ FOOTER ══ -->
   <footer class="footer" id="contact">
     <div class="footer__inner">
       <div class="footer__top reveal">
         <p class="footer__label">Start a Conversation</p>
         <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
         <div class="footer__ctas">
-          <a href="mailto:rhyviddesign@gmail.com" class="btn-primary">Send us a Message →</a>
+          <button class="btn-primary open-modal">Send us a Message →</button>
           <a href="#works" class="btn-outline">View Our Work</a>
         </div>
       </div>
@@ -594,7 +794,7 @@
         <div class="footer__col">
           <p class="footer__col-title">Connect</p>
           <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
-          <a href="#">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Contact</p>
@@ -606,20 +806,21 @@
         <p class="footer__copy">© 2025 Rhyvid Developments. All rights reserved.</p>
         <div class="footer__socials">
           <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
-          <a href="#">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    (function() {
-      // Custom cursor
+    (function () {
+
+      /* ── Cursor ── */
       var dot  = document.getElementById('cursorDot');
       var ring = document.getElementById('cursorRing');
       var mx = 0, my = 0, rx = 0, ry = 0;
 
-      document.addEventListener('mousemove', function(e) {
+      document.addEventListener('mousemove', function (e) {
         mx = e.clientX;
         my = e.clientY;
         dot.style.left = mx + 'px';
@@ -635,47 +836,118 @@
       }
       tick();
 
-      // Nav scroll
+      /* ── Nav scroll ── */
       var nav = document.getElementById('nav');
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-          nav.classList.add('nav--scrolled');
-        } else {
-          nav.classList.remove('nav--scrolled');
-        }
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('nav--scrolled', window.scrollY > 50);
       }, { passive: true });
 
-      // Scroll reveal
+      /* ── Scroll reveal ── */
       if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) {
-            if (e.isIntersecting) {
-              e.target.classList.add('visible');
-              io.unobserve(e.target);
-            }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
           });
         }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal, .step').forEach(function (el) { io.observe(el); });
 
-        document.querySelectorAll('.reveal, .step').forEach(function(el) {
-          io.observe(el);
-        });
-
-        // Active nav highlight
+        /* active nav */
         var secs  = document.querySelectorAll('section[id], footer[id]');
         var links = document.querySelectorAll('.nav__links a:not(.nav__cta)');
-
-        var ao = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) {
+        var ao = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
             if (e.isIntersecting) {
-              links.forEach(function(l) { l.style.color = ''; });
+              links.forEach(function (l) { l.style.color = ''; });
               var a = document.querySelector('.nav__links a[href="#' + e.target.id + '"]');
               if (a) { a.style.color = 'var(--teal-light)'; }
             }
           });
         }, { threshold: 0.45 });
-
-        secs.forEach(function(s) { ao.observe(s); });
+        secs.forEach(function (s) { ao.observe(s); });
       }
+
+      /* ── Modal ── */
+      var overlay  = document.getElementById('modalOverlay');
+      var modalBox = document.getElementById('modalBox');
+      var closeBtn = document.getElementById('modalClose');
+
+      function openModal() {
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      /* open — every button with class open-modal */
+      document.querySelectorAll('.open-modal').forEach(function (btn) {
+        btn.addEventListener('click', openModal);
+      });
+
+      /* close — X button */
+      closeBtn.addEventListener('click', closeModal);
+
+      /* close — click backdrop (outside modal box) */
+      overlay.addEventListener('click', function (e) {
+        if (!modalBox.contains(e.target)) { closeModal(); }
+      });
+
+      /* close — Escape key */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeModal(); }
+      });
+
+      /* ── Contact form submission via Web3Forms ── */
+      var form       = document.getElementById('contactForm');
+      var submitBtn  = document.getElementById('submitBtn');
+      var submitLabel = document.getElementById('submitLabel');
+      var formView   = document.getElementById('modalFormView');
+      var successView = document.getElementById('modalSuccess');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        /* disable button + show loading */
+        submitBtn.disabled = true;
+        submitLabel.textContent = 'Sending…';
+
+        var data = new FormData(form);
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: data
+        })
+        .then(function (res) { return res.json(); })
+        .then(function (json) {
+          if (json.success) {
+            /* show success state */
+            formView.style.display = 'none';
+            successView.classList.add('show');
+            /* auto-close after 3.5 s */
+            setTimeout(function () {
+              closeModal();
+              /* reset for next open */
+              setTimeout(function () {
+                formView.style.display = '';
+                successView.classList.remove('show');
+                form.reset();
+                submitBtn.disabled = false;
+                submitLabel.textContent = 'Send Message →';
+              }, 500);
+            }, 3500);
+          } else {
+            submitLabel.textContent = 'Something went wrong — try again';
+            submitBtn.disabled = false;
+          }
+        })
+        .catch(function () {
+          submitLabel.textContent = 'Network error — try again';
+          submitBtn.disabled = false;
+        });
+      });
+
     })();
   </script>
 </body>
