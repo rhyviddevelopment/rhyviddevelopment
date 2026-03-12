@@ -523,6 +523,7 @@
         <div class="hero__ctas">
           <a href="#works"   class="btn-primary">View Our Work ↓</a>
           <a href="#contact" class="btn-outline">Start a Project →</a>
+          <a href="/assets/IBUKUNOLUWA-DAVID-OYEKUNLE-UI.pdf" download class="btn-outline">Download CV ↓</a>
         </div>
       </div>
 
@@ -642,7 +643,7 @@
         <p class="footer__label">Start a Conversation</p>
         <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
         <div class="footer__ctas">
-          <a href="mailto:hello@rhyvid.com" class="btn-primary">Send us a Message →</a>
+          <a href="mailto:rhyviddesign@gmail.com" class="btn-primary">Send us a Message →</a>
           <a href="#works" class="btn-outline">View Our Work</a>
         </div>
       </div>
@@ -659,13 +660,12 @@
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Connect</p>
-          <a href="#">Behance</a>
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
           <a href="#">LinkedIn</a>
-          <a href="#">Dribbble</a>
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Contact</p>
-          <a href="mailto:hello@rhyvid.com" class="footer__email">hello@rhyvid.com</a>
+          <a href="mailto:rhyviddesign@gmail.com" class="footer__email">rhyviddesign@gmail.com</a>
           <p>Lagos, Nigeria</p>
         </div>
       </div>
@@ -673,9 +673,8 @@
       <div class="footer__bottom">
         <p class="footer__copy">© 2025 Rhyvid Developments. All rights reserved.</p>
         <div class="footer__socials">
-          <a href="#">Behance</a>
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
           <a href="#">LinkedIn</a>
-          <a href="#">Dribbble</a>
         </div>
       </div>
     </div>
@@ -712,13 +711,4 @@
     const ao = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if(e.isIntersecting){
-          links.forEach(l => l.style.color = '');
-          const a = document.querySelector(`.nav__links a[href="#${e.target.id}"]`);
-          if(a) a.style.color = 'var(--teal-light)';
-        }
-      });
-    }, {threshold: 0.45});
-    secs.forEach(s => ao.observe(s));
-  </script>
-</body>
-</html>
+          links.forEach(l
