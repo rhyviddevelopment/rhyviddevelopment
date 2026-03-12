@@ -106,6 +106,8 @@
     .works__header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:5rem}
     .works__title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;line-height:.95;color:var(--white)}
     .works__title span{display:block;font-style:italic;font-weight:400;color:var(--teal-light)}
+    .works__see-all{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-light);border:1px solid rgba(42,143,173,.3);padding:.6rem 1.4rem;margin-top:1.2rem;transition:all .25s var(--ease)}
+    .works__see-all:hover{background:rgba(42,143,173,.08);border-color:var(--teal-light);transform:translateX(4px)}
     .works__count{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;color:var(--mist-dim);padding-bottom:.4rem}
     .projects{display:flex;flex-direction:column;gap:2px}
     .project{position:relative;overflow:hidden;background:var(--black-3);cursor:none;opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -316,7 +318,7 @@
       </a>
       <div class="nav__links">
         <a href="#about">Studio</a>
-        <a href="#works">Works</a>
+        <a href="./projects.html">Projects</a>
         <a href="#process">Process</a>
         <a href="#contact" class="nav__cta">Let's Talk</a>
       </div>
@@ -409,6 +411,7 @@
           <h2 class="works__title">Recent<br><span>Projects</span></h2>
         </div>
         <p class="works__count">03 Projects</p>
+        <a href="./projects.html" class="works__see-all">See All Projects &#x2192;</a>
       </div>
       <div class="projects">
         <article class="project">
