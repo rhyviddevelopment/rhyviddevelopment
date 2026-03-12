@@ -695,15 +695,15 @@
       <div class="overview__grid">
         <div class="reveal">
           <p class="section-label">Project Overview</p>
-          <h2 class="overview__heading">Bringing authentic Nigerian food <em>online</em></h2>
+          <h2 class="overview__heading">Replacing WhatsApp orders with a <em>real app</em></h2>
           <p class="overview__body">
-            Chuks Kitchen is a local Nigerian restaurant based in Lagos, serving hearty, homestyle meals — Jollof Rice, Egusi Soup, Suya, Pounded Yam and everything in between. The kind of place where regulars don't even need a menu.
+            Chuks Kitchen is a food business run by Mr. Chukwudi Okorie — serving authentic Nigerian meals to busy professionals, students, and families. The brand is friendly, modern, and energetic. But the ordering process wasn't any of those things.
           </p>
           <p class="overview__body">
-            The challenge was bringing that same warmth and familiarity into a digital product. The client needed a mobile ordering app that would let customers browse the menu, customise their meals, and place orders for delivery or pickup — all without losing the personality that made Chuks Kitchen a neighbourhood favourite.
+            Customers were placing orders through WhatsApp messages and phone calls. There was no structured menu, no consistent user journey, and no way to scale. The client needed a proper digital ordering experience — one that matched the energy of the brand and let customers order quickly, confidently, and independently.
           </p>
           <p class="overview__body">
-            Starting from a blank canvas, I was responsible for every design decision — from user research and information architecture through to the final high-fidelity prototype.
+            I was brought in to design the full mobile app UI/UX end-to-end: from defining the user flow through to a high-fidelity prototype and a design system — working with a BRD that left several areas open to designer judgment.
           </p>
           <div class="overview__tags">
             <span class="overview__tag">User Research</span>
@@ -751,21 +751,21 @@
           <p class="section-label">My Role</p>
           <h2 class="role__heading">One designer.<br><em>Every decision.</em></h2>
           <p class="role__body">
-            As the sole designer on this project, I owned the entire design process from discovery to delivery. There was no handoff, no back-and-forth between teams — just a clear brief, a tight timeline, and the creative freedom to solve the problem end-to-end.
+            This project came with a BRD from True Mind Innovations' business analysis team — but several areas were intentionally left open for designer judgment. Authentication method, payment UI, error states, and the onboarding flow all required me to make and document my own decisions.
           </p>
           <p class="role__body">
-            This meant wearing multiple hats — UX researcher, information architect, interaction designer, and visual designer — often within the same working session.
+            As the sole designer, I owned everything from the user flow definition through to the final prototype. No handoffs, no waiting — just clear problem-solving within a tight scope.
           </p>
         </div>
         <div class="reveal reveal-d1">
           <p class="section-label">Responsibilities</p>
           <ul class="role__list">
-            <li>Conducted user interviews and competitor analysis to understand ordering behaviour</li>
-            <li>Defined user flows and information architecture for the full app experience</li>
-            <li>Created lo-fi wireframes for all key screens to validate structure before visual design</li>
-            <li>Built a complete design system — colour palette, typography, component library</li>
-            <li>Designed 10+ high-fidelity screens covering the full user journey</li>
-            <li>Delivered a fully interactive Figma prototype for client presentation</li>
+            <li>Analysed the BRD and identified 5 open UX gaps requiring designer assumptions — onboarding, authentication, payment UI, error states, and re-order flow</li>
+            <li>Defined the complete end-to-end user flow: app open → home → menu → product detail → cart → checkout → order confirmation</li>
+            <li>Mapped three distinct user types (busy professionals, students, families) and designed for their specific needs — speed, affordability, and ease respectively</li>
+            <li>Created lo-fi wireframes for all 9 core screens to validate structure and navigation hierarchy before any visual work</li>
+            <li>Built a Design System Lite covering colours, typography, and UI components consistent with the brand guidelines</li>
+            <li>Delivered 10+ high-fidelity screens and an interactive Figma prototype covering the full primary user flow</li>
           </ul>
         </div>
       </div>
@@ -784,22 +784,22 @@
         <div class="process__step reveal">
           <div class="process__step-num">01</div>
           <h3 class="process__step-title">Discover</h3>
-          <p class="process__step-desc">Spoke with regular Chuks Kitchen customers and studied competitor apps (Chowdeck, Jumia Food) to identify friction points in the Nigerian food ordering experience.</p>
+          <p class="process__step-desc">Reviewed the BRD thoroughly, identifying known gaps and open questions. Mapped the three target user types — busy professionals, students, and families — and studied competitor apps to understand ordering patterns in the Nigerian market.</p>
         </div>
         <div class="process__step reveal reveal-d1">
           <div class="process__step-num">02</div>
           <h3 class="process__step-title">Define</h3>
-          <p class="process__step-desc">Mapped out user flows covering onboarding, browsing, meal customisation, checkout, and order confirmation. Prioritised guest checkout as a key conversion path.</p>
+          <p class="process__step-desc">Translated the BRD's functional requirements (FR-01 through FR-06) into a concrete user flow. Documented design assumptions for all 5 open gaps — including choosing email-based auth and a standard card/transfer payment UI.</p>
         </div>
         <div class="process__step reveal reveal-d2">
           <div class="process__step-num">03</div>
           <h3 class="process__step-title">Wireframe</h3>
-          <p class="process__step-desc">Built lo-fi wireframes for all 9 core screens. Tested layout hierarchy and navigation patterns before committing to any visual direction.</p>
+          <p class="process__step-desc">Built lo-fi wireframes for all 9 core screens — focusing on clear navigation hierarchy, readable food categories, and minimal-friction cart management. Structure was validated before any colour or typography decisions were made.</p>
         </div>
         <div class="process__step reveal reveal-d3">
           <div class="process__step-num">04</div>
           <h3 class="process__step-title">Design &amp; Deliver</h3>
-          <p class="process__step-desc">Developed the full design system — warm orange primary palette, bold typography, playful iconography — then built out all hi-fi screens and the interactive prototype.</p>
+          <p class="process__step-desc">Applied the brand guidelines (orange, pink, blue — friendly, modern, energetic) across a Design System Lite, then designed all 10+ hi-fi screens. Delivered a complete interactive prototype covering the full primary user flow.</p>
         </div>
       </div>
 
@@ -943,6 +943,34 @@
     </div>
   </section>
 
+  <!-- UX DECISIONS -->
+  <section style="padding:6rem 4vw;background:var(--ck-dark);border-top:1px solid rgba(255,107,0,.1);border-bottom:1px solid rgba(255,107,0,.1)">
+    <div style="max-width:1400px;margin:0 auto">
+      <div class="reveal">
+        <p class="section-label">Design Decisions</p>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:3rem">Assumptions made, <em style="color:var(--ck-orange);font-weight:400">documented</em></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px" class="reveal">
+        <div style="padding:2rem;background:rgba(255,255,255,.03);border-top:2px solid var(--ck-orange)">
+          <p style="font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ck-orange);margin-bottom:.8rem">Onboarding</p>
+          <p style="font-size:.88rem;line-height:1.75;color:rgba(237,246,249,.6)">Designed a splash-to-home onboarding flow with a strong food hero image and a single CTA. Assumed first-time users need immediate visual appetite appeal, not a multi-step walkthrough.</p>
+        </div>
+        <div style="padding:2rem;background:rgba(255,255,255,.03);border-top:2px solid var(--ck-pink)">
+          <p style="font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ck-pink);margin-bottom:.8rem">Authentication</p>
+          <p style="font-size:.88rem;line-height:1.75;color:rgba(237,246,249,.6)">Chose email and password as the primary auth method, with a guest checkout option. Phone number login was not finalised in the BRD — email was selected for wider compatibility.</p>
+        </div>
+        <div style="padding:2rem;background:rgba(255,255,255,.03);border-top:2px solid var(--ck-blue)">
+          <p style="font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ck-blue);margin-bottom:.8rem">Payment UI</p>
+          <p style="font-size:.88rem;line-height:1.75;color:rgba(237,246,249,.6)">Designed three payment options: card, bank transfer, and pay on delivery. Payment provider was not specified in the BRD — the UI was built to be provider-agnostic.</p>
+        </div>
+        <div style="padding:2rem;background:rgba(255,255,255,.03);border-top:2px solid rgba(255,107,0,.4)">
+          <p style="font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,107,0,.7);margin-bottom:.8rem">Error &amp; Edge Cases</p>
+          <p style="font-size:.88rem;line-height:1.75;color:rgba(237,246,249,.6)">Designed an empty cart state as a key edge case screen. Failed payment, network error, and re-order flows were scoped out — flagged as items for Phase 2.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══ FINAL DESIGNS ══ -->
   <section class="hifi">
     <div class="hifi__inner">
@@ -1025,22 +1053,22 @@
         <div class="result-card reveal">
           <div class="result-card__num">10+</div>
           <div class="result-card__label">Screens Delivered</div>
-          <div class="result-card__desc">A complete, production-ready UI covering the full ordering journey — from first launch to confirmed delivery.</div>
+          <div class="result-card__desc">Complete UI covering all 6 functional requirements from the BRD — browse, view, add to cart, modify, checkout, and confirm.</div>
         </div>
         <div class="result-card reveal reveal-d1">
-          <div class="result-card__num">3–4</div>
-          <div class="result-card__label">Weeks Start to Finish</div>
-          <div class="result-card__desc">From blank canvas to interactive prototype — including research, wireframes, design system, and hi-fi screens.</div>
+          <div class="result-card__num">5</div>
+          <div class="result-card__label">UX Gaps Resolved</div>
+          <div class="result-card__desc">Onboarding, authentication, payment UI, error states, and re-order flow — all open BRD gaps filled with documented design decisions.</div>
         </div>
         <div class="result-card reveal reveal-d2">
-          <div class="result-card__num">100%</div>
-          <div class="result-card__label">Client Satisfaction</div>
-          <div class="result-card__desc">The client was thrilled with how the final designs captured the personality and warmth of the restaurant brand.</div>
+          <div class="result-card__num">3</div>
+          <div class="result-card__label">User Types Designed For</div>
+          <div class="result-card__desc">Busy professionals needing speed, students needing clarity and price visibility, and families needing easy cart management — all served by one cohesive flow.</div>
         </div>
       </div>
       <div class="results__quote reveal">
-        <p class="results__quote-text">"The app feels exactly like walking into the restaurant — warm, familiar, and impossible to leave without ordering something."</p>
-        <p class="results__quote-attr">— Client Feedback, Chuks Kitchen</p>
+        <p class="results__quote-text">"The objective was to design an experience that enables customers to place food orders quickly, confidently, and independently — while maintaining brand trust and visual appeal. That's exactly what was delivered."</p>
+        <p class="results__quote-attr">— Business Objective, Chuks Kitchen BRD &middot; True Mind Innovations</p>
       </div>
     </div>
   </section>
