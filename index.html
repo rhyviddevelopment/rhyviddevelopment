@@ -131,6 +131,13 @@
     .project:nth-child(2) .project__cta{color:#CEA52B}
     .project:nth-child(2):hover .project__cta{border-color:#CEA52B}
     .project:nth-child(2):hover .project__year{color:rgba(206,165,43,.12)}
+    .project:nth-child(3):hover .project__name{color:#0E6B60}
+    .project:nth-child(3):hover .project__media::after{background:linear-gradient(135deg,rgba(14,107,96,.2) 0%,transparent 60%)}
+    .project:nth-child(3) .project__num{color:rgba(18,168,150,.65)}
+    .project:nth-child(3):hover .project__info{border-left-color:rgba(14,107,96,.4)}
+    .project:nth-child(3) .project__cta{color:#0E6B60}
+    .project:nth-child(3):hover .project__cta{border-color:#0E6B60}
+    .project:nth-child(3):hover .project__year{color:rgba(14,107,96,.12)}
     .project__desc{font-size:.88rem;line-height:1.8;color:var(--mist-dim);max-width:330px}
     .project__bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2.5rem}
     .project__year{font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--teal-border);line-height:1;letter-spacing:-.03em;transition:color .4s}
@@ -401,7 +408,7 @@
           <p class="section-label">Selected Works</p>
           <h2 class="works__title">Recent<br><span>Projects</span></h2>
         </div>
-        <p class="works__count">02 Projects</p>
+        <p class="works__count">03 Projects</p>
       </div>
       <div class="projects">
         <article class="project">
@@ -440,6 +447,27 @@
               </div>
               <div class="project__bottom">
                 <span class="project__year">2025</span>
+                <span class="project__cta">View Case Study &#x2192;</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="project">
+          <a href="./projects/beyond-trip.html" class="project__link">
+            <div class="project__media">
+              <img src="./assets/beyond-trip/Beyond_trip_2021__1_.webp" alt="Beyond Trip" />
+              <div class="project__media-overlay"></div>
+              <span class="project__num">03</span>
+            </div>
+            <div class="project__info">
+              <div class="project__top">
+                <p class="project__category">Web UI/UX Design &middot; Travel</p>
+                <h3 class="project__name">Beyond Trip</h3>
+                <p class="project__desc">Full web UI/UX design for a travel blog platform &#x2014; helping adventurers discover destinations, plan trips on a budget, and explore the world.</p>
+              </div>
+              <div class="project__bottom">
+                <span class="project__year">2021</span>
                 <span class="project__cta">View Case Study &#x2192;</span>
               </div>
             </div>
