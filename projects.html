@@ -174,7 +174,7 @@
         <p class="hero__sub">Every project tells a story &#x2014; of a problem worth solving, a user worth designing for, and a craft worth refining. Here's the full body of work.</p>
       </div>
       <div class="hero__count">
-        <span class="hero__count-num">03</span>
+        <span class="hero__count-num">04</span>
         <span class="hero__count-label">Projects</span>
       </div>
     </div>
@@ -233,12 +233,31 @@
           </div>
         </a>
 
+        <!-- BETTER OODLES -->
+        <a href="./projects/better-oodles.html" class="card" data-type="ui-ux web" style="--accent:#E8242A">
+          <div class="card__media">
+            <img src="./assets/better-oodles/Better_oodles_2024__1_.png" alt="Better Oodles" loading="lazy" />
+            <div class="card__media-overlay"></div>
+            <span class="card__num">03</span>
+            <span class="card__type-badge">Web UI/UX</span>
+          </div>
+          <div class="card__body" style="border-top-color:var(--accent,var(--teal-light))">
+            <p class="card__category">Web Design &middot; Health &amp; Wellness</p>
+            <h2 class="card__name" style="transition:color .3s">Better Oodles</h2>
+            <p class="card__desc">A full web UI design for a health and wellness e-commerce brand targeting millennials &#x2014; making healthy living feel aspirational, not clinical.</p>
+            <div class="card__footer">
+              <span class="card__year">2024</span>
+              <span class="card__cta" style="color:#E8242A">View Case Study &#x2192;</span>
+            </div>
+          </div>
+        </a>
+
         <!-- BEYOND TRIP -->
         <a href="./projects/beyond-trip.html" class="card" data-type="ui-ux web">
           <div class="card__media">
             <img src="./assets/beyond-trip/Beyond_trip_2021__1_.webp" alt="Beyond Trip" loading="lazy" />
             <div class="card__media-overlay"></div>
-            <span class="card__num">03</span>
+            <span class="card__num">04</span>
             <span class="card__type-badge">Web UI/UX</span>
           </div>
           <div class="card__body">
@@ -320,6 +339,19 @@
       /* Nav scroll */
       var nav=document.getElementById('nav');
       window.addEventListener('scroll',function(){nav.classList.toggle('nav--scrolled',window.scrollY>50);},{passive:true});
+
+      /* Card hover colours */
+      document.querySelectorAll('.card').forEach(function(card){
+        var accent = card.style.getPropertyValue('--accent');
+        if(accent){
+          card.addEventListener('mouseenter',function(){
+            card.querySelector('.card__name').style.color=accent;
+          });
+          card.addEventListener('mouseleave',function(){
+            card.querySelector('.card__name').style.color='';
+          });
+        }
+      });
 
       /* Filter */
       var btns=document.querySelectorAll('.filter-btn');
