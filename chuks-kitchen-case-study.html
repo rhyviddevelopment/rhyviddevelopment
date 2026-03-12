@@ -1100,46 +1100,56 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <!-- FOOTER -->
-<footer class="rhyvid-footer rhyvid-footer--chuks">
-  <div class="rhyvid-footer__inner">
-    <div class="rhyvid-footer__top">
-      <div class="rhyvid-footer__logo-block">
-        <img src="Logo.png" alt="Rhyvid Developments" class="rhyvid-footer__logo" />
-      </div>
+<footer class="footer footer--chuks">
 
-      <div class="rhyvid-footer__contact">
-        <p class="rhyvid-footer__contact-label">Have a project in mind?</p>
+  <div class="footer__inner">
 
-        <a href="mailto:hello@rhyvid.com" class="rhyvid-footer__email">
+    <div class="footer__top">
+
+      <img src="Logo.png" alt="Rhyvid Developments" class="footer__logo">
+
+      <div class="footer__contact">
+
+        <p class="footer__label">
+          Have a project in mind?
+        </p>
+
+        <a href="mailto:hello@rhyvid.com" class="footer__email">
           hello@rhyvid.com
         </a>
 
-        <a href="index.html#contact" class="rhyvid-footer__btn">
+        <a href="index.html#contact" class="footer__btn">
           Start a Conversation
         </a>
+
       </div>
+
     </div>
 
-    <div class="rhyvid-footer__bottom">
-      <p class="rhyvid-footer__copy">
+    <div class="footer__bottom">
+
+      <p class="footer__copy">
         © 2026 Rhyvid Developments. All rights reserved.
       </p>
 
-      <div class="rhyvid-footer__socials">
+      <div class="footer__socials">
         <a href="#">Behance</a>
         <a href="#">LinkedIn</a>
         <a href="#">Dribbble</a>
       </div>
+
     </div>
+
   </div>
+
 </footer>
 
 <script>
-const rhyvidNav = document.getElementById('rhyvid-nav');
+const nav = document.querySelector('.nav');
 
 window.addEventListener('scroll', () => {
-  rhyvidNav.classList.toggle('rhyvid-nav--scrolled', window.scrollY > 40);
-}, { passive: true });
+  nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+});
 </script>
 
 </body>
