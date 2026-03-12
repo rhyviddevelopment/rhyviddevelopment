@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shot — Case Study | Rhyvid Developments</title>
+  <link rel="icon" type="image/png" href="../assets/Icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --sh-red:#B8002A;--sh-red-deep:#8a001f;--sh-red-soft:#d4003a;
+      --sh-red-pale:#fff5f7;--sh-mint:#c8e8e0;--sh-blue-soft:#c5d8e8;
+      --sh-pink-soft:#f0d0d8;--sh-dark:#0a0a0a;--sh-cream:#fafafa;
+      --sh-grey:#5a5a5a;--sh-border:#e8e8e8;
+
+      --font-display:'Playfair Display',Georgia,serif;
+      --font-ui:'Syne',system-ui,sans-serif;
+      --font-mono:'IBM Plex Mono',monospace;
+      --ease:cubic-bezier(0.16,1,0.3,1)
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-ui);background:var(--sh-cream);color:var(--sh-dark);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit;cursor:none}
+
+    /* CURSOR */
+    .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
+    .cursor__dot{position:absolute;width:6px;height:6px;background:var(--sh-red);border-radius:50%;transform:translate(-50%,-50%)}
+    .cursor__ring{position:absolute;width:32px;height:32px;border:1.5px solid rgba(184,0,42,.4);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),border-color .3s}
+    body:has(a:hover) .cursor__ring{width:52px;height:52px;border-color:rgba(184,0,42,.85)}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 4vw;height:80px;display:flex;align-items:center;transition:background .5s var(--ease),border-color .5s;border-bottom:1px solid transparent}
+    .nav--scrolled{background:rgba(250,250,250,.96);backdrop-filter:blur(20px);border-color:rgba(184,0,42,.1)}
+    .nav__inner{width:100%;max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .nav__logo-wrap{display:flex;align-items:center;height:80px}
+    .nav__logo-img{height:30px;width:auto;mix-blend-mode:multiply;filter:brightness(0.9);transition:opacity .2s}
+    .nav__logo-img:hover{opacity:.7}
+    .nav__links{display:flex;gap:2.5rem;align-items:center}
+    .nav__links a{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--sh-grey);transition:color .2s}
+    .nav__links a:hover{color:var(--sh-dark)}
+    .nav__back{color:white;background:var(--sh-red);padding:.65rem 1.6rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
+    .nav__back:hover{background:var(--sh-red-deep);transform:translateY(-1px);box-shadow:0 6px 20px rgba(184,0,42,.4)}
+
+    /* HERO */
+    .hero{min-height:100svh;background:var(--sh-dark);display:flex;flex-direction:column;justify-content:flex-end;padding:0 4vw 8vh;position:relative;overflow:hidden}
+    .hero__orb1{position:absolute;top:10%;right:15%;width:420px;height:420px;border-radius:50%;background:var(--sh-red);opacity:.18;pointer-events:none}
+    .hero__orb2{position:absolute;top:5%;right:30%;width:280px;height:280px;border-radius:50%;background:var(--sh-mint);opacity:.12;pointer-events:none}
+    .hero__orb3{position:absolute;bottom:15%;right:5%;width:200px;height:200px;border-radius:50%;background:var(--sh-pink-soft);opacity:.1;pointer-events:none}
+    .hero__grain{position:absolute;inset:0;pointer-events:none;opacity:.03;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .hero__content{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:5rem}
+    .hero__eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .15s var(--ease) forwards}
+    .hero__eyebrow-dot{width:8px;height:8px;background:var(--sh-red-soft);border-radius:50%}
+    .hero__eyebrow-text{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sh-red-soft)}
+    .hero__headline{font-family:var(--font-display);font-size:clamp(3.5rem,8vw,8.5rem);font-weight:900;line-height:.92;letter-spacing:-.02em;color:white;opacity:0;animation:fadeUp 1s .3s var(--ease) forwards}
+    .hero__headline em{font-style:normal;color:var(--sh-red-soft)}
+    .hero__sub{margin-top:2rem;font-size:clamp(.9rem,1.2vw,1.05rem);line-height:1.8;color:rgba(250,250,250,.5);max-width:500px;opacity:0;animation:fadeUp .8s .45s var(--ease) forwards}
+    .hero__meta{display:flex;gap:3rem;margin-top:3rem;opacity:0;animation:fadeUp .8s .6s var(--ease) forwards;flex-wrap:wrap}
+    .hero__meta-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,250,250,.3);margin-bottom:.3rem}
+    .hero__meta-value{font-size:.88rem;font-weight:700;color:white}
+    .hero__mockup{width:300px;flex-shrink:0;opacity:0;animation:fadeIn 1s .7s var(--ease) forwards}
+    .hero__mockup img{width:100%;border-radius:8px;box-shadow:0 40px 100px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.06)}
+    .hero__scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fadeIn 1s 1s var(--ease) forwards;z-index:2}
+    .hero__scroll-bar{width:1px;height:55px;background:linear-gradient(to bottom,var(--sh-red-soft),transparent);animation:scrollPulse 2.2s ease-in-out infinite}
+    .hero__scroll-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,250,250,.3)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+    /* SHARED */
+    .section-label{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sh-red);margin-bottom:1.8rem}
+    .section-label::before{content:'//';opacity:.4}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-d1.visible{transition-delay:.12s}
+    .reveal-d2.visible{transition-delay:.24s}
+    .reveal-d3.visible{transition-delay:.36s}
+
+    /* OVERVIEW */
+    .overview{padding:9rem 4vw;background:var(--sh-cream);border-bottom:1px solid var(--sh-border)}
+    .overview__inner{max-width:1400px;margin:0 auto}
+    .overview__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:8rem;align-items:start}
+    .overview__heading{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:700;line-height:1.1;color:var(--sh-dark);margin-bottom:1.8rem}
+    .overview__heading em{font-style:italic;color:var(--sh-red)}
+    .overview__body{font-size:.97rem;line-height:1.95;color:var(--sh-grey);margin-bottom:1.4rem}
+    .overview__tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}
+    .overview__tag{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.45rem 1rem;border:1px solid rgba(184,0,42,.2);color:var(--sh-red);background:rgba(184,0,42,.03)}
+    .overview__stats{display:flex;flex-direction:column}
+    .overview__stat{padding:1.8rem 0;border-bottom:1px solid var(--sh-border);display:flex;align-items:baseline;justify-content:space-between}
+    .overview__stat:first-child{border-top:1px solid var(--sh-border)}
+    .overview__stat-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sh-grey)}
+    .overview__stat-value{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--sh-red);line-height:1}
+
+    /* SCREENS FULL */
+    .screens-full{padding:9rem 4vw;background:white;border-top:1px solid var(--sh-border);border-bottom:1px solid var(--sh-border)}
+    .screens-full__inner{max-width:1400px;margin:0 auto}
+    .screens-full__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--sh-dark);margin-bottom:1rem}
+    .screens-full__heading em{font-style:italic;color:var(--sh-red);font-weight:400}
+    .screens-full__sub{font-size:.95rem;color:var(--sh-grey);line-height:1.7;max-width:580px;margin-bottom:5rem}
+    .screens-full__grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+    .screen-card{background:var(--sh-cream);border:1px solid var(--sh-border);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+    .screen-card:hover{transform:translateY(-8px);box-shadow:0 28px 70px rgba(184,0,42,.1)}
+    .screen-card img{width:100%;display:block}
+    .screen-card__label{padding:.85rem 1.2rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sh-grey);border-top:1px solid var(--sh-border);display:flex;justify-content:space-between;align-items:center}
+    .screen-card__tag{color:var(--sh-red)}
+
+    /* IDENTITY */
+    .identity{padding:9rem 4vw;background:var(--sh-red-pale)}
+    .identity__inner{max-width:1400px;margin:0 auto}
+    .identity__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--sh-dark);margin-bottom:5rem}
+    .identity__heading em{font-style:italic;color:var(--sh-red);font-weight:400}
+    .identity__grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+    .id-card{background:white;border:1px solid var(--sh-border);padding:2.5rem}
+    .id-card__title{font-family:var(--font-mono);font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sh-red);margin-bottom:2rem}
+    .swatches{display:flex;gap:1.5rem;align-items:flex-end;margin-bottom:2rem;flex-wrap:wrap}
+    .swatch{display:flex;flex-direction:column;gap:.6rem}
+    .swatch__block{width:80px;border-radius:6px;border:1px solid rgba(0,0,0,.06)}
+    .swatch__hex{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;color:var(--sh-grey)}
+    .swatch__name{font-size:.75rem;font-weight:700;color:var(--sh-dark)}
+    .colour-rationale p{font-size:.85rem;line-height:1.8;color:var(--sh-grey);margin-bottom:.8rem}
+    .colour-rationale p:last-child{margin-bottom:0}
+    .type-rows{display:flex;flex-direction:column;gap:1.5rem}
+    .type-row{padding-bottom:1.5rem;border-bottom:1px solid var(--sh-border)}
+    .type-row:last-child{border-bottom:none;padding-bottom:0}
+    .type-row__meta{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sh-grey);margin-bottom:.6rem}
+
+    /* CHALLENGE (dark) */
+    .challenge{padding:9rem 4vw;background:var(--sh-dark)}
+    .challenge__inner{max-width:1400px;margin:0 auto}
+    .challenge__grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start}
+    .challenge__heading{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;color:white;margin-bottom:1.8rem}
+    .challenge__heading em{font-style:italic;color:var(--sh-red-soft);font-weight:400}
+    .challenge__body{font-size:.95rem;line-height:1.95;color:rgba(250,250,250,.5);margin-bottom:1.4rem}
+    .decisions-list{display:flex;flex-direction:column;gap:2px}
+    .decision-item{padding:2rem;background:rgba(255,255,255,.03);border-left:2px solid transparent;transition:background .3s,border-color .3s}
+    .decision-item:hover{background:rgba(184,0,42,.06);border-left-color:var(--sh-red-soft)}
+    .decision-item__title{font-size:.9rem;font-weight:700;color:white;margin-bottom:.5rem}
+    .decision-item__desc{font-size:.82rem;line-height:1.75;color:rgba(250,250,250,.5)}
+
+    /* LOGO BREAKDOWN */
+    .logobreak{padding:9rem 4vw;background:var(--sh-cream)}
+    .logobreak__inner{max-width:1400px;margin:0 auto}
+    .logobreak__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--sh-dark);margin-bottom:5rem}
+    .logobreak__heading em{font-style:italic;color:var(--sh-red);font-weight:400}
+    .logobreak__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}
+    .lb-card{background:white;padding:2.5rem;border-top:2px solid transparent;transition:border-color .3s,background .3s}
+    .lb-card:hover{border-top-color:var(--sh-red);background:var(--sh-red-pale)}
+    .lb-card__mark{font-family:var(--font-ui);font-size:2.5rem;font-weight:800;color:var(--sh-dark);margin-bottom:1.2rem;letter-spacing:-.02em;line-height:1}
+    .lb-card__mark span{color:var(--sh-red)}
+    .lb-card__title{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sh-red);margin-bottom:.7rem}
+    .lb-card__desc{font-size:.85rem;line-height:1.75;color:var(--sh-grey)}
+
+    /* RESULTS */
+    .results{padding:9rem 4vw;background:var(--sh-red)}
+    .results__inner{max-width:1400px;margin:0 auto}
+    .results__heading{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);font-weight:900;line-height:.95;color:white;letter-spacing:-.02em;margin-bottom:5rem}
+    .results__heading em{font-style:italic;font-weight:400;color:rgba(255,255,255,.55)}
+    .results__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .result-card{background:rgba(0,0,0,.12);padding:3rem 2.5rem;border-top:2px solid transparent;transition:background .3s,border-color .3s}
+    .result-card:hover{background:rgba(0,0,0,.22);border-top-color:white}
+    .result-card__num{font-family:var(--font-display);font-size:3.5rem;font-weight:900;color:white;line-height:1;margin-bottom:.6rem;opacity:.9}
+    .result-card__label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:1rem}
+    .result-card__desc{font-size:.88rem;line-height:1.75;color:rgba(255,255,255,.75)}
+
+    /* FOOTER */
+    .footer{background:#0a0a0a;border-top:1px solid rgba(184,0,42,.15);padding:7rem 4vw 3rem}
+    .footer__inner{max-width:1400px;margin:0 auto}
+    .footer__top{margin-bottom:5rem}
+    .footer__label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(184,0,42,.7);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+    .footer__label::before{content:'&#x2014;'}
+    .footer__heading{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,6rem);font-weight:900;line-height:.9;color:white;letter-spacing:-.02em;margin-bottom:3rem}
+    .footer__heading em{font-style:italic;color:var(--sh-red-soft);font-weight:400}
+    .footer__ctas{display:flex;gap:1.2rem;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--sh-red);color:white;font-family:var(--font-ui);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;cursor:none;transition:background .25s,transform .3s var(--ease),box-shadow .3s}
+    .btn-primary:hover{background:var(--sh-red-soft);transform:translateY(-3px);box-shadow:0 12px 32px rgba(184,0,42,.4)}
+    .btn-outline{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(184,0,42,.4);color:rgba(250,250,250,.6);font-family:var(--font-ui);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;background:transparent;cursor:none;transition:all .25s}
+    .btn-outline:hover{border-color:var(--sh-red-soft);color:white;background:rgba(184,0,42,.08);transform:translateY(-3px)}
+    .footer__logo-img{height:36px;width:auto;mix-blend-mode:screen;filter:brightness(1.4) saturate(0.6);opacity:.9}
+    .footer__mid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;padding:4rem 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:3rem}
+    .footer__col-title{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.5rem}
+    .footer__col a,.footer__col p{display:block;font-size:.9rem;color:rgba(255,255,255,.45);line-height:1;margin-bottom:1rem;transition:color .2s}
+    .footer__col a:hover{color:#fff}
+    .footer__email{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:rgba(255,255,255,.75) !important}
+    .footer__email:hover{color:#fff !important}
+    .footer__bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer__copy{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.2)}
+    .footer__socials{display:flex;gap:2rem}
+    .footer__socials a{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);transition:color .2s}
+    .footer__socials a:hover{color:var(--sh-red-soft)}
+
+    @media(max-width:1100px){
+      .hero__content,.challenge__grid,.overview__grid,.identity__grid{grid-template-columns:1fr;gap:3rem}
+      .hero__mockup{display:none}
+      .screens-full__grid{grid-template-columns:1fr}
+      .logobreak__grid{grid-template-columns:1fr 1fr}
+      .results__grid{grid-template-columns:1fr;gap:2px}
+      .footer__mid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){
+      .nav__links{display:none}
+      .logobreak__grid{grid-template-columns:1fr}
+      .results__grid{grid-template-columns:1fr;gap:2px}
+      .footer__mid{grid-template-columns:1fr;gap:2rem}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor">
+    <div class="cursor__dot" id="cursorDot"></div>
+    <div class="cursor__ring" id="cursorRing"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo-wrap">
+        <img src="../assets/Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#about">Studio</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../index.html#process">Process</a>
+        <a href="../index.html#contact" class="nav__back">&#x2190; Back to Portfolio</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__orb1"></div>
+    <div class="hero__orb2"></div>
+    <div class="hero__orb3"></div>
+    <div class="hero__grain"></div>
+    <div class="hero__content">
+      <div>
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-dot"></div>
+          <span class="hero__eyebrow-text">Web UI Design &nbsp;&#xB7;&nbsp; Photography Studio &nbsp;&#xB7;&nbsp; 2024</span>
+        </div>
+        <h1 class="hero__headline">SH<em>&#x25CE;</em>T</h1>
+        <p class="hero__sub">A bold, graphic web UI for a photography studio that captures human essence &#x2014; designed to feel as dynamic and alive as the images it showcases, with a visual language as sharp as a shutter click.</p>
+        <div class="hero__meta">
+          <div>
+            <div class="hero__meta-label">Client</div>
+            <div class="hero__meta-value">Shot Studio</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Type</div>
+            <div class="hero__meta-value">Web UI Design</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Platform</div>
+            <div class="hero__meta-value">Desktop Web</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Year</div>
+            <div class="hero__meta-value">2024</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__mockup">
+        <img src="../assets/shot/Shot_2024_1.png" alt="Shot homepage" />
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <div class="hero__scroll-bar"></div>
+      <span class="hero__scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="overview">
+    <div class="overview__inner">
+      <div class="overview__grid">
+        <div class="reveal">
+          <p class="section-label">Project Overview</p>
+          <h2 class="overview__heading">Photography that <em>captures essence</em></h2>
+          <p class="overview__body">Shot is a photography studio built on a single belief: great photography goes beyond snapping a picture. It tells a story, evokes emotion, and captures the essence of the world around you. The brand needed a web presence that embodied exactly that &#x2014; visually arresting, emotionally immediate, and unmistakably distinct.</p>
+          <p class="overview__body">The homepage design centres on a bold geometric hero: a graduated circular crop of a portrait subject against a vivid crimson circle, overlaid on a clean white canvas with soft decorative spheres and flowing topographic line art. The result is a composition that feels curated and cinematic &#x2014; less like a website template and more like an editorial spread.</p>
+          <p class="overview__body">The design system &#x2014; a crisp black-and-white base activated by a singular crimson red &#x2014; ensures that every element serves the photography. The brand never competes with the images; it frames them.</p>
+          <div class="overview__tags">
+            <span class="overview__tag">Web UI Design</span>
+            <span class="overview__tag">Photography</span>
+            <span class="overview__tag">Brand Identity</span>
+            <span class="overview__tag">Figma</span>
+            <span class="overview__tag">Desktop Web</span>
+            <span class="overview__tag">Logo Design</span>
+            <span class="overview__tag">Typography</span>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="overview__stats">
+            <div class="overview__stat">
+              <span class="overview__stat-label">Client</span>
+              <span class="overview__stat-value">Shot Studio</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Type</span>
+              <span class="overview__stat-value">Web UI</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Platform</span>
+              <span class="overview__stat-value">Desktop Web</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Industry</span>
+              <span class="overview__stat-value">Photography</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Year</span>
+              <span class="overview__stat-value">2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENS -->
+  <section class="screens-full">
+    <div class="screens-full__inner">
+      <div class="reveal">
+        <p class="section-label">The Design</p>
+        <h2 class="screens-full__heading">Two views, one <em>composition</em></h2>
+        <p class="screens-full__sub">The homepage was explored at two levels of subject crop &#x2014; both demonstrating how the circular frame and background geometry hold across different portrait framings.</p>
+      </div>
+      <div class="screens-full__grid">
+        <div class="screen-card reveal">
+          <img src="../assets/shot/Shot_2024_1.png" alt="Shot homepage — wide crop" />
+          <div class="screen-card__label">
+            <span>Homepage &#x2014; Wide Portrait Crop</span>
+            <span class="screen-card__tag">V1</span>
+          </div>
+        </div>
+        <div class="screen-card reveal reveal-d1">
+          <img src="../assets/shot/Shot_2024_2.png" alt="Shot homepage — tight crop" />
+          <div class="screen-card__label">
+            <span>Homepage &#x2014; Tight Portrait Crop</span>
+            <span class="screen-card__tag">V2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO BREAKDOWN -->
+  <section class="logobreak">
+    <div class="logobreak__inner">
+      <div class="reveal">
+        <p class="section-label">Logo Design</p>
+        <h2 class="logobreak__heading">The mark that says <em>everything</em></h2>
+      </div>
+      <div class="logobreak__grid">
+        <div class="lb-card reveal">
+          <div class="lb-card__mark">SH<span>&#x25CE;</span>T</div>
+          <p class="lb-card__title">The Wordmark</p>
+          <p class="lb-card__desc">The logo replaces the letter O in SHOT with a camera aperture symbol &#x25CE; &#x2014; a concentric circle that references both the lens and the shutter. It is typographically seamless: the aperture sits at the same x-height as the surrounding letters, so the mark reads as a word before it reads as a symbol.</p>
+        </div>
+        <div class="lb-card reveal reveal-d1">
+          <div class="lb-card__mark" style="color:var(--sh-red)">&#x25CE;</div>
+          <p class="lb-card__title">The Symbol</p>
+          <p class="lb-card__desc">Isolated, the aperture ring becomes the brand icon &#x2014; usable as a favicon, watermark, or social avatar. Its concentric ring structure mirrors the circular crops used throughout the hero layout, creating a visual system where the logo and the layout reinforce each other.</p>
+        </div>
+        <div class="lb-card reveal reveal-d2">
+          <div class="lb-card__mark" style="font-size:1.5rem;font-family:'Playfair Display',serif;font-style:italic;color:var(--sh-red);line-height:1.3">We CAPTURE<br>your ESSENCE</div>
+          <p class="lb-card__title">The Tagline</p>
+          <p class="lb-card__desc">The hero headline uses selective crimson weight on the words CAPTURE and ESSENCE &#x2014; the two verbs that define the brand's promise. Black anchors the sentence structure; red highlights the emotional payload. It's a typographic technique that functions like a focal point in a photograph.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN DECISIONS (dark) -->
+  <section class="challenge">
+    <div class="challenge__inner">
+      <div class="challenge__grid">
+        <div class="reveal">
+          <p class="section-label" style="color:var(--sh-red-soft)">Design Decisions</p>
+          <h2 class="challenge__heading">Built like a <em>photograph</em></h2>
+          <p class="challenge__body">Every decision in the Shot homepage was made the way a photographer frames a shot &#x2014; with intention, restraint, and a clear subject. The design never decorates for decoration's sake. Each element has a compositional role: the red circle is the background plane, the portrait is the subject, the topographic lines are the ground texture, and the soft spheres are the bokeh.</p>
+          <p class="challenge__body">The challenge was to create a homepage that felt instantly impressive without relying on a full-bleed dark hero or heavy photography. The white background was a deliberate constraint &#x2014; forcing all visual impact to come from composition and colour rather than atmosphere.</p>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="decisions-list">
+            <div class="decision-item">
+              <h3 class="decision-item__title">White Background Hero</h3>
+              <p class="decision-item__desc">Most photography websites go dark to let images dominate. Shot goes white &#x2014; a confident choice that makes the crimson circle and portrait pop with maximum contrast, and signals that the brand's graphic identity is as strong as its photography.</p>
+            </div>
+            <div class="decision-item">
+              <h3 class="decision-item__title">Circular Portrait Crop</h3>
+              <p class="decision-item__desc">The subject is cropped into a circle against a solid red disc. This references the camera lens directly &#x2014; you are looking through an aperture at the subject &#x2014; and creates a focal point that immediately draws the eye to the centre of the composition.</p>
+            </div>
+            <div class="decision-item">
+              <h3 class="decision-item__title">Topographic Line Art</h3>
+              <p class="decision-item__desc">Flowing contour lines in muted crimson and blue fill the lower portion of the hero, adding depth and movement without introducing new colours. They echo the organic curves of the portrait and give the white space a texture without cluttering it.</p>
+            </div>
+            <div class="decision-item">
+              <h3 class="decision-item__title">Minimal Navigation</h3>
+              <p class="decision-item__desc">Three links &#x2014; About, Portfolio, Services &#x2014; plus a prominent "Contact us" CTA button in solid red. The nav is light enough to disappear into the page on scroll, keeping the hero composition uninterrupted for as long as possible.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDENTITY -->
+  <section class="identity">
+    <div class="identity__inner">
+      <div class="reveal">
+        <p class="section-label">Design System</p>
+        <h2 class="identity__heading">Colour, type &amp; <em>geometry</em></h2>
+      </div>
+      <div class="identity__grid">
+        <div class="id-card reveal">
+          <p class="id-card__title">Colour Palette</p>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch__block" style="height:80px;background:#B8002A"></div>
+              <span class="swatch__hex">#B8002A</span>
+              <span class="swatch__name">Crimson</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="height:65px;background:#0a0a0a"></div>
+              <span class="swatch__hex">#0A0A0A</span>
+              <span class="swatch__name">Near Black</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="height:50px;background:#ffffff;border:1px solid #e8e8e8"></div>
+              <span class="swatch__hex">#FFFFFF</span>
+              <span class="swatch__name">White</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="height:40px;background:#c8e8e0"></div>
+              <span class="swatch__hex">#C8E8E0</span>
+              <span class="swatch__name">Soft Mint</span>
+            </div>
+          </div>
+          <div class="colour-rationale">
+            <p><strong style="color:var(--sh-red)">Crimson (#B8002A)</strong> &#x2014; The singular accent colour. Used with total restraint &#x2014; the circular background shape, the CTA button, the logo aperture, the headline keywords. Because it appears rarely, it hits hard every time. This is the colour of urgency, passion, and the red-eye flash.</p>
+            <p><strong>Near Black &amp; White</strong> &#x2014; The base system. Clean, high-contrast, editorial. A photography brand should never compete with its own images; the neutral base ensures every photograph shown on the site holds maximum visual weight.</p>
+            <p><strong>Soft Mint (#C8E8E0)</strong> &#x2014; A single decorative accent sphere in the hero adds a breath of cool air against the warm red circle. It prevents the composition from feeling monochromatic while remaining firmly in the background.</p>
+          </div>
+        </div>
+        <div class="id-card reveal reveal-d1">
+          <p class="id-card__title">Typography</p>
+          <div class="type-rows">
+            <div class="type-row">
+              <div class="type-row__meta">Logo &#x2014; Geometric Sans, Heavy</div>
+              <div style="font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;letter-spacing:-.01em;color:var(--sh-dark);line-height:1">SH<span style="color:var(--sh-red)">&#x25CE;</span>T</div>
+              <p style="font-size:.82rem;line-height:1.7;color:var(--sh-grey);margin-top:.7rem">The heavy geometric sans gives the wordmark authority and visual mass. The aperture symbol slots into the letterforms naturally at this weight &#x2014; lighter weights would make the substitution feel awkward.</p>
+            </div>
+            <div class="type-row">
+              <div class="type-row__meta">Hero Headline &#x2014; Bold with Red Accent</div>
+              <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--sh-dark);line-height:1.15">We <span style="color:var(--sh-red)">CAPTURE</span><br>your <span style="color:var(--sh-red)">ESSENCE</span></div>
+              <p style="font-size:.82rem;line-height:1.7;color:var(--sh-grey);margin-top:.7rem">The headline uses all-caps for the red words only &#x2014; creating a rhythm of lowercase intention and uppercase impact. It's a copywriting and typographic decision made simultaneously.</p>
+            </div>
+            <div class="type-row">
+              <div class="type-row__meta">Body &#x2014; Clean readable weight</div>
+              <div style="font-size:.9rem;line-height:1.75;color:var(--sh-grey)">Our passion for photography goes beyond just snapping a picture &#x2014; we strive to create images that tell a story, evoke emotions and capture the essence of the world around you.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="results">
+    <div class="results__inner">
+      <div class="reveal">
+        <h2 class="results__heading">The <em>outcome</em></h2>
+      </div>
+      <div class="results__grid">
+        <div class="result-card reveal">
+          <div class="result-card__num">1</div>
+          <div class="result-card__label">Singular Accent Colour</div>
+          <div class="result-card__desc">Crimson is the only colour in the palette. Used in exactly the right places, it creates a brand identity that is instantly recognisable from a single glance.</div>
+        </div>
+        <div class="result-card reveal reveal-d1">
+          <div class="result-card__num">3</div>
+          <div class="result-card__label">Compositional Layers</div>
+          <div class="result-card__desc">Background geometry (red circle), portrait subject (circular crop), and surface texture (topographic lines) &#x2014; three layers that work like depth-of-field in a photograph.</div>
+        </div>
+        <div class="result-card reveal reveal-d2">
+          <div class="result-card__num">0</div>
+          <div class="result-card__label">Wasted Elements</div>
+          <div class="result-card__desc">Every element in the hero &#x2014; the logo, the circles, the lines, the headline, the CTA &#x2014; has a deliberate compositional and communicative role. Nothing decorates without purpose.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top reveal">
+        <p class="footer__label">Next Steps</p>
+        <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
+        <div class="footer__ctas">
+          <a href="../index.html#contact" class="btn-primary">Start a Project &#x2192;</a>
+          <a href="../projects.html" class="btn-outline">Back to Projects</a>
+        </div>
+      </div>
+      <div class="footer__mid">
+        <div class="footer__col">
+          <img src="../assets/Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Studio</p>
+          <a href="../index.html#about">About</a>
+          <a href="../projects.html">Projects</a>
+          <a href="../index.html#process">Process</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Connect</p>
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Contact</p>
+          <a href="#" class="footer__email" id="footerEmail">rhyviddesign&#64;gmail&#46;com</a>
+          <p>Lagos, Nigeria</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&#x00A9; 2026 Rhyvid Developments. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var el=document.getElementById('footerEmail');
+      if(el){el.href='mailto:'+'rhyviddesign'+'@'+'gmail.com';}
+      var dot=document.getElementById('cursorDot');
+      var ring=document.getElementById('cursorRing');
+      var mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+      function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);}
+      tick();
+      var nav=document.getElementById('nav');
+      window.addEventListener('scroll',function(){nav.classList.toggle('nav--scrolled',window.scrollY>50);},{passive:true});
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.08});
+        document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+      }
+    })();
+  </script>
+</body>
+</html>
