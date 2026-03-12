@@ -124,6 +124,13 @@
     .project__category::before{content:'';width:18px;height:1px;background:var(--teal)}
     .project__name{font-family:var(--font-display);font-size:clamp(1.8rem,2.8vw,2.8rem);font-weight:700;line-height:1.1;color:var(--white);margin-bottom:1.4rem;transition:color .3s}
     .project:hover .project__name{color:#FF6B00}
+    .project:nth-child(2):hover .project__name{color:#15381C}
+    .project:nth-child(2):hover .project__media::after{background:linear-gradient(135deg,rgba(21,56,28,.2) 0%,transparent 60%)}
+    .project:nth-child(2) .project__num{color:rgba(206,165,43,.7)}
+    .project:nth-child(2):hover .project__info{border-left-color:rgba(21,56,28,.4)}
+    .project:nth-child(2) .project__cta{color:#CEA52B}
+    .project:nth-child(2):hover .project__cta{border-color:#CEA52B}
+    .project:nth-child(2):hover .project__year{color:rgba(206,165,43,.12)}
     .project__desc{font-size:.88rem;line-height:1.8;color:var(--mist-dim);max-width:330px}
     .project__bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2.5rem}
     .project__year{font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--teal-border);line-height:1;letter-spacing:-.03em;transition:color .4s}
@@ -394,7 +401,7 @@
           <p class="section-label">Selected Works</p>
           <h2 class="works__title">Recent<br><span>Projects</span></h2>
         </div>
-        <p class="works__count">01 Project</p>
+        <p class="works__count">02 Projects</p>
       </div>
       <div class="projects">
         <article class="project">
@@ -412,6 +419,27 @@
               </div>
               <div class="project__bottom">
                 <span class="project__year">2026</span>
+                <span class="project__cta">View Case Study &#x2192;</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <article class="project">
+          <a href="./projects/molly-realty.html" class="project__link">
+            <div class="project__media">
+              <img src="./assets/molly-realty/Title_Page.png" alt="Molly Realty and Leisure" />
+              <div class="project__media-overlay"></div>
+              <span class="project__num">02</span>
+            </div>
+            <div class="project__info">
+              <div class="project__top">
+                <p class="project__category">Brand Identity &middot; Logo Design</p>
+                <h3 class="project__name">Molly Realty &amp; Leisure</h3>
+                <p class="project__desc">A unified brand identity for a Nigerian real estate and agro-tourism company &#x2014; one logo mark that bridges two industries without compromising either.</p>
+              </div>
+              <div class="project__bottom">
+                <span class="project__year">2025</span>
                 <span class="project__cta">View Case Study &#x2192;</span>
               </div>
             </div>
