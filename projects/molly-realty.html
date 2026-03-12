@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Molly Realty &amp; Leisure — Case Study | Rhyvid Developments</title>
+  <link rel="icon" type="image/png" href="../assets/Icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --teal:#1D6F8A;--teal-deep:#0E3D4F;--teal-light:#2A8FAD;
+      --teal-border:rgba(29,111,138,0.22);
+      --port-black:#060D10;--white:#EDF6F9;--mist:#A3C2CC;--mist-dim:#607E88;
+
+      /* Molly brand */
+      --mr-green:#15381C;--mr-green-mid:#1e5228;--mr-green-light:#2a6e36;
+      --mr-gold:#CEA52B;--mr-gold-soft:#d9b84a;--mr-gold-pale:#fdf6e3;
+      --mr-cream:#f8f5ee;--mr-dark:#0d1f10;--mr-grey:#5a5a5a;
+
+      --font-display:'Playfair Display',Georgia,serif;
+      --font-ui:'Syne',system-ui,sans-serif;
+      --font-mono:'IBM Plex Mono',monospace;
+      --ease:cubic-bezier(0.16,1,0.3,1)
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-ui);background:var(--mr-cream);color:var(--mr-dark);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit;cursor:none}
+
+    /* CURSOR */
+    .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
+    .cursor__dot{position:absolute;width:6px;height:6px;background:var(--mr-gold);border-radius:50%;transform:translate(-50%,-50%)}
+    .cursor__ring{position:absolute;width:32px;height:32px;border:1.5px solid rgba(206,165,43,0.5);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),border-color .3s}
+    body:has(a:hover) .cursor__ring{width:52px;height:52px;border-color:rgba(206,165,43,0.9)}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 4vw;height:80px;display:flex;align-items:center;transition:background .5s var(--ease),border-color .5s;border-bottom:1px solid transparent}
+    .nav--scrolled{background:rgba(248,245,238,0.95);backdrop-filter:blur(20px);border-color:rgba(206,165,43,0.2)}
+    .nav__inner{width:100%;max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .nav__logo-wrap{display:flex;align-items:center;height:80px}
+    .nav__logo-img{height:30px;width:auto;mix-blend-mode:multiply;filter:brightness(0.9);transition:opacity .2s}
+    .nav__logo-img:hover{opacity:0.7}
+    .nav__links{display:flex;gap:2.5rem;align-items:center}
+    .nav__links a{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--mr-grey);transition:color .2s}
+    .nav__links a:hover{color:var(--mr-green)}
+    .nav__back{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:white;background:var(--mr-green);padding:.65rem 1.6rem;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
+    .nav__back:hover{background:var(--mr-green-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(21,56,28,.3)}
+
+    /* HERO */
+    .hero{min-height:100svh;background:var(--mr-dark);display:flex;flex-direction:column;justify-content:flex-end;padding:0 4vw 8vh;position:relative;overflow:hidden}
+    .hero__bg{position:absolute;inset:0;pointer-events:none}
+    .hero__bg::before{content:'';position:absolute;top:-20%;right:-15%;width:70vmax;height:70vmax;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(21,56,28,.5) 0%,rgba(206,165,43,.08) 50%,transparent 70%)}
+    .hero__bg::after{content:'';position:absolute;bottom:-25%;left:-10%;width:55vmax;height:55vmax;border-radius:50%;background:radial-gradient(circle,rgba(206,165,43,.07) 0%,transparent 70%)}
+    .hero__grain{position:absolute;inset:0;pointer-events:none;opacity:.035;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .hero__content{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:5rem}
+    .hero__eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .15s var(--ease) forwards}
+    .hero__eyebrow-dot{width:8px;height:8px;background:var(--mr-gold);border-radius:50%}
+    .hero__eyebrow-text{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mr-gold)}
+    .hero__headline{font-family:var(--font-display);font-size:clamp(3.5rem,8vw,8.5rem);font-weight:900;line-height:.92;letter-spacing:-.02em;color:white;opacity:0;animation:fadeUp 1s .3s var(--ease) forwards}
+    .hero__headline em{font-style:italic;color:var(--mr-gold);font-weight:400}
+    .hero__sub{margin-top:2rem;font-size:clamp(.9rem,1.2vw,1.05rem);line-height:1.8;color:rgba(237,246,249,.5);max-width:500px;opacity:0;animation:fadeUp .8s .45s var(--ease) forwards}
+    .hero__meta{display:flex;gap:3rem;margin-top:3rem;opacity:0;animation:fadeUp .8s .6s var(--ease) forwards}
+    .hero__meta-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(237,246,249,.3);margin-bottom:.3rem}
+    .hero__meta-value{font-size:.88rem;font-weight:700;color:white}
+
+    /* logo cluster */
+    .hero__logo-cluster{position:relative;width:280px;height:200px;opacity:0;animation:fadeIn 1s .7s var(--ease) forwards;flex-shrink:0}
+    .hero__logo-cluster img{position:absolute;border-radius:4px}
+    .hero__logo-main{width:260px;top:0;right:0;filter:drop-shadow(0 30px 60px rgba(0,0,0,.6))}
+    
+    .hero__scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fadeIn 1s 1s var(--ease) forwards;z-index:2}
+    .hero__scroll-bar{width:1px;height:55px;background:linear-gradient(to bottom,var(--mr-gold),transparent);animation:scrollPulse 2.2s ease-in-out infinite}
+    .hero__scroll-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(237,246,249,.3)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+    /* SHARED */
+    .section-label{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mr-gold);margin-bottom:1.8rem}
+    .section-label::before{content:'//';opacity:.4}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-d1.visible{transition-delay:.12s}
+    .reveal-d2.visible{transition-delay:.24s}
+    .reveal-d3.visible{transition-delay:.36s}
+
+    /* OVERVIEW */
+    .overview{padding:9rem 4vw;background:var(--mr-cream);border-bottom:1px solid rgba(21,56,28,.1)}
+    .overview__inner{max-width:1400px;margin:0 auto}
+    .overview__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:8rem;align-items:start}
+    .overview__heading{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:700;line-height:1.1;color:var(--mr-dark);margin-bottom:1.8rem}
+    .overview__heading em{font-style:italic;color:var(--mr-green)}
+    .overview__body{font-size:.97rem;line-height:1.95;color:var(--mr-grey);margin-bottom:1.4rem}
+    .overview__tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}
+    .overview__tag{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.45rem 1rem;border:1px solid rgba(21,56,28,.25);color:var(--mr-green);background:rgba(21,56,28,.04)}
+    .overview__stats{display:flex;flex-direction:column}
+    .overview__stat{padding:1.8rem 0;border-bottom:1px solid rgba(21,56,28,.1);display:flex;align-items:baseline;justify-content:space-between}
+    .overview__stat:first-child{border-top:1px solid rgba(21,56,28,.1)}
+    .overview__stat-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mr-grey)}
+    .overview__stat-value{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--mr-green);line-height:1}
+
+    /* CHALLENGE */
+    .challenge{padding:9rem 4vw;background:var(--mr-green);border-bottom:1px solid rgba(206,165,43,.2)}
+    .challenge__inner{max-width:1400px;margin:0 auto}
+    .challenge__grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start}
+    .challenge__heading{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;color:white;margin-bottom:1.8rem}
+    .challenge__heading em{font-style:italic;color:var(--mr-gold);font-weight:400}
+    .challenge__body{font-size:.95rem;line-height:1.95;color:rgba(237,246,249,.6);margin-bottom:1.4rem}
+    .challenge__list{list-style:none;margin-top:1.5rem}
+    .challenge__list li{display:flex;align-items:flex-start;gap:1rem;padding:1.1rem 0;border-bottom:1px solid rgba(206,165,43,.12);font-size:.92rem;color:rgba(237,246,249,.65);line-height:1.6}
+    .challenge__list li:first-child{border-top:1px solid rgba(206,165,43,.12)}
+    .challenge__list li::before{content:'&#x2192;';color:var(--mr-gold);flex-shrink:0;margin-top:.15rem}
+    .challenge__deliverables{margin-top:3rem}
+    .challenge__del-title{font-family:var(--font-mono);font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mr-gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
+    .challenge__del-title::before{content:'//';opacity:.4}
+    .del-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .del-item{padding:1.5rem;background:rgba(255,255,255,.04);border-top:2px solid rgba(206,165,43,.3);font-size:.85rem;color:rgba(237,246,249,.65);line-height:1.6;transition:background .3s,border-color .3s}
+    .del-item:hover{background:rgba(206,165,43,.08);border-top-color:var(--mr-gold)}
+    .del-item strong{display:block;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mr-gold);margin-bottom:.4rem}
+
+    /* AUDIENCE */
+    .audience{padding:9rem 4vw;background:var(--mr-gold-pale);border-bottom:1px solid rgba(21,56,28,.1)}
+    .audience__inner{max-width:1400px;margin:0 auto}
+    .audience__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--mr-dark);margin-bottom:5rem}
+    .audience__heading em{font-style:italic;color:var(--mr-green);font-weight:400}
+    .audience__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+    .audience-card{padding:3rem 2.5rem;background:white;border-top:3px solid transparent;transition:border-color .3s,background .3s}
+    .audience-card:hover{border-top-color:var(--mr-green);background:#fafff8}
+    .audience-card__icon{font-size:2rem;margin-bottom:1.5rem}
+    .audience-card__title{font-size:.92rem;font-weight:700;letter-spacing:.04em;color:var(--mr-dark);margin-bottom:.8rem;text-transform:uppercase}
+    .audience-card__desc{font-size:.88rem;line-height:1.75;color:var(--mr-grey)}
+    .audience-card__need{margin-top:1.2rem;font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mr-green);padding:.4rem .8rem;border:1px solid rgba(21,56,28,.2);display:inline-block}
+
+    /* PROCESS */
+    .process{padding:9rem 4vw;background:var(--mr-dark)}
+    .process__inner{max-width:1400px;margin:0 auto}
+    .process__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:white;margin-bottom:5rem}
+    .process__heading em{font-style:italic;color:var(--mr-gold);font-weight:400}
+    .process__grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    .process__text-body{font-size:.95rem;line-height:1.95;color:rgba(237,246,249,.55);margin-bottom:1.4rem}
+    .process__sketches{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .sketch-card{overflow:hidden;border:1px solid rgba(206,165,43,.12);transition:transform .4s var(--ease),box-shadow .4s}
+    .sketch-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+    .sketch-card img{width:100%;display:block}
+    .process__rationale{margin-top:4rem;grid-column:1/-1}
+    .rationale-items{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:2rem}
+    .rationale-item{padding:2rem;background:rgba(255,255,255,.03);border-top:2px solid rgba(206,165,43,.2);transition:background .3s,border-color .3s}
+    .rationale-item:hover{background:rgba(206,165,43,.06);border-top-color:var(--mr-gold)}
+    .rationale-item__label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mr-gold);margin-bottom:.8rem}
+    .rationale-item__text{font-size:.85rem;line-height:1.75;color:rgba(237,246,249,.55)}
+
+    /* COLOUR & TYPE */
+    .identity{padding:9rem 4vw;background:var(--mr-cream);border-top:1px solid rgba(21,56,28,.08)}
+    .identity__inner{max-width:1400px;margin:0 auto}
+    .identity__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--mr-dark);margin-bottom:5rem}
+    .identity__heading em{font-style:italic;color:var(--mr-green);font-weight:400}
+    .identity__grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+    .id-card{background:white;border:1px solid rgba(21,56,28,.08);padding:2.5rem}
+    .id-card__title{font-family:var(--font-mono);font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mr-green);margin-bottom:2rem}
+
+    /* colour swatches */
+    .swatches{display:flex;gap:1.5rem;align-items:flex-end;margin-bottom:2rem}
+    .swatch{display:flex;flex-direction:column;gap:.6rem}
+    .swatch__block{width:80px;border-radius:6px}
+    .swatch__hex{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;color:var(--mr-grey)}
+    .swatch__name{font-size:.75rem;font-weight:700;color:var(--mr-dark)}
+    .colour-rationale{font-size:.85rem;line-height:1.8;color:var(--mr-grey)}
+    .colour-rationale p{margin-bottom:.8rem}
+    .colour-rationale p:last-child{margin-bottom:0}
+
+    /* typography */
+    .type-rows{display:flex;flex-direction:column;gap:1.5rem}
+    .type-row{padding-bottom:1.5rem;border-bottom:1px solid rgba(21,56,28,.08)}
+    .type-row:last-child{border-bottom:none;padding-bottom:0}
+    .type-row__meta{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mr-grey);margin-bottom:.5rem}
+    .type-row__sample{color:var(--mr-dark)}
+
+    /* FULL-WIDTH SHOWCASE */
+    .showcase{padding:9rem 4vw;background:var(--mr-green)}
+    .showcase__inner{max-width:1400px;margin:0 auto}
+    .showcase__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:white;margin-bottom:1rem}
+    .showcase__heading em{font-style:italic;color:var(--mr-gold);font-weight:400}
+    .showcase__sub{font-size:.95rem;color:rgba(237,246,249,.5);line-height:1.7;max-width:560px;margin-bottom:4rem}
+    .showcase__main{width:100%;overflow:hidden;border:1px solid rgba(206,165,43,.15);margin-bottom:2rem}
+    .showcase__main img{width:100%;display:block}
+    .showcase__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .showcase__item{overflow:hidden;transition:transform .4s var(--ease)}
+    .showcase__item:hover{transform:scale(1.02)}
+    .showcase__item img{width:100%;display:block}
+    .showcase__caption{margin-top:1rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,246,249,.35)}
+
+    /* LOGO VARIANTS */
+    .variants{padding:9rem 4vw;background:var(--mr-cream);border-top:1px solid rgba(21,56,28,.08)}
+    .variants__inner{max-width:1400px;margin:0 auto}
+    .variants__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--mr-dark);margin-bottom:5rem}
+    .variants__heading em{font-style:italic;color:var(--mr-green);font-weight:400}
+    .variants__grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .variant-card{padding:3rem;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;border:1px solid rgba(21,56,28,.08)}
+    .variant-card--dark{background:var(--mr-dark)}
+    .variant-card--green{background:var(--mr-green)}
+    .variant-card--cream{background:var(--mr-gold-pale)}
+    .variant-card--white{background:white}
+    .variant-card img{max-height:90px;width:auto;max-width:100%;object-fit:contain}
+    .variant-card__label{margin-top:1.5rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+    .variant-card--cream .variant-card__label,.variant-card--white .variant-card__label{color:rgba(21,56,28,.4)}
+
+    /* RESULTS */
+    .results{padding:9rem 4vw;background:var(--mr-gold)}
+    .results__inner{max-width:1400px;margin:0 auto}
+    .results__heading{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);font-weight:900;line-height:.95;color:white;letter-spacing:-.02em;margin-bottom:5rem}
+    .results__heading em{font-style:italic;font-weight:400;color:var(--mr-dark)}
+    .results__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .result-card{background:rgba(0,0,0,.12);padding:3rem 2.5rem;border-top:2px solid rgba(255,255,255,.2);transition:background .3s}
+    .result-card:hover{background:rgba(0,0,0,.22)}
+    .result-card__num{font-family:var(--font-display);font-size:3.5rem;font-weight:900;color:white;line-height:1;margin-bottom:.6rem}
+    .result-card__label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:1rem}
+    .result-card__desc{font-size:.88rem;line-height:1.75;color:rgba(255,255,255,.75)}
+    .results__quote{margin-top:6rem;padding:3rem 4rem;background:rgba(0,0,0,.12);border-left:3px solid white}
+    .results__quote-text{font-family:var(--font-display);font-size:clamp(1.2rem,2vw,1.8rem);font-style:italic;font-weight:400;color:white;line-height:1.5;margin-bottom:1.5rem}
+    .results__quote-attr{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+
+    /* FOOTER */
+    .footer{background:var(--mr-dark);border-top:1px solid rgba(206,165,43,.15);padding:7rem 4vw 3rem}
+    .footer__inner{max-width:1400px;margin:0 auto}
+    .footer__top{margin-bottom:5rem}
+    .footer__label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(206,165,43,.7);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+    .footer__label::before{content:'&#x2014;'}
+    .footer__heading{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,6rem);font-weight:900;line-height:.9;color:white;letter-spacing:-.02em;margin-bottom:3rem}
+    .footer__heading em{font-style:italic;color:var(--mr-gold);font-weight:400}
+    .footer__ctas{display:flex;gap:1.2rem;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--mr-gold);color:white;font-family:var(--font-ui);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;border:none;cursor:none;transition:background .25s,transform .3s var(--ease),box-shadow .3s}
+    .btn-primary:hover{background:var(--mr-gold-soft);transform:translateY(-3px);box-shadow:0 12px 32px rgba(206,165,43,.3)}
+    .btn-outline{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(206,165,43,.4);color:var(--mist);font-family:var(--font-ui);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;background:transparent;cursor:none;transition:all .25s}
+    .btn-outline:hover{border-color:var(--mr-gold);color:white;background:rgba(206,165,43,.08);transform:translateY(-3px)}
+    .footer__logo-img{height:36px;width:auto;mix-blend-mode:screen;filter:brightness(1.4) saturate(0.6);opacity:.9}
+    .footer__mid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;padding:4rem 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:3rem}
+    .footer__col-title{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.5rem}
+    .footer__col a,.footer__col p{display:block;font-size:.9rem;color:rgba(255,255,255,.45);line-height:1;margin-bottom:1rem;transition:color .2s}
+    .footer__col a:hover{color:#fff}
+    .footer__email{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:rgba(255,255,255,.75) !important}
+    .footer__email:hover{color:#fff !important}
+    .footer__bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer__copy{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.2)}
+    .footer__socials{display:flex;gap:2rem}
+    .footer__socials a{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);transition:color .2s}
+    .footer__socials a:hover{color:var(--mr-gold)}
+
+    /* RESPONSIVE */
+    @media(max-width:1100px){
+      .hero__content{grid-template-columns:1fr}
+      .hero__logo-cluster{display:none}
+      .overview__grid,.challenge__grid,.process__grid,.identity__grid,.variants__grid{grid-template-columns:1fr;gap:3rem}
+      .rationale-items{grid-template-columns:1fr 1fr}
+      .audience__grid{grid-template-columns:1fr}
+      .showcase__grid{grid-template-columns:1fr 1fr}
+      .results__grid{grid-template-columns:1fr;gap:2px}
+      .footer__mid{grid-template-columns:1fr 1fr}
+      .del-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .nav__links{display:none}
+      .rationale-items{grid-template-columns:1fr}
+      .showcase__grid{grid-template-columns:1fr}
+      .del-grid{grid-template-columns:1fr}
+      .results__quote{padding:2rem}
+      .footer__mid{grid-template-columns:1fr;gap:2rem}
+      .swatches{flex-wrap:wrap}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor">
+    <div class="cursor__dot" id="cursorDot"></div>
+    <div class="cursor__ring" id="cursorRing"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo-wrap">
+        <img src="../assets/Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#about">Studio</a>
+        <a href="../index.html#works">Works</a>
+        <a href="../index.html#process">Process</a>
+        <a href="../index.html#contact" class="nav__back">&#x2190; Back to Portfolio</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__grain"></div>
+    <div class="hero__content">
+      <div>
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-dot"></div>
+          <span class="hero__eyebrow-text">Brand Identity &nbsp;&#xB7;&nbsp; Logo Design &nbsp;&#xB7;&nbsp; 2025</span>
+        </div>
+        <h1 class="hero__headline">
+          Molly<br><em>Realty &amp;</em><br>Leisure
+        </h1>
+        <p class="hero__sub">A comprehensive brand identity for a Nigerian real estate and agro-tourism company &#x2014; one logo mark that speaks two languages: property and nature.</p>
+        <div class="hero__meta">
+          <div>
+            <div class="hero__meta-label">Role</div>
+            <div class="hero__meta-value">Brand Identity Designer</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Tools</div>
+            <div class="hero__meta-value">Illustrator &amp; Photoshop</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Deliverables</div>
+            <div class="hero__meta-value">Logo + Brand System</div>
+          </div>
+          <div>
+            <div class="hero__meta-label">Client</div>
+            <div class="hero__meta-value">Omolara Oyekunle</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__logo-cluster">
+        <img src="../assets/molly-realty/Molly_s_Logo.png" alt="Molly Realty Logo" class="hero__logo-main" style="mix-blend-mode:screen;filter:brightness(1.1)" />
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <div class="hero__scroll-bar"></div>
+      <span class="hero__scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="overview">
+    <div class="overview__inner">
+      <div class="overview__grid">
+        <div class="reveal">
+          <p class="section-label">Project Overview</p>
+          <h2 class="overview__heading">One identity.<br><em>Two businesses.</em></h2>
+          <p class="overview__body">Molly Realty and Leisure Ltd is a Nigerian company operating across two distinct verticals &#x2014; real estate and agro-tourism. The client, Omolara Oyekunle, needed a visual identity that could credibly represent both sides of the business without splitting into two separate brands.</p>
+          <p class="overview__body">For the real estate audience, the brand needed to communicate security, trust, and professionalism. For the leisure and agro-tourism side, it needed to feel welcoming, natural, and adventure-ready. Finding a single mark that could hold both personalities was the central design challenge.</p>
+          <div class="overview__tags">
+            <span class="overview__tag">Logo Design</span>
+            <span class="overview__tag">Brand Identity</span>
+            <span class="overview__tag">Colour Strategy</span>
+            <span class="overview__tag">Typography</span>
+            <span class="overview__tag">Business Card Design</span>
+            <span class="overview__tag">Stationery</span>
+            <span class="overview__tag">Adobe Illustrator</span>
+            <span class="overview__tag">Adobe Photoshop</span>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="overview__stats">
+            <div class="overview__stat">
+              <span class="overview__stat-label">Client</span>
+              <span class="overview__stat-value">Molly Realty</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Project Type</span>
+              <span class="overview__stat-value">Client Work</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Deliverables</span>
+              <span class="overview__stat-value">5+</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Industry</span>
+              <span class="overview__stat-value">Real Estate</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-label">Year</span>
+              <span class="overview__stat-value">2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGE -->
+  <section class="challenge">
+    <div class="challenge__inner">
+      <div class="challenge__grid">
+        <div class="reveal">
+          <p class="section-label" style="color:var(--mr-gold)">The Challenge</p>
+          <h2 class="challenge__heading">Bridging two worlds<br>in a <em>single mark</em></h2>
+          <p class="challenge__body">Most dual-industry brands solve the problem by creating separate sub-brands or logos. The brief here required a different approach &#x2014; a unified identity that doesn't compromise either side of the business.</p>
+          <p class="challenge__body">The visual identity had to work for a property investor looking for a trustworthy agent, and equally for a family planning a nature retreat. Same logo. Same colours. Completely different contexts.</p>
+          <ul class="challenge__list">
+            <li>Professional and trustworthy for real estate clients</li>
+            <li>Welcoming and natural for leisure and agro-tourism</li>
+            <li>Memorable enough to stand alone as a monogram or icon</li>
+            <li>Versatile across print, digital, and signage applications</li>
+          </ul>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="challenge__deliverables">
+            <p class="challenge__del-title">Key Deliverables</p>
+            <div class="del-grid">
+              <div class="del-item"><strong>Primary Logo</strong>Full colour horizontal lockup</div>
+              <div class="del-item"><strong>Logo Variations</strong>Horizontal, vertical, monogram</div>
+              <div class="del-item"><strong>Brand Colours</strong>Full palette with rationale</div>
+              <div class="del-item"><strong>Typography</strong>Font selection and hierarchy</div>
+              <div class="del-item"><strong>Business Card</strong>Die-cut design for Omolara Oyekunle</div>
+              <div class="del-item"><strong>Stationery</strong>Letterhead and envelope design</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARGET AUDIENCE -->
+  <section class="audience">
+    <div class="audience__inner">
+      <div class="reveal">
+        <p class="section-label">Target Audience</p>
+        <h2 class="audience__heading">Designed for <em>two</em> very different people</h2>
+      </div>
+      <div class="audience__grid">
+        <div class="audience-card reveal">
+          <div class="audience-card__icon">&#x1F3E0;</div>
+          <h3 class="audience-card__title">Real Estate Audience</h3>
+          <p class="audience-card__desc">Individuals and families seeking to buy, sell, or rent property. They are evaluating trust and credibility &#x2014; they need to feel confident that Molly Realty is a professional, established firm they can rely on for a major financial decision.</p>
+          <span class="audience-card__need">Needs: Trust &middot; Authority &middot; Stability</span>
+        </div>
+        <div class="audience-card reveal reveal-d1">
+          <div class="audience-card__icon">&#x1F33F;</div>
+          <h3 class="audience-card__title">Leisure &amp; Tourism Audience</h3>
+          <p class="audience-card__desc">Families, tourists, and adventure seekers interested in farm stays and nature-based activities. They are looking for an escape &#x2014; they need the brand to feel warm, natural, and inviting, not corporate or transactional.</p>
+          <span class="audience-card__need">Needs: Warmth &middot; Nature &middot; Adventure</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="process__inner">
+      <div class="reveal">
+        <p class="section-label" style="color:var(--mr-gold)">Process &amp; Iteration</p>
+        <h2 class="process__heading">From sketch<br>to <em>symbol</em></h2>
+      </div>
+      <div class="process__grid">
+        <div class="reveal">
+          <p class="process__text-body">The initial phase focused on finding a visual solution that could unify two conceptually different ideas: Realty (security, structure, home) and Leisure (journey, path, nature).</p>
+          <p class="process__text-body">Early sketches explored abstract combinations of a house silhouette and a winding road. The focus was on using negative space and line work to incorporate the brand initials &#x2018;M&#x2019; and &#x2018;R&#x2019; &#x2014; which helped evolve the house structure into a unique, memorable mark.</p>
+          <p class="process__text-body">The breakthrough came from the road element: a winding path that begins at the forefront of the house and curves inward &#x2014; representing both a journey to a destination and the R of Realty. Two meanings, one line.</p>
+        </div>
+        <div class="process__sketches reveal reveal-d1">
+          <div class="sketch-card">
+            <img src="../assets/molly-realty/Process_and_iteration.png" alt="Process and iteration sketches" />
+          </div>
+        </div>
+        <div class="process__rationale reveal" style="grid-column:1/-1">
+          <p class="section-label" style="color:var(--mr-gold)">Design Rationale</p>
+          <div class="rationale-items">
+            <div class="rationale-item">
+              <p class="rationale-item__label">Dual Interpretation</p>
+              <p class="rationale-item__text">The logo mark functions as a single cohesive symbol. Depending on the viewer's context, it reads as either a house or a landmark with a path &#x2014; making both audiences feel directly spoken to.</p>
+            </div>
+            <div class="rationale-item">
+              <p class="rationale-item__label">Realty Element</p>
+              <p class="rationale-item__text">The overall shape is a sturdy, simplified house and shield &#x2014; communicating security, protection, and trust. These are the essential values for real estate investment and property transactions.</p>
+            </div>
+            <div class="rationale-item">
+              <p class="rationale-item__label">Leisure Element</p>
+              <p class="rationale-item__text">The path and road element curves inward from the forefront, representing a journey to a destination. This directly links the logo to the agro-tourism and leisure offerings of the business.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOUR & TYPE -->
+  <section class="identity">
+    <div class="identity__inner">
+      <div class="reveal">
+        <p class="section-label">Design System</p>
+        <h2 class="identity__heading">Colour, type &amp; <em>meaning</em></h2>
+      </div>
+      <div class="identity__grid">
+        <div class="id-card reveal">
+          <p class="id-card__title">Colour Palette</p>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch__block" style="height:80px;background:#15381C"></div>
+              <span class="swatch__hex">#15381C</span>
+              <span class="swatch__name">Forest Green</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="height:60px;background:#CEA52B"></div>
+              <span class="swatch__hex">#CEA52B</span>
+              <span class="swatch__name">Mustard Gold</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch__block" style="height:40px;background:#9a9a9a"></div>
+              <span class="swatch__hex">Silver</span>
+              <span class="swatch__name">Road / Path</span>
+            </div>
+          </div>
+          <div class="colour-rationale">
+            <p><strong style="color:var(--mr-green)">Deep Forest Green (#15381C)</strong> &#x2014; The primary colour grounds the brand in trust, natural growth, and stability. It bridges the gap between land and property, making it equally at home on a property listing and an agro-tourism leaflet.</p>
+            <p><strong style="color:var(--mr-gold)">Mustard Gold (#CEA52B)</strong> &#x2014; The secondary tone adds warmth, luxury, and high-quality leisure. It suggests premium experience and financial success &#x2014; critical signals for a real estate brand, while also evoking harvests and sunshine for the leisure side.</p>
+          </div>
+        </div>
+        <div class="id-card reveal reveal-d1">
+          <p class="id-card__title">Typography</p>
+          <div class="type-rows">
+            <div class="type-row">
+              <div class="type-row__meta">Brand Name &mdash; Trajan Pro Bold</div>
+              <div class="type-row__sample" style="font-size:2.2rem;font-weight:700;letter-spacing:.04em;color:var(--mr-green)">MOLLY</div>
+              <p style="font-size:.82rem;line-height:1.7;color:var(--mr-grey);margin-top:.6rem">Trajan Pro Bold delivers a classic, established, and authoritative feel &#x2014; instilling confidence, a key trait for a real estate brand. Its origins in classical Roman letterforms add gravitas without being cold.</p>
+            </div>
+            <div class="type-row">
+              <div class="type-row__meta">Descriptor &mdash; Quicksand Regular</div>
+              <div class="type-row__sample" style="font-size:1rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mr-gold);font-weight:500">REALTY AND LEISURE LTD</div>
+              <p style="font-size:.82rem;line-height:1.7;color:var(--mr-grey);margin-top:.6rem">Quicksand provides a modern geometric contrast to Trajan. Its clean, readable lines keep the full name legible at small sizes while offering a fresh, inviting tone that connects to the leisure and nature aspect of the brand.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL SHOWCASE -->
+  <section class="showcase">
+    <div class="showcase__inner">
+      <div class="reveal">
+        <p class="section-label" style="color:var(--mr-gold)">Final Showcase</p>
+        <h2 class="showcase__heading">The brand<br>in the <em>world</em></h2>
+        <p class="showcase__sub">The final identity applied across business cards, stationery, and brand collateral &#x2014; showing how the logo holds up across real-world touchpoints.</p>
+      </div>
+      <div class="showcase__main reveal">
+        <img src="../assets/molly-realty/Title_Page.png" alt="Molly Realty brand showcase" />
+      </div>
+      <div class="showcase__grid">
+        <div class="showcase__item reveal">
+          <img src="../assets/molly-realty/Final_Showcase.png" alt="Final logo showcase" />
+          <p class="showcase__caption">Logo variations &amp; stationery</p>
+        </div>
+        <div class="showcase__item reveal reveal-d1">
+          <img src="../assets/molly-realty/Design_Brief.png" alt="Design brief" />
+          <p class="showcase__caption">Design brief &amp; brand direction</p>
+        </div>
+        <div class="showcase__item reveal reveal-d2">
+          <img src="../assets/molly-realty/Contact.png" alt="Contact deliverable" />
+          <p class="showcase__caption">Contact &amp; brand application</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO VARIANTS -->
+  <section class="variants">
+    <div class="variants__inner">
+      <div class="reveal">
+        <p class="section-label">Logo Variants</p>
+        <h2 class="variants__heading">Built for every <em>context</em></h2>
+      </div>
+      <div class="variants__grid">
+        <div class="variant-card variant-card--dark reveal">
+          <img src="../assets/molly-realty/Molly_s_Logo.png" alt="Full colour logo on dark" style="mix-blend-mode:screen;filter:brightness(1.1)" />
+          <span class="variant-card__label">Full Colour &#x2014; Dark</span>
+        </div>
+        <div class="variant-card variant-card--cream reveal reveal-d1">
+          <img src="../assets/molly-realty/Molly_s_Logo.png" alt="Full colour logo on cream" style="mix-blend-mode:multiply" />
+          <span class="variant-card__label">Full Colour &#x2014; Light</span>
+        </div>
+        <div class="variant-card variant-card--green reveal">
+          <img src="../assets/molly-realty/Molly_s_Icon.png" alt="Icon on green" style="mix-blend-mode:screen;height:90px;width:auto;max-width:100%;object-fit:contain" />
+          <span class="variant-card__label">Icon Mark &#x2014; Dark Background</span>
+        </div>
+        <div class="variant-card variant-card--white reveal reveal-d1">
+          <img src="../assets/molly-realty/Molly_s_Icon.png" alt="Icon on white" style="mix-blend-mode:multiply;height:90px;width:auto;max-width:100%;object-fit:contain" />
+          <span class="variant-card__label">Icon Mark &#x2014; Light Background</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="results">
+    <div class="results__inner">
+      <div class="reveal">
+        <h2 class="results__heading">The <em>outcome</em></h2>
+      </div>
+      <div class="results__grid">
+        <div class="result-card reveal">
+          <div class="result-card__num">1</div>
+          <div class="result-card__label">Unified Identity</div>
+          <div class="result-card__desc">A single logo mark that successfully communicates both real estate and agro-tourism &#x2014; without splitting into two separate brand identities.</div>
+        </div>
+        <div class="result-card reveal reveal-d1">
+          <div class="result-card__num">6+</div>
+          <div class="result-card__label">Deliverables</div>
+          <div class="result-card__desc">Primary logo, logo variations, icon mark, brand colour palette, typography system, business card, letterhead, and envelope design.</div>
+        </div>
+        <div class="result-card reveal reveal-d2">
+          <div class="result-card__num">2</div>
+          <div class="result-card__label">Meanings in One Mark</div>
+          <div class="result-card__desc">The logo simultaneously reads as a house/shield for real estate trust and a path/journey for leisure &#x2014; a dual interpretation solved through a single cohesive emblem.</div>
+        </div>
+      </div>
+      <div class="results__quote reveal">
+        <p class="results__quote-text">"The design successfully solved the challenge by creating a single, memorable emblem that visually communicates both 'home' and 'travel/leisure.' The logo's dual meaning is a unique and effective solution that positions Molly Realty and Leisure Ltd. as a versatile and trustworthy brand."</p>
+        <p class="results__quote-attr">&#x2014; Final Showcase Notes, Rhyvid Designs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top reveal">
+        <p class="footer__label">Next Steps</p>
+        <h2 class="footer__heading">Let's Build<br>Something <em>Great</em></h2>
+        <div class="footer__ctas">
+          <a href="../index.html#contact" class="btn-primary">Start a Project &#x2192;</a>
+          <a href="../index.html#works" class="btn-outline">Back to Works</a>
+        </div>
+      </div>
+      <div class="footer__mid">
+        <div class="footer__col">
+          <img src="../assets/Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Studio</p>
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#works">Works</a>
+          <a href="../index.html#process">Process</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Connect</p>
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-title">Contact</p>
+          <a href="#" class="footer__email" id="footerEmail">rhyviddesign&#64;gmail&#46;com</a>
+          <p>Lagos, Nigeria</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&#x00A9; 2026 Rhyvid Developments. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      /* Email */
+      var el = document.getElementById('footerEmail');
+      if (el) { el.href = 'mailto:' + 'rhyviddesign' + '@' + 'gmail.com'; }
+
+      /* Cursor */
+      var dot = document.getElementById('cursorDot');
+      var ring = document.getElementById('cursorRing');
+      var mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+      function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);}
+      tick();
+
+      /* Nav scroll */
+      var nav = document.getElementById('nav');
+      window.addEventListener('scroll',function(){nav.classList.toggle('nav--scrolled',window.scrollY>50);},{passive:true});
+
+      /* Reveal */
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.1});
+        document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+      }
+    })();
+  </script>
+</body>
+</html>
