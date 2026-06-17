@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chuks Kitchen — Case Study | Rhyvid Developments</title>
+  <title>Chuks Kitchen — Ibukunoluwa Oyekunle</title>
   <link rel="icon" type="image/png" href="../assets/Icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,30 +12,31 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      --accent-cy:#00C2FF;
       /* ── Portfolio brand (nav/footer) ── */
-      --teal:           #1D6F8A;
-      --teal-deep:      #0E3D4F;
-      --teal-light:     #2A8FAD;
-      --teal-border:    rgba(29,111,138,0.22);
-      --teal-border-hi: rgba(42,143,173,0.45);
-      --port-black:     #060D10;
-      --port-black-2:   #0B1519;
-      --white:          #EDF6F9;
-      --mist:           #A3C2CC;
-      --mist-dim:       #607E88;
+      --teal:           #00C2FF;
+      --teal-deep:      #0090C4;
+      --teal-light:     #33CEFF;
+      --teal-border:    rgba(0,194,255,.18);
+      --teal-border-hi: rgba(0,194,255,.4);
+      --port-black:     #080D14;
+      --port-black-2:   #0d1520;
+      --white:          #F0FBFF;
+      --mist:           #8AADB8;
+      --mist-dim:       #8AADB8;
 
       /* ── Chuks Kitchen brand colours ── */
-      --ck-orange:      #FF6B00;
-      --ck-orange-dark: #BF5000;
-      --ck-orange-soft: #FC8630;
-      --ck-orange-pale: #FFF3E8;
-      --ck-pink:        #FF4B91;
-      --ck-pink-pale:   #FFF0F6;
-      --ck-blue:        #0056D2;
-      --ck-dark:        #1A0A00;
-      --ck-warm:        #2D1500;
-      --ck-cream:       #FFF8F2;
-      --ck-grey:        #606060;
+      --ck-orange:      #00C2FF;
+      --ck-orange-dark: #0090C4;
+      --ck-orange-soft: #33CEFF;
+      --ck-orange-pale: #111e2a;
+      --ck-pink:        #33CEFF;
+      --ck-pink-pale:   #111e2a;
+      --ck-blue:        #00C2FF;
+      --ck-dark:        #080D14;
+      --ck-warm:        #0d1520;
+      --ck-cream:       #0d1520;
+      --ck-grey:        #8AADB8;
 
       --font-display:   'Playfair Display', Georgia, serif;
       --font-ui:        'Syne', system-ui, sans-serif;
@@ -47,7 +48,7 @@
     body {
       font-family: var(--font-ui);
       background: var(--ck-cream);
-      color: var(--ck-dark);
+      color: #F0FBFF;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       cursor: none;
@@ -59,7 +60,7 @@
     .cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
     .cursor__dot {
       position: absolute; width: 6px; height: 6px;
-      background: var(--ck-orange); border-radius: 50%;
+      background: #00C2FF; border-radius: 50%;
       transform: translate(-50%,-50%);
     }
     .cursor__ring {
@@ -73,47 +74,29 @@
     /* ══════════════════════════
        NAV — portfolio style, orange accent
     ══════════════════════════ */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 0 4vw; height: 80px; display: flex; align-items: center;
-      transition: background .5s var(--ease), border-color .5s;
-      border-bottom: 1px solid transparent;
-    }
-    .nav--scrolled {
-      background: rgba(255,248,242,0.95);
-      backdrop-filter: blur(20px);
-      border-color: rgba(255,107,0,0.15);
-    }
-    .nav__inner {
-      width: 100%; max-width: 1400px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav__logo-wrap { display: flex; align-items: center; height: 80px; }
-    .nav__logo-img {
-      height: 30px; width: auto;
-      mix-blend-mode: multiply;
-      filter: brightness(0.95);
-      transition: opacity .2s;
-    }
-    .nav__logo-img:hover { opacity: 0.7; }
-    .nav__links { display: flex; gap: 2.5rem; align-items: center; }
-    .nav__links a {
-      font-size: .72rem; font-weight: 600; letter-spacing: .15em;
-      text-transform: uppercase; color:rgba(255,255,255,.82); transition: color .2s;
-    }
-    .nav__links a:hover { color:white; }
-    .nav__back {
-      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: #1a0800;
-      background: var(--ck-orange); padding: .65rem 1.6rem;
-      display: inline-flex; align-items: center; gap: .4rem;
-      transition: background .2s, transform .2s var(--ease), box-shadow .2s;
-    }
-    .nav__back:hover { color:#1a0800; background: var(--ck-orange-soft); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,0,.3); }
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 4vw;height:80px;display:flex;align-items:center;transition:background .5s var(--ease),border-color .5s;border-bottom:1px solid transparent}
+    .nav--scrolled{background:rgba(8,13,20,.97);backdrop-filter:blur(20px);border-color:rgba(0,194,255,.18)}
+    .nav__inner{width:100%;max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+    .nav__links{display:flex;gap:2.5rem;align-items:center}
+    .nav__links a{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#8AADB8;transition:color .2s}
+    .nav__links a:hover{color:white}
+    .nav__back{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#080D14;background:#00C2FF;padding:.65rem 1.6rem;display:inline-flex;align-items:center;gap:.4rem;transition:background .2s,transform .2s var(--ease),box-shadow .2s;text-decoration:none}
+    .nav__back:hover{background:#33CEFF;color:#080D14;transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,194,255,.4)}
+    .nav--scrolled .nav__links a{color:#8AADB8}
+    .nav--scrolled .nav__links a:hover{color:white}
+    /* MOBILE NAV */
+    .nav__toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:.4rem}
+    .nav__toggle span{display:block;width:22px;height:2px;background:#8AADB8;transition:all .3s var(--ease)}
+    .nav__toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .nav__toggle.open span:nth-child(2){opacity:0}
+    .nav__toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+    .nav__mobile{display:none;position:fixed;top:80px;left:0;right:0;background:rgba(8,13,20,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,194,255,.18);padding:2rem 4vw;z-index:99;flex-direction:column;gap:0}
+    .nav__mobile.open{display:flex}
+    .nav__mobile a{display:block;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8AADB8;padding:1rem 0;border-bottom:1px solid rgba(0,194,255,.1);transition:color .2s;text-decoration:none}
+    .nav__mobile a:hover{color:white}
+    .nav__mobile a.nav__mobile-cta{border-bottom:none;margin-top:.5rem;background:#00C2FF;color:#080D14;padding:1rem 1.5rem;text-align:center}
+    .nav__mobile a.nav__mobile-cta:hover{background:#33CEFF;color:#080D14}
 
-    /* ══════════════════════════
-       HERO
-    ══════════════════════════ */
     .hero {
       min-height: 100svh;
       background: var(--ck-dark);
@@ -152,7 +135,7 @@
     .hero__eyebrow-dot { width: 8px; height: 8px; background: var(--ck-orange); border-radius: 50%; }
     .hero__eyebrow-text {
       font-family: var(--font-mono); font-size: .7rem;
-      letter-spacing: .18em; text-transform: uppercase; color: var(--ck-orange);
+      letter-spacing: .18em; text-transform: uppercase; color: #00C2FF;
     }
     .hero__headline {
       font-family: var(--font-display);
@@ -221,7 +204,7 @@
     .section-label {
       display: inline-flex; align-items: center; gap: .6rem;
       font-family: var(--font-mono); font-size: .67rem;
-      letter-spacing: .18em; text-transform: uppercase; color: var(--ck-orange);
+      letter-spacing: .18em; text-transform: uppercase; color: #00C2FF;
       margin-bottom: 1.8rem;
     }
     .section-label::before { content: '//'; opacity: .4; }
@@ -247,7 +230,7 @@
     .overview__heading {
       font-family: var(--font-display);
       font-size: clamp(2rem,3.5vw,3.2rem); font-weight: 700;
-      line-height: 1.1; color: var(--ck-dark); margin-bottom: 1.8rem;
+      line-height: 1.1; color:#F0FBFF; margin-bottom: 1.8rem;
     }
     .overview__heading em { font-style: italic; color: var(--ck-orange); }
     .overview__body { font-size: .97rem; line-height: 1.95; color: var(--ck-grey); margin-bottom: 1.4rem; }
@@ -318,7 +301,7 @@
     .process__heading {
       font-family: var(--font-display);
       font-size: clamp(2rem,4vw,3.5rem); font-weight: 700;
-      line-height: 1; color: var(--ck-dark); margin-bottom: 5rem;
+      line-height: 1; color:#F0FBFF; margin-bottom: 5rem;
     }
     .process__heading em { font-style: italic; color: var(--ck-orange); font-weight: 400; }
 
@@ -335,7 +318,7 @@
       transition: color .3s;
     }
     .process__step:hover .process__step-num { color: rgba(255,107,0,.25); }
-    .process__step-title { font-size: .9rem; font-weight: 700; color: var(--ck-dark); margin-bottom: .7rem; letter-spacing: .03em; }
+    .process__step-title { font-size: .9rem; font-weight: 700; color:#F0FBFF; margin-bottom: .7rem; letter-spacing: .03em; }
     .process__step-desc { font-size: .82rem; line-height: 1.75; color: var(--ck-grey); }
 
     /* lofi wireframes strip */
@@ -418,7 +401,7 @@
     .hifi__heading {
       font-family: var(--font-display);
       font-size: clamp(2rem,4vw,3.5rem); font-weight: 700;
-      line-height: 1; color: var(--ck-dark); margin-bottom: 1rem;
+      line-height: 1; color:#F0FBFF; margin-bottom: 1rem;
     }
     .hifi__heading em { font-style: italic; color: var(--ck-orange); font-weight: 400; }
     .hifi__sub { font-size: .95rem; color: var(--ck-grey); line-height: 1.7; max-width: 560px; margin-bottom: 5rem; }
@@ -484,7 +467,7 @@
       line-height: .95; color: white; margin-bottom: 5rem;
       letter-spacing: -.02em;
     }
-    .results__heading em { font-style: italic; font-weight: 400; color: var(--ck-dark); }
+    .results__heading em { font-style: italic; font-weight: 400; color:#F0FBFF; }
     .results__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
     .result-card {
       background: rgba(0,0,0,.15); padding: 3rem 2.5rem;
@@ -513,78 +496,31 @@
     .results__quote-attr { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); }
 
     /* ══════════════════════════
-       FOOTER — matches portfolio style but orange-tinted
+       FOOTER — unified personal brand
     ══════════════════════════ */
-    .footer {
-      background: var(--ck-dark);
-      border-top: 1px solid rgba(255,107,0,.15);
-      padding: 7rem 4vw 3rem;
-    }
-    .footer__inner { max-width: 1400px; margin: 0 auto; }
-    .footer__top { margin-bottom: 5rem; }
-    .footer__label {
-      font-family: var(--font-mono); font-size: .7rem; letter-spacing: .18em;
-      text-transform: uppercase; color: rgba(255,107,0,.7);
-      margin-bottom: 1.5rem; display: flex; align-items: center; gap: .8rem;
-    }
-    .footer__label::before { content: '—'; }
-    .footer__heading {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem,6vw,6rem); font-weight: 900;
-      line-height: .9; color: var(--white); letter-spacing: -.02em; margin-bottom: 3rem;
-    }
-    .footer__heading em { font-style: italic; color: var(--ck-orange); font-weight: 400; }
-    .footer__ctas { display: flex; gap: 1.2rem; flex-wrap: wrap; }
-
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: var(--ck-orange); color: #1a0800;
-      font-family: var(--font-ui); font-size: .78rem;
-      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      padding: 1rem 2.2rem; border: none; cursor: none;
-      transition: background .25s, transform .3s var(--ease), box-shadow .3s;
-    }
-    .btn-primary:hover { color:#1a0800; background: var(--ck-orange-soft); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,107,0,.3); }
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: .5rem;
-      border: 1px solid rgba(255,107,0,.65); color:rgba(255,255,255,.92);
-      font-family: var(--font-ui); font-size: .78rem;
-      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      padding: 1rem 2.2rem; background: transparent; cursor: none;
-      transition: border-color .25s, color .25s, transform .3s var(--ease), background .25s;
-    }
-    .btn-outline:hover { border-color: var(--ck-orange); color: var(--white); background: rgba(255,107,0,.08); transform: translateY(-3px); }
-
-    .footer__logo-img {
-      height: 36px; width: auto;
-      mix-blend-mode: screen;
-      filter: brightness(1.4) saturate(0.6);
-      opacity: .9;
-    }
-    .footer__mid {
-      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3rem; padding: 4rem 0;
-      border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06);
-      margin-bottom: 3rem;
-    }
-    .footer__col-title {
-      font-size: .65rem; font-weight: 700; letter-spacing: .16em;
-      text-transform: uppercase; color:rgba(255,255,255,.55); margin-bottom: 1.5rem;
-    }
-    .footer__col a, .footer__col p {
-      display: block; font-size: .9rem; color:rgba(255,255,255,.82);
-      line-height: 1; margin-bottom: 1rem; transition: color .2s;
-    }
-    .footer__col a:hover { color: var(--ck-orange); }
-    .footer__email { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; color: rgba(255,255,255,.75) !important; }
-    .footer__email:hover { color: var(--ck-orange) !important; }
-    .footer__bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .footer__copy { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em; color: rgba(255,255,255,.2); }
-    .footer__socials { display: flex; gap: 2rem; }
-    .footer__socials a {
-      font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      color:rgba(255,255,255,.75); transition: color .2s;
-    }
-    .footer__socials a:hover { color: var(--ck-orange); }
+    .footer{background:#0d1520;border-top:1px solid rgba(0,194,255,.18);padding:7rem 4vw 3rem}
+    .footer__inner{max-width:1400px;margin:0 auto}
+    .footer__top{margin-bottom:5rem}
+    .footer__label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,194,255,.7);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+    .footer__label::before{content:'\2014'}
+    .footer__heading{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,6rem);font-weight:900;line-height:.9;color:white;letter-spacing:-.02em;margin-bottom:3rem}
+    .footer__heading em{font-style:italic;color:#00C2FF;font-weight:400}
+    .footer__ctas{display:flex;gap:1.2rem;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:#00C2FF;color:#080D14;font-family:var(--font-ui);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;border:none;cursor:none;transition:background .25s,transform .3s var(--ease),box-shadow .3s}
+    .btn-primary:hover{background:#33CEFF;color:#080D14;transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,194,255,.3)}
+    .btn-outline{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(0,194,255,.4);color:rgba(240,251,255,.8);font-family:var(--font-ui);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;background:transparent;cursor:none;transition:all .25s}
+    .btn-outline:hover{border-color:#00C2FF;color:white;background:rgba(0,194,255,.08);transform:translateY(-3px)}
+    .footer__mid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;padding:4rem 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:3rem}
+    .footer__col-title{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.5rem}
+    .footer__col a,.footer__col p{display:block;font-size:.9rem;color:rgba(255,255,255,.5);line-height:1;margin-bottom:1rem;transition:color .2s}
+    .footer__col a:hover{color:#fff}
+    .footer__email{font-family:var(--font-display);font-size:1rem;font-weight:400;color:rgba(255,255,255,.75) !important}
+    .footer__email:hover{color:#fff !important}
+    .footer__bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer__copy{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.3)}
+    .footer__socials{display:flex;gap:2rem}
+    .footer__socials a{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .2s}
+    .footer__socials a:hover{color:#00C2FF}
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
@@ -610,8 +546,8 @@
       .results__quote { padding: 2rem; }
       .footer__mid { grid-template-columns: 1fr; gap: 2rem; }
     }
-    .nav--scrolled .nav__links a{color:#2a2a2a;}
-    .nav--scrolled .nav__links a:hover{color:#060D10;}
+    .nav--scrolled .nav__links a{color:#8AADB8;}
+    .nav--scrolled .nav__links a:hover{color:white;}
   </style>
 </head>
 <body>
@@ -625,12 +561,11 @@
   <!-- ══ NAV ══ -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
-      <a href="../index.html" class="nav__logo-wrap">
-        <img src="../assets/Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
-      </a>
+      <a href="../index.html" class="nav__name-link" style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#F0FBFF;letter-spacing:-.01em;text-decoration:none">Ibukun<em style="font-style:italic;font-weight:400;color:var(--accent-cy,#00C2FF)">oluwa</em></a>
       <div class="nav__links">
-        <a href="../index.html#about">Studio</a>
+        <a href="../index.html#about">About</a>
         <a href="../projects.html">Projects</a>
+        <a href="../index.html#beyond">Beyond Design</a>
         <a href="../index.html#process">Process</a>
         <a href="../index.html#contact" class="nav__back">← Back to Portfolio</a>
       </div>
@@ -936,7 +871,7 @@
             <div style="background:#1a1a1a;padding:2rem 3rem;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,107,0,.15)">
               <img src="../assets/chuks-kitchen/Chuks_Logo_White.png" alt="Chuks Kitchen white logo" style="height:60px;width:auto;max-width:100%" />
             </div>
-            <div style="background:#FFF8F2;padding:2rem 3rem;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,107,0,.15)">
+            <div style="background:#0d1520;padding:2rem 3rem;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,107,0,.15)">
               <img src="../assets/chuks-kitchen/Chuks_Logo_Black.png" alt="Chuks Kitchen black logo" style="height:60px;width:auto;max-width:100%" />
             </div>
           </div>
@@ -1088,7 +1023,7 @@
       </div>
       <div class="footer__mid">
         <div class="footer__col">
-          <img src="../assets/Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+          <span style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#F0FBFF">Ibukun<em style="font-style:italic;font-weight:400;color:var(--accent-cy,#00C2FF)">oluwa</em></span>
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Studio</p>
@@ -1098,20 +1033,20 @@
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Connect</p>
-          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
-          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="#" target="_blank" rel="noopener">Behance</a>
+          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Contact</p>
-          <a href="/cdn-cgi/l/email-protection#65170d1c130c010100160c020b250208040c094b060a08" class="footer__email"><span class="__cf_email__" data-cfemail="36445e4f405f525253455f515876515b575f5a1855595b">[email&#160;protected]</span></a>
+          <a href="#" class="footer__email" id="footerEmail">rhyviddesign&#64;gmail&#46;com</a>
           <p>Lagos, Nigeria</p>
         </div>
       </div>
       <div class="footer__bottom">
         <p class="footer__copy">© 2026 Rhyvid Developments. All rights reserved.</p>
         <div class="footer__socials">
-          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
-          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="#" target="_blank" rel="noopener">Behance</a>
+          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
     </div>

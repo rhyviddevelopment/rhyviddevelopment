@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Better Oodles — Case Study | Rhyvid Developments</title>
+  <title>Better Oodles — Ibukunoluwa Oyekunle</title>
   <link rel="icon" type="image/png" href="../assets/Icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,11 +11,12 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
+      --accent-cy:#00C2FF;
       /* Better Oodles brand */
-      --bo-red:#E8242A;--bo-red-text:#c01520;--bo-red-dark:#c01a1f;--bo-red-soft:#f04040;
-      --bo-red-pale:#fff0f0;--bo-blush:#fdf0ee;--bo-pink-mid:#f9ddd9;
-      --bo-dark:#0f0a0a;--bo-warm:#1a0d0d;--bo-cream:#fdf8f7;
-      --bo-grey:#6b5c5c;--bo-light-grey:#e8dede;
+      --bo-red:#00C2FF;--bo-red-text:#00C2FF;--bo-red-dark:#0090C4;--bo-red-soft:#33CEFF;
+      --bo-red-pale:#111e2a;--bo-blush:#0d1520;--bo-pink-mid:#111e2a;
+      --bo-dark:#080D14;--bo-warm:#0d1520;--bo-cream:#0d1520;
+      --bo-grey:#8AADB8;--bo-light-grey:rgba(0,194,255,.18);
 
       --font-display:'Playfair Display',Georgia,serif;
       --font-ui:'Syne',system-ui,sans-serif;
@@ -23,30 +24,40 @@
       --ease:cubic-bezier(0.16,1,0.3,1)
     }
     html{scroll-behavior:smooth}
-    body{font-family:var(--font-ui);background:var(--bo-cream);color:var(--bo-dark);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+    body{font-family:var(--font-ui);background:var(--bo-cream);color:#F0FBFF;-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
     img{display:block;max-width:100%}
     a{text-decoration:none;color:inherit;cursor:none}
 
     /* CURSOR */
     .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
-    .cursor__dot{position:absolute;width:6px;height:6px;background:var(--bo-red);border-radius:50%;transform:translate(-50%,-50%)}
-    .cursor__ring{position:absolute;width:32px;height:32px;border:1.5px solid rgba(232,36,42,0.45);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),border-color .3s}
-    body:has(a:hover) .cursor__ring{width:52px;height:52px;border-color:rgba(232,36,42,0.85)}
+    .cursor__dot{position:absolute;width:6px;height:6px;background:#00C2FF;border-radius:50%;transform:translate(-50%,-50%)}
+    .cursor__ring{position:absolute;width:32px;height:32px;border:1.5px solid rgba(0,194,255,.4);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),border-color .3s}
+    body:has(a:hover) .cursor__ring{width:52px;height:52px;border-color:rgba(0,194,255,.85)}
 
     /* NAV */
     .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 4vw;height:80px;display:flex;align-items:center;transition:background .5s var(--ease),border-color .5s;border-bottom:1px solid transparent}
-    .nav--scrolled{background:rgba(253,248,247,0.96);backdrop-filter:blur(20px);border-color:rgba(232,36,42,.12)}
+    .nav--scrolled{background:rgba(8,13,20,.97);backdrop-filter:blur(20px);border-color:rgba(0,194,255,.18)}
     .nav__inner{width:100%;max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-    .nav__logo-wrap{display:flex;align-items:center;height:80px}
-    .nav__logo-img{height:30px;width:auto;mix-blend-mode:multiply;filter:brightness(0.9);transition:opacity .2s}
-    .nav__logo-img:hover{opacity:.7}
     .nav__links{display:flex;gap:2.5rem;align-items:center}
-    .nav__links a{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.82);transition:color .2s}
+    .nav__links a{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#8AADB8;transition:color .2s}
     .nav__links a:hover{color:white}
-    .nav__back{color:white;background:#b00020;padding:.65rem 1.6rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
-    .nav__back:hover{background:var(--bo-red-soft);transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,36,42,.35)}
+    .nav__back{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#080D14;background:#00C2FF;padding:.65rem 1.6rem;display:inline-flex;align-items:center;gap:.4rem;transition:background .2s,transform .2s var(--ease),box-shadow .2s;text-decoration:none}
+    .nav__back:hover{background:#33CEFF;color:#080D14;transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,194,255,.4)}
+    .nav--scrolled .nav__links a{color:#8AADB8}
+    .nav--scrolled .nav__links a:hover{color:white}
+    /* MOBILE NAV */
+    .nav__toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:.4rem}
+    .nav__toggle span{display:block;width:22px;height:2px;background:#8AADB8;transition:all .3s var(--ease)}
+    .nav__toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .nav__toggle.open span:nth-child(2){opacity:0}
+    .nav__toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+    .nav__mobile{display:none;position:fixed;top:80px;left:0;right:0;background:rgba(8,13,20,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,194,255,.18);padding:2rem 4vw;z-index:99;flex-direction:column;gap:0}
+    .nav__mobile.open{display:flex}
+    .nav__mobile a{display:block;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8AADB8;padding:1rem 0;border-bottom:1px solid rgba(0,194,255,.1);transition:color .2s;text-decoration:none}
+    .nav__mobile a:hover{color:white}
+    .nav__mobile a.nav__mobile-cta{border-bottom:none;margin-top:.5rem;background:#00C2FF;color:#080D14;padding:1rem 1.5rem;text-align:center}
+    .nav__mobile a.nav__mobile-cta:hover{background:#33CEFF;color:#080D14}
 
-    /* HERO */
     .hero{min-height:100svh;background:var(--bo-dark);display:flex;flex-direction:column;justify-content:flex-end;padding:0 4vw 8vh;position:relative;overflow:hidden}
     .hero__bg::before{content:'';position:absolute;top:-20%;right:-10%;width:65vmax;height:65vmax;border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(232,36,42,.2) 0%,rgba(232,36,42,.04) 50%,transparent 70%);pointer-events:none}
     .hero__bg::after{content:'';position:absolute;bottom:-25%;left:-5%;width:50vmax;height:50vmax;border-radius:50%;background:radial-gradient(circle,rgba(232,36,42,.06) 0%,transparent 70%);pointer-events:none}
@@ -54,7 +65,7 @@
     .hero__content{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:5rem}
     .hero__eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .15s var(--ease) forwards}
     .hero__eyebrow-dot{width:8px;height:8px;background:var(--bo-red);border-radius:50%}
-    .hero__eyebrow-text{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bo-red-text)}
+    .hero__eyebrow-text{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#00C2FF}
     .hero__headline{font-family:var(--font-display);font-size:clamp(3.5rem,8vw,8.5rem);font-weight:900;line-height:.92;letter-spacing:-.02em;color:white;opacity:0;animation:fadeUp 1s .3s var(--ease) forwards}
     .hero__headline em{font-style:italic;color:var(--bo-red-soft);font-weight:400}
     .hero__sub{margin-top:2rem;font-size:clamp(.9rem,1.2vw,1.05rem);line-height:1.8;color:rgba(253,248,247,.5);max-width:500px;opacity:0;animation:fadeUp .8s .45s var(--ease) forwards}
@@ -64,14 +75,14 @@
     .hero__mockup{width:280px;flex-shrink:0;opacity:0;animation:fadeIn 1s .7s var(--ease) forwards}
     .hero__mockup img{width:100%;border-radius:8px;box-shadow:0 40px 100px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.06)}
     .hero__scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fadeIn 1s 1s var(--ease) forwards;z-index:2}
-    .hero__scroll-bar{width:1px;height:55px;background:linear-gradient(to bottom,var(--bo-red),transparent);animation:scrollPulse 2.2s ease-in-out infinite}
+    .hero__scroll-bar{width:1px;height:55px;background:linear-gradient(to bottom,#00C2FF,transparent);animation:scrollPulse 2.2s ease-in-out infinite}
     .hero__scroll-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(253,248,247,.3)}
     @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
 
     /* SHARED */
-    .section-label{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bo-red-text);margin-bottom:1.8rem}
+    .section-label{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;color:#00C2FF;margin-bottom:1.8rem}
     .section-label::before{content:'//';opacity:.4}
     .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
     .reveal.visible{opacity:1;transform:none}
@@ -83,7 +94,7 @@
     .overview{padding:9rem 4vw;background:var(--bo-cream);border-bottom:1px solid var(--bo-light-grey)}
     .overview__inner{max-width:1400px;margin:0 auto}
     .overview__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:8rem;align-items:start}
-    .overview__heading{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:700;line-height:1.1;color:var(--bo-dark);margin-bottom:1.8rem}
+    .overview__heading{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:700;line-height:1.1;color:#F0FBFF;margin-bottom:1.8rem}
     .overview__heading em{font-style:italic;color:var(--bo-red-text)}
     .overview__body{font-size:.97rem;line-height:1.95;color:var(--bo-grey);margin-bottom:1.4rem}
     .overview__tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}
@@ -110,16 +121,16 @@
     /* IDENTITY */
     .identity{padding:9rem 4vw;background:var(--bo-blush);border-top:1px solid var(--bo-light-grey);border-bottom:1px solid var(--bo-light-grey)}
     .identity__inner{max-width:1400px;margin:0 auto}
-    .identity__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--bo-dark);margin-bottom:5rem}
+    .identity__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:#F0FBFF;margin-bottom:5rem}
     .identity__heading em{font-style:italic;color:var(--bo-red-text);font-weight:400}
     .identity__grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
-    .id-card{background:white;border:1px solid var(--bo-light-grey);padding:2.5rem}
+    .id-card{background:#111e2a;border:1px solid var(--bo-light-grey);padding:2.5rem}
     .id-card__title{font-family:var(--font-mono);font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bo-red-text);margin-bottom:2rem}
     .swatches{display:flex;gap:1.5rem;align-items:flex-end;margin-bottom:2rem;flex-wrap:wrap}
     .swatch{display:flex;flex-direction:column;gap:.6rem}
     .swatch__block{width:80px;border-radius:6px;border:1px solid rgba(0,0,0,.06)}
     .swatch__hex{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;color:var(--bo-grey)}
-    .swatch__name{font-size:.75rem;font-weight:700;color:var(--bo-dark)}
+    .swatch__name{font-size:.75rem;font-weight:700;color:#F0FBFF}
     .colour-rationale{font-size:.85rem;line-height:1.8;color:var(--bo-grey)}
     .colour-rationale p{margin-bottom:.8rem}
     .colour-rationale p:last-child{margin-bottom:0}
@@ -131,13 +142,13 @@
     /* SCREENS */
     .screens{padding:9rem 4vw;background:var(--bo-cream)}
     .screens__inner{max-width:1400px;margin:0 auto}
-    .screens__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:var(--bo-dark);margin-bottom:1rem}
+    .screens__heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1;color:#F0FBFF;margin-bottom:1rem}
     .screens__heading em{font-style:italic;color:var(--bo-red-text);font-weight:400}
     .screens__sub{font-size:.95rem;color:var(--bo-grey);line-height:1.7;max-width:560px;margin-bottom:5rem}
     .screens__showcase{width:100%;overflow:hidden;border:1px solid var(--bo-light-grey);margin-bottom:3rem;background:var(--bo-blush)}
     .screens__showcase img{width:100%;display:block}
     .screens__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-    .screen-card{background:white;border:1px solid var(--bo-light-grey);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+    .screen-card{background:#111e2a;border:1px solid var(--bo-light-grey);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
     .screen-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(232,36,42,.1)}
     .screen-card img{width:100%;display:block}
     .screen-card__label{padding:.75rem 1rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bo-grey);border-top:1px solid var(--bo-light-grey)}
@@ -169,33 +180,33 @@
     .results__quote-text{font-family:var(--font-display);font-size:clamp(1.2rem,2vw,1.8rem);font-style:italic;font-weight:400;color:white;line-height:1.5;margin-bottom:1.5rem}
     .results__quote-attr{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(253,248,247,.4)}
 
-    /* FOOTER */
-    .footer{background:var(--bo-warm);border-top:1px solid rgba(232,36,42,.15);padding:7rem 4vw 3rem}
+    /* FOOTER — unified personal brand */
+    .footer{background:#0d1520;border-top:1px solid rgba(0,194,255,.18);padding:7rem 4vw 3rem}
     .footer__inner{max-width:1400px;margin:0 auto}
     .footer__top{margin-bottom:5rem}
-    .footer__label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,36,42,.7);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
-    .footer__label::before{content:'&#x2014;'}
+    .footer__label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,194,255,.7);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+    .footer__label::before{content:'\2014'}
     .footer__heading{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,6rem);font-weight:900;line-height:.9;color:white;letter-spacing:-.02em;margin-bottom:3rem}
-    .footer__heading em{font-style:italic;color:var(--bo-red-soft);font-weight:400}
+    .footer__heading em{font-style:italic;color:#00C2FF;font-weight:400}
     .footer__ctas{display:flex;gap:1.2rem;flex-wrap:wrap}
-    .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:#b00020;color:white;font-family:var(--font-ui);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;cursor:none;transition:background .25s,transform .3s var(--ease),box-shadow .3s}
-    .btn-primary:hover{background:var(--bo-red-soft);transform:translateY(-3px);box-shadow:0 12px 32px rgba(232,36,42,.35)}
-    .btn-outline{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(232,36,42,.65);color:rgba(255,255,255,.92);font-family:var(--font-ui);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;background:transparent;cursor:none;transition:all .25s}
-    .btn-outline:hover{border-color:var(--bo-red-soft);color:white;background:rgba(232,36,42,.08);transform:translateY(-3px)}
-    .footer__logo-img{height:36px;width:auto;mix-blend-mode:screen;filter:brightness(1.4) saturate(0.6);opacity:.9}
+    .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:#00C2FF;color:#080D14;font-family:var(--font-ui);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;cursor:none;transition:background .25s,transform .3s var(--ease),box-shadow .3s;text-decoration:none}
+    .btn-primary:hover{background:#33CEFF;color:#080D14;transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,194,255,.3)}
+    .btn-outline{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(0,194,255,.4);color:rgba(240,251,255,.8);font-family:var(--font-ui);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2.2rem;background:transparent;cursor:none;transition:all .25s;text-decoration:none}
+    .btn-outline:hover{border-color:#00C2FF;color:white;background:rgba(0,194,255,.08);transform:translateY(-3px)}
     .footer__mid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;padding:4rem 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:3rem}
-    .footer__col-title{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:1.5rem}
-    .footer__col a,.footer__col p{display:block;font-size:.9rem;color:rgba(255,255,255,.82);line-height:1;margin-bottom:1rem;transition:color .2s}
+    .footer__col-title{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.5rem}
+    .footer__col a,.footer__col p{display:block;font-size:.9rem;color:rgba(255,255,255,.5);line-height:1;margin-bottom:1rem;transition:color .2s;text-decoration:none}
     .footer__col a:hover{color:#fff}
-    .footer__email{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:rgba(255,255,255,.95) !important}
+    .footer__email{font-family:var(--font-display);font-size:1rem;font-weight:400;color:rgba(255,255,255,.75) !important}
     .footer__email:hover{color:#fff !important}
     .footer__bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-    .footer__copy{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.55)}
+    .footer__copy{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:rgba(255,255,255,.3)}
     .footer__socials{display:flex;gap:2rem}
-    .footer__socials a{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75);transition:color .2s}
-    .footer__socials a:hover{color:var(--bo-red-soft)}
+    .footer__socials a{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .2s;text-decoration:none}
+    .footer__socials a:hover{color:#00C2FF}
 
     @media(max-width:1100px){
+      .footer__mid{grid-template-columns:1fr 1fr}
       .hero__content,.challenge__grid,.overview__grid,.identity__grid{grid-template-columns:1fr;gap:3rem}
       .hero__mockup{display:none}
       .decisions__grid{grid-template-columns:1fr 1fr}
@@ -204,6 +215,8 @@
       .footer__mid{grid-template-columns:1fr 1fr}
     }
     @media(max-width:640px){
+      .nav__toggle{display:flex}
+      .nav__links{display:none !important}
       .nav__links{display:none}
       .decisions__grid,.screens__grid{grid-template-columns:1fr}
       .results__quote{padding:2rem}
@@ -217,10 +230,10 @@
     .footer .section-label,
     .challenge h2 em,
     .decisions .decision-card__label,
-    .hero__eyebrow-text{color:var(--bo-red-soft);}
+    .hero__eyebrow-text{color:#00C2FF;}
     .pillar:hover{border-left-color:var(--bo-red);}
-    .nav--scrolled .nav__links a{color:#2a2a2a;}
-    .nav--scrolled .nav__links a:hover{color:#0f0a0a;}
+    .nav--scrolled .nav__links a{color:#8AADB8;}
+    .nav--scrolled .nav__links a:hover{color:white;}
   </style>
 </head>
 <body>
@@ -233,14 +246,13 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
-      <a href="../index.html" class="nav__logo-wrap">
-        <img src="../assets/Logo.png" alt="Rhyvid Developments" class="nav__logo-img" />
-      </a>
+      <a href="../index.html" class="nav__name-link" style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#F0FBFF;letter-spacing:-.01em;text-decoration:none">Ibukun<em style="font-style:italic;font-weight:400;color:var(--accent-cy,#00C2FF)">oluwa</em></a>
       <div class="nav__links">
-        <a href="../index.html#about">Studio</a>
+        <a href="../index.html#about">About</a>
         <a href="../projects.html">Projects</a>
+        <a href="../index.html#beyond">Beyond Design</a>
         <a href="../index.html#process">Process</a>
-        <a href="../index.html#contact" class="nav__back">&#x2190; Back to Portfolio</a>
+        <a href="../index.html#contact" class="nav__back">&#x2190; All Projects</a>
       </div>
     </div>
   </nav>
@@ -339,7 +351,7 @@
     <div class="challenge__inner">
       <div class="challenge__grid">
         <div class="reveal">
-          <p class="section-label" style="color:var(--bo-red-soft)">The Challenge</p>
+          <p class="section-label" style="color:var(--accent-cy)">The Challenge</p>
           <h2 class="challenge__heading">Making wellness feel<br><em>desirable</em></h2>
           <p class="challenge__body">Most health and wellness websites fall into one of two traps: they look too clinical and cold (trustworthy but unappealing), or too trendy and soft (appealing but unsubstantial). Better Oodles needed to escape both.</p>
           <p class="challenge__body">The brand targets millennials &#x2014; a generation that expects digital experiences to feel premium, fast, and personal. The design needed to carry the energy of a fashion brand while communicating the credibility of a health company. Every page had to earn both trust and desire.</p>
@@ -386,12 +398,12 @@
               <span class="swatch__name">Deep Black</span>
             </div>
             <div class="swatch">
-              <div class="swatch__block" style="height:50px;background:#fdf0ee"></div>
-              <span class="swatch__hex">#FDF0EE</span>
+              <div class="swatch__block" style="height:50px;background:#0d1520"></div>
+              <span class="swatch__hex">#0d1520</span>
               <span class="swatch__name">Blush</span>
             </div>
             <div class="swatch">
-              <div class="swatch__block" style="height:40px;background:#ffffff;border:1px solid #e8dede"></div>
+              <div class="swatch__block" style="height:40px;background:#ffffff;border:1px solid rgba(0,194,255,.18)"></div>
               <span class="swatch__hex">#FFFFFF</span>
               <span class="swatch__name">White</span>
             </div>
@@ -399,7 +411,7 @@
           <div class="colour-rationale">
             <p><strong style="color:var(--bo-red)">Brand Red (#E8242A)</strong> &#x2014; The hero colour. Red communicates energy, urgency, and passion &#x2014; all aligned with fitness and health motivation. Used on the logo, CTAs, active nav states, and all key accent moments across the site.</p>
             <p><strong>Deep Black (#0F0A0A)</strong> &#x2014; Used for the shop page hero to give a premium, editorial feel. Black anchors the brand as aspirational rather than cheap or mass-market.</p>
-            <p><strong>Blush (#FDF0EE)</strong> &#x2014; The homepage and about page background. Softens the brand for lifestyle and community content, making the red pop without aggression.</p>
+            <p><strong>Blush (#0d1520)</strong> &#x2014; The homepage and about page background. Softens the brand for lifestyle and community content, making the red pop without aggression.</p>
           </div>
         </div>
         <div class="id-card reveal reveal-d1">
@@ -412,7 +424,7 @@
             </div>
             <div class="type-row">
               <div class="type-row__meta">Headlines &mdash; Bold Sans-Serif</div>
-              <div style="font-size:1.4rem;font-weight:800;color:var(--bo-dark);line-height:1.1">Welcome to Better Oodles<br><span style="color:var(--bo-red)">Inspiring Health</span> with Modern Glamour</div>
+              <div style="font-size:1.4rem;font-weight:800;color:#F0FBFF;line-height:1.1">Welcome to Better Oodles<br><span style="color:var(--bo-red)">Inspiring Health</span> with Modern Glamour</div>
               <p style="font-size:.82rem;line-height:1.7;color:var(--bo-grey);margin-top:.7rem">Headlines use bold weight with selective red highlights on key phrases &#x2014; "to", "with" &#x2014; creating rhythm and drawing the eye to the brand's core message without overwhelming the layout.</p>
             </div>
             <div class="type-row">
@@ -538,18 +550,19 @@
       </div>
       <div class="footer__mid">
         <div class="footer__col">
-          <img src="../assets/Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+          <span style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#F0FBFF">Ibukun<em style="font-style:italic;font-weight:400;color:var(--accent-cy,#00C2FF)">oluwa</em></span>
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Studio</p>
           <a href="../index.html#about">About</a>
           <a href="../projects.html">Projects</a>
+          <a href="../index.html#beyond">Beyond Design</a>
           <a href="../index.html#process">Process</a>
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Connect</p>
-          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
-          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="#" target="_blank" rel="noopener">Behance</a>
+          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Contact</p>
@@ -558,10 +571,10 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copy">&#x00A9; 2026 Rhyvid Developments. All rights reserved.</p>
+        <p class="footer__copy">&#x00A9; 2026 Ibukunoluwa Oyekunle. All rights reserved.</p>
         <div class="footer__socials">
-          <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
-          <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="#" target="_blank" rel="noopener">Behance</a>
+          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
     </div>
@@ -569,6 +582,23 @@
 
   <script>
     (function(){
+    // Mobile nav toggle
+    var toggle = document.getElementById('navToggle');
+    var mob = document.getElementById('navMobile');
+    if(toggle && mob){
+      toggle.addEventListener('click',function(){
+        toggle.classList.toggle('open');
+        mob.classList.toggle('open');
+        document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+      });
+      mob.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click',function(){
+          toggle.classList.remove('open');
+          mob.classList.remove('open');
+          document.body.style.overflow='';
+        });
+      });
+    }
       var el=document.getElementById('footerEmail');
       if(el){el.href='mailto:'+'rhyviddesign'+'@'+'gmail.com';}
       var dot=document.getElementById('cursorDot');
