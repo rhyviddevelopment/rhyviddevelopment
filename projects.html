@@ -11,10 +11,10 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --teal:#1D6F8A;--teal-deep:#0E3D4F;--teal-light:#2A8FAD;
-      --teal-border:rgba(29,111,138,0.18);
-      --black:#060D10;--black-2:#0B1519;--black-3:#101D22;
-      --white:#EDF6F9;--mist:#A3C2CC;--mist-dim:#8AADB8;
+      --teal:#00C2FF;--teal-deep:#080D14;--teal-light:#33CEFF;
+      --teal-border:rgba(0,194,255,.18);
+      --black:#080D14;--black-2:#0d1520;--black-3:#111e2a;
+      --white:#F0FBFF;--mist:#8AADB8;--mist-dim:#8AADB8;
       --font-display:'Playfair Display',Georgia,serif;
       --font-ui:'Syne',system-ui,sans-serif;
       --font-mono:'IBM Plex Mono',monospace;
@@ -43,8 +43,8 @@
     .nav__links a:hover,.nav__links a.active{color:var(--white)}
     .nav__links a.active{position:relative}
     .nav__links a.active::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--teal-light)}
-    .nav__cta{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:white;background:var(--teal);padding:.65rem 1.6rem;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
-    .nav__cta:hover{background:var(--teal-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(29,111,138,.4)}
+    .nav__cta{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--black);background:var(--teal);padding:.65rem 1.6rem;transition:background .2s,transform .2s var(--ease),box-shadow .2s}
+    .nav__cta:hover{background:var(--teal-light);color:var(--black);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,194,255,.35)}
 
     /* HERO */
     .hero{padding:160px 4vw 7rem;position:relative;overflow:hidden;border-bottom:1px solid var(--teal-border)}
@@ -333,7 +333,7 @@
       </div>
       <div class="footer__mid">
         <div class="footer__col">
-          <img src="./assets/Logo.png" alt="Rhyvid Developments" class="footer__logo-img" />
+          <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--white)">Ibukun<em style="font-style:italic;font-weight:400;color:var(--teal)">oluwa</em></span>
         </div>
         <div class="footer__col">
           <p class="footer__col-title">Studio</p>
@@ -353,7 +353,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__copy">&#x00A9; 2026 Rhyvid Developments. All rights reserved.</p>
+        <p class="footer__copy">&#x00A9; 2026 Ibukunoluwa Oyekunle. All rights reserved.</p>
         <div class="footer__socials">
           <a href="https://www.behance.net/rhyviddesigns" target="_blank" rel="noopener">Behance</a>
           <a href="https://www.linkedin.com/in/ibukunoluwa-oyekunle/" target="_blank" rel="noopener">LinkedIn</a>
